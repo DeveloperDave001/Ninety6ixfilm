@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LUMIÈRE MOTION PICTURES | Cinematic Excellence</title>
+    <title>NINETYSIXFILMCO | Cinematic Excellence</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;800;900&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Bebas+Neue&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Cabinet+Grotesk:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
         :root {
             --gold: #D4AF37;
@@ -23,13 +23,13 @@
         body {
             background-color: var(--darker);
             color: #ffffff;
-            font-family: 'Inter', sans-serif;
+            font-family: 'Plus Jakarta Sans', sans-serif;
             overflow-x: hidden;
         }
         
-        .font-cinzel { font-family: 'Cinzel', serif; }
-        .font-playfair { font-family: 'Playfair Display', serif; }
-        .font-bebas { font-family: 'Bebas Neue', cursive; }
+        .font-outfit { font-family: 'Outfit', sans-serif; }
+        .font-jakarta { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .font-cabinet { font-family: 'Cabinet Grotesk', sans-serif; }
 
         /* Film Grain */
         .film-grain {
@@ -54,51 +54,45 @@
             border-radius: 50%;
             animation: spin 0.8s linear infinite;
         }
-        .loader-text { font-family: 'Bebas Neue', cursive; font-size: 1rem; letter-spacing: 0.6em; margin-top: 1.5rem; color: var(--gold); }
+        .loader-text { font-family: 'Cabinet Grotesk', sans-serif; font-size: 1rem; letter-spacing: 0.6em; margin-top: 1.5rem; color: var(--gold); }
         @keyframes spin { to { transform: rotate(360deg); } }
 
         /* Spotlight */
         .spotlight {
-            position: fixed; width: 700px; height: 700px;
+            position: fixed; width: 600px; height: 600px;
             background:
-                radial-gradient(circle, rgba(255,235,120,0.55) 0%, transparent 18%),
-                radial-gradient(circle, rgba(212,175,55,0.35) 0%, transparent 40%),
-                radial-gradient(circle, rgba(212,175,55,0.12) 0%, transparent 70%);
+                radial-gradient(circle, rgba(255,235,120,0.25) 0%, transparent 18%),
+                radial-gradient(circle, rgba(212,175,55,0.15) 0%, transparent 40%),
+                radial-gradient(circle, rgba(212,175,55,0.06) 0%, transparent 70%);
             pointer-events: none; z-index: 50; transform: translate(-50%, -50%);
             mix-blend-mode: screen; transition: opacity 0.3s;
-            filter: blur(2px);
-        }
-        /* Tight hot core dot */
-        .spotlight-core {
-            position: fixed; width: 12px; height: 12px;
-            background: radial-gradient(circle, rgba(255,248,180,0.95) 0%, transparent 100%);
-            pointer-events: none; z-index: 51; transform: translate(-50%, -50%);
-            mix-blend-mode: screen;
-            border-radius: 50%;
+            filter: blur(3px);
         }
 
         /* Navigation */
         .nav {
-            position: fixed; top: 0; left: 0; width: 100%;
-            padding: 1.5rem 4rem; z-index: 200;
-            display: flex; justify-content: space-between; align-items: center;
-            transition: all 0.5s ease;
+            position: fixed; top: 0; left: 0; width: 100%; z-index: 200;
         }
-        .nav.scrolled {
-            background: rgba(5,5,5,0.92);
+        .nav-inner {
+            max-width: 700px; margin: 0 auto;
+            padding: 1.2rem 3rem;
+            display: flex; justify-content: center; align-items: center; gap: 4rem;
+            background: rgba(5,5,5,0.95);
             backdrop-filter: blur(12px);
-            border-bottom: 1px solid rgba(212,175,55,0.1);
+            border-radius: 100px;
+            border: 1px solid rgba(212,175,55,0.1);
+            margin-top: 1rem;
         }
-        .nav-logo { font-family: 'Cinzel', serif; font-size: 1.4rem; letter-spacing: 0.3em; font-weight: 800; }
+        .nav-logo { font-family: 'Outfit', sans-serif; font-size: 1.2rem; letter-spacing: 0.2em; font-weight: 800; }
         .nav-logo span { color: var(--gold); }
-        .nav-links { display: flex; gap: 2.5rem; align-items: center; }
+        .nav-links { display: flex; gap: 1.5rem; align-items: center; }
         .nav-link {
-            font-size: 0.78rem; letter-spacing: 0.2em; text-transform: uppercase;
+            font-size: 0.78rem; letter-spacing: 0.15em; text-transform: uppercase;
             cursor: pointer; transition: color 0.3s; color: #aaa;
         }
         .nav-link:hover { color: #fff; }
         .nav-subscribe {
-            font-family: 'Bebas Neue', cursive;
+            font-family: 'Cabinet Grotesk', sans-serif;
             font-size: 0.95rem; letter-spacing: 0.15em;
             padding: 0.6rem 1.8rem;
             background: var(--red);
@@ -164,8 +158,8 @@
             content: ''; display: block; width: 30px; height: 1px; background: var(--gold);
         }
         .hero-title {
-            font-family: 'Cinzel', serif; font-weight: 900;
-            font-size: clamp(3.5rem, 9vw, 7.5rem);
+            font-family: 'Outfit', sans-serif; font-weight: 900;
+            font-size: clamp(2.5rem, 6vw, 5rem);
             line-height: 0.95; letter-spacing: 0.05em;
             text-shadow: 0 0 80px rgba(212,175,55,0.2);
         }
@@ -175,19 +169,19 @@
         }
         .hero-meta-dot { width: 3px; height: 3px; background: #666; border-radius: 50%; }
         .hero-rating {
-            font-family: 'Bebas Neue', cursive; font-size: 1.5rem; color: var(--gold);
+            font-family: 'Cabinet Grotesk', sans-serif; font-size: 1.5rem; color: var(--gold);
             display: flex; align-items: center; gap: 0.5rem;
         }
         .hero-stars { color: var(--gold); font-size: 0.7rem; letter-spacing: 0.1em; }
         .hero-desc {
             font-size: 0.9rem; color: #999; line-height: 1.7; margin-top: 1.2rem;
-            max-width: 480px; font-family: 'Playfair Display', serif; font-style: italic;
+            max-width: 480px; font-family: 'Outfit', sans-serif; font-style: italic;
         }
         .hero-actions { display: flex; gap: 1rem; margin-top: 2.5rem; align-items: center; }
         .btn-play {
             display: flex; align-items: center; gap: 0.75rem;
             padding: 1rem 2.5rem; background: var(--red);
-            font-family: 'Bebas Neue', cursive; font-size: 1.1rem; letter-spacing: 0.15em;
+            font-family: 'Cabinet Grotesk', sans-serif; font-size: 1.1rem; letter-spacing: 0.15em;
             border: none; color: white; cursor: pointer; transition: all 0.3s;
             clip-path: polygon(10px 0%, 100% 0%, calc(100% - 10px) 100%, 0% 100%);
         }
@@ -197,7 +191,7 @@
             display: flex; align-items: center; gap: 0.75rem;
             padding: 1rem 2.5rem; background: rgba(255,255,255,0.08);
             border: 1px solid rgba(255,255,255,0.2);
-            font-family: 'Bebas Neue', cursive; font-size: 1.1rem; letter-spacing: 0.15em;
+            font-family: 'Cabinet Grotesk', sans-serif; font-size: 1.1rem; letter-spacing: 0.15em;
             color: white; cursor: pointer; transition: all 0.3s;
         }
         .btn-list:hover { background: rgba(255,255,255,0.15); }
@@ -226,7 +220,7 @@
             margin-bottom: 2rem;
         }
         .row-title {
-            font-family: 'Bebas Neue', cursive;
+            font-family: 'Cabinet Grotesk', sans-serif;
             font-size: clamp(2rem, 4vw, 3rem);
             letter-spacing: 0.08em; line-height: 1;
             position: relative; display: inline-flex; align-items: center; gap: 1rem;
@@ -252,6 +246,20 @@
         }
         .scroll-row::-webkit-scrollbar { display: none; }
 
+        /* Marquee Animation */
+        .marquee-container {
+            overflow: hidden; width: 100%;
+        }
+        .marquee-track {
+            display: flex; gap: 1.2rem; width: max-content;
+            animation: marquee 25s linear infinite;
+        }
+        .marquee-track:hover { animation-play-state: paused; }
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
         /* NUMBERED FEATURED CARD (like Image 1 / Image 2 style) */
         .featured-card {
             flex: 0 0 420px; height: 260px; position: relative;
@@ -267,9 +275,9 @@
         .featured-card:hover img { filter: brightness(0.85) contrast(1.1) saturate(1.1); transform: scale(1.05); }
         .featured-num {
             position: absolute; left: -0.1em; bottom: -0.15em;
-            font-family: 'Bebas Neue', cursive; font-size: 10rem;
+            font-family: 'Cabinet Grotesk', sans-serif; font-size: 10rem;
             line-height: 1; color: transparent;
-            -webkit-text-stroke: 2px rgba(212,175,55,0.7);
+            -webkit-text-stroke: 2px rgba(212,175,55,0.25);
             z-index: 5; pointer-events: none;
             transition: -webkit-text-stroke-color 0.3s;
         }
@@ -285,7 +293,7 @@
             text-transform: uppercase; margin-bottom: 0.3rem;
         }
         .featured-name {
-            font-family: 'Playfair Display', serif; font-style: italic;
+            font-family: 'Outfit', sans-serif; font-style: italic;
             font-size: 1.2rem; line-height: 1.2;
         }
         .featured-sub { font-size: 0.75rem; color: #888; margin-top: 0.25rem; }
@@ -299,7 +307,7 @@
         }
         .genre-card:hover { transform: scale(1.05); }
         .genre-label {
-            font-family: 'Bebas Neue', cursive; font-size: 1.6rem; letter-spacing: 0.12em;
+            font-family: 'Cabinet Grotesk', sans-serif; font-size: 1.6rem; letter-spacing: 0.12em;
             color: white; z-index: 2; text-shadow: 0 2px 10px rgba(0,0,0,0.5);
         }
         .genre-card::after {
@@ -327,7 +335,7 @@
             z-index: 2; opacity: 0; transition: opacity 0.3s;
         }
         .poster-card:hover .poster-card-overlay { opacity: 1; }
-        .poster-card-title { font-family: 'Playfair Display', serif; font-size: 0.85rem; }
+        .poster-card-title { font-family: 'Outfit', sans-serif; font-size: 0.85rem; }
         .poster-card-cat { font-size: 0.65rem; letter-spacing: 0.2em; color: var(--gold); margin-top: 0.2rem; }
 
         /* ═══════════════════════════════ CAST SECTION ═══════════════════════ */
@@ -358,7 +366,7 @@
         }
         .cast-num {
             position: absolute; left: -0.05em; bottom: -0.1em;
-            font-family: 'Bebas Neue', cursive; font-size: 9rem;
+            font-family: 'Cabinet Grotesk', sans-serif; font-size: 9rem;
             line-height: 1; color: rgba(255,255,255,0.12); z-index: 5;
         }
         .cast-info {
@@ -366,41 +374,39 @@
         }
         .cast-role { font-size: 0.68rem; letter-spacing: 0.25em; color: rgba(255,255,255,0.6); margin-bottom: 0.2rem; }
         .cast-name {
-            font-family: 'Bebas Neue', cursive; font-size: 2rem; line-height: 1;
+            font-family: 'Cabinet Grotesk', sans-serif; font-size: 2rem; line-height: 1;
             letter-spacing: 0.05em;
         }
         .cast-films { font-size: 0.7rem; color: rgba(255,255,255,0.5); margin-top: 0.2rem; }
         .cast-rating {
             position: absolute; right: 1.2rem; top: 1.2rem; z-index: 6;
-            font-family: 'Bebas Neue', cursive; font-size: 1.8rem; color: white;
+            font-family: 'Cabinet Grotesk', sans-serif; font-size: 1.8rem; color: white;
         }
         .cast-stars { font-size: 0.6rem; color: var(--gold); letter-spacing: 0.1em; }
 
         /* ═══════════════════════════════ PODCAST SECTION ═══════════════════ */
         .podcast-section { background: #0c0c0c; padding: 6rem 4rem; }
-        .podcast-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+        .podcast-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
         .podcast-visual {
-            position: relative; height: 500px;
+            position: relative; height: 450px;
             background: linear-gradient(135deg, #1a1a1a, #222);
             overflow: hidden; display: flex; align-items: center; justify-content: center;
         }
-        .audio-wave {
-            position: absolute; width: 100%; height: 100%;
-            display: flex; align-items: center; justify-content: center; gap: 3px;
+        .project-preview {
+            position: absolute; inset: 0;
+            transition: opacity 0.4s ease;
         }
-        .wave-bar {
-            width: 3px; background: var(--gold); opacity: 0.5;
-            animation: wave 1.2s ease-in-out infinite;
+        .project-preview .preview-img {
+            width: 100%; height: 100%; object-fit: cover;
+            filter: brightness(0.5) contrast(1.1);
         }
-        @keyframes wave { 0%, 100% { transform: scaleY(0.3); } 50% { transform: scaleY(1); } }
-        .podcast-play-btn {
-            width: 100px; height: 100px; border-radius: 50%;
-            border: 2px solid var(--gold); background: rgba(212,175,55,0.1);
-            display: flex; align-items: center; justify-content: center;
-            cursor: pointer; z-index: 2; transition: background 0.3s;
+        .preview-overlay {
+            position: absolute; bottom: 0; left: 0; width: 100%; padding: 2rem;
+            background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, transparent 100%);
         }
-        .podcast-play-btn:hover { background: rgba(212,175,55,0.25); }
-        .podcast-play-btn svg { width: 28px; height: 28px; color: var(--gold); margin-left: 4px; }
+        .preview-cat { font-size: 0.7rem; letter-spacing: 0.3em; color: var(--gold); text-transform: uppercase; margin-bottom: 0.5rem; }
+        .preview-title { font-family: 'Outfit', sans-serif; font-size: 1.5rem; font-weight: 700; }
+        .preview-sub { font-size: 0.85rem; color: #888; margin-top: 0.5rem; }
         .podcast-list { display: flex; flex-direction: column; gap: 0; }
         .podcast-item {
             padding: 1.8rem 2rem; border-left: 3px solid #222;
@@ -415,10 +421,10 @@
         .podcast-item:hover::before { width: 100%; }
         .podcast-item:hover { border-left-color: var(--gold); padding-left: 2.5rem; }
         .podcast-ep {
-            font-family: 'Bebas Neue', cursive; font-size: 0.85rem;
+            font-family: 'Cabinet Grotesk', sans-serif; font-size: 0.85rem;
             letter-spacing: 0.25em; color: var(--red); margin-bottom: 0.4rem;
         }
-        .podcast-name { font-size: 1.15rem; font-family: 'Playfair Display', serif; }
+        .podcast-name { font-size: 1.15rem; font-family: 'Outfit', sans-serif; }
         .podcast-desc { font-size: 0.82rem; color: #777; margin-top: 0.4rem; line-height: 1.6; }
 
         /* ═══════════════════════════════ STATS ═══════════════════════════════ */
@@ -429,19 +435,52 @@
             background: linear-gradient(180deg, #080808 0%, #0e0e0e 100%);
         }
         .stats-section::before {
-            content: 'LUMIÈRE'; position: absolute;
-            font-family: 'Bebas Neue', cursive; font-size: 22vw; font-weight: 400;
+            content: 'NINETYSIXFILMCO'; position: absolute;
+            font-family: 'Cabinet Grotesk', sans-serif; font-size: 22vw; font-weight: 400;
             color: transparent; -webkit-text-stroke: 1px rgba(255,255,255,0.03);
             top: 50%; left: 50%; transform: translate(-50%, -50%);
             white-space: nowrap; pointer-events: none;
         }
         .stat-item { text-align: center; position: relative; z-index: 2; }
         .stat-number {
-            font-family: 'Bebas Neue', cursive;
+            font-family: 'Cabinet Grotesk', sans-serif;
             font-size: clamp(3.5rem, 7vw, 5.5rem);
             color: var(--gold); line-height: 1; margin-bottom: 0.75rem;
         }
         .stat-label { font-size: 0.75rem; letter-spacing: 0.35em; text-transform: uppercase; color: #666; }
+
+        /* ═══════════════════════════════ SERVICES ═══════════════════════════ */
+        .services-section {
+            padding: 6rem 4rem;
+            background: linear-gradient(180deg, #080808 0%, #0e0e0e 100%);
+        }
+        .services-container { max-width: 1400px; margin: 0 auto; }
+        .services-grid {
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin-top: 3rem;
+        }
+        .service-card {
+            padding: 2.5rem;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.06);
+            transition: all 0.4s ease;
+        }
+        .service-card:hover {
+            background: rgba(212,175,55,0.05);
+            border-color: rgba(212,175,55,0.2);
+            transform: translateY(-5px);
+        }
+        .service-icon {
+            color: var(--gold); margin-bottom: 1.5rem;
+        }
+        .service-name {
+            font-family: 'Outfit', sans-serif; font-size: 1.3rem; font-weight: 700;
+            margin-bottom: 1rem; color: #fff;
+        }
+        .service-desc { font-size: 0.9rem; color: #777; line-height: 1.7; }
+
+        @media (max-width: 900px) {
+            .services-grid { grid-template-columns: repeat(2, 1fr); }
+        }
 
         /* ═══════════════════════════════ CONTACT ═══════════════════════════ */
         .contact-section {
@@ -449,7 +488,7 @@
             position: relative; overflow: hidden; padding: 6rem 4rem;
         }
         .contact-bg-text {
-            position: absolute; font-family: 'Bebas Neue', cursive;
+            position: absolute; font-family: 'Cabinet Grotesk', sans-serif;
             font-size: 18vw; color: transparent;
             -webkit-text-stroke: 1px rgba(212,175,55,0.07);
             white-space: nowrap; animation: scrollText 20s linear infinite;
@@ -458,34 +497,23 @@
         @keyframes scrollText { from { transform: translateX(0); } to { transform: translateX(-50%); } }
         .contact-content { text-align: center; z-index: 2; max-width: 700px; }
         .contact-title {
-            font-family: 'Cinzel', serif; font-weight: 900;
+            font-family: 'Outfit', sans-serif; font-weight: 900;
             font-size: clamp(2.5rem, 6vw, 4.5rem); line-height: 1;
         }
         .contact-sub {
-            font-family: 'Playfair Display', serif; font-style: italic;
+            font-family: 'Outfit', sans-serif; font-style: italic;
             color: #888; font-size: 1.15rem; margin-top: 1rem;
         }
         .contact-body { color: #666; max-width: 500px; margin: 1.5rem auto; line-height: 1.8; font-size: 0.9rem; }
         .contact-btn {
-            display: inline-block; padding: 1.2rem 4rem; margin-top: 2.5rem;
-            border: none; font-family: 'Bebas Neue', cursive;
-            font-size: 1.1rem; letter-spacing: 0.3em; cursor: pointer;
-            background: transparent; color: var(--gold);
-            position: relative; overflow: hidden;
-            clip-path: polygon(12px 0%, 100% 0%, calc(100% - 12px) 100%, 0% 100%);
-            transition: color 0.4s;
+            display: inline-block; padding: 1rem 2.5rem; margin-top: 2.5rem;
+            border: none; font-family: 'Cabinet Grotesk', sans-serif;
+            font-size: 1.1rem; letter-spacing: 0.15em; cursor: pointer;
+            background: var(--red); color: white;
+            clip-path: polygon(10px 0%, 100% 0%, calc(100% - 10px) 100%, 0% 100%);
+            transition: all 0.3s;
         }
-        .contact-btn::before {
-            content: ''; position: absolute; inset: 0;
-            border: 1px solid var(--gold); pointer-events: none;
-            clip-path: polygon(12px 0%, 100% 0%, calc(100% - 12px) 100%, 0% 100%);
-        }
-        .contact-btn::after {
-            content: ''; position: absolute; top: 0; left: -110%; width: 100%; height: 100%;
-            background: var(--gold); transition: left 0.4s cubic-bezier(0.16, 1, 0.3, 1); z-index: -1;
-        }
-        .contact-btn:hover { color: var(--darker); }
-        .contact-btn:hover::after { left: 0; }
+        .contact-btn:hover { background: #ff0f1c; transform: translateX(3px); }
 
         /* Footer */
         footer {
@@ -503,7 +531,7 @@
 
         /* ═══════════════════════════════ RESPONSIVE ═════════════════════════ */
         @media (max-width: 900px) {
-            .nav { padding: 1.5rem 2rem; }
+            .nav-inner { border-radius: 20px; margin: 0.5rem 1rem; }
             .nav-links { display: none; }
             .hero-content { padding: 0 2rem; }
             .hero-thumbs { display: none; }
@@ -536,19 +564,17 @@
 
     <!-- Spotlight -->
     <div class="spotlight" id="spotlight"></div>
-    <div class="spotlight-core" id="spotlightCore"></div>
 
     <!-- Navigation -->
     <nav class="nav" id="navbar">
-        <div class="nav-logo font-cinzel">LUMIÈRE<span>.</span></div>
-        <div class="nav-links">
-            <div class="nav-link">Films</div>
-            <div class="nav-link">Series</div>
-            <div class="nav-link">Podcasts</div>
-            <div class="nav-link">Cast</div>
-            <div class="nav-link">Studio</div>
+        <div class="nav-inner">
+            <div class="nav-logo font-outfit">NINETYSIXFILMCO<span>.</span></div>
+            <div class="nav-links">
+                <div class="nav-link">Home</div>
+                <div class="nav-link">About Us</div>
+                <div class="nav-link">Book Session</div>
+            </div>
         </div>
-        <button class="nav-subscribe">Subscribe</button>
     </nav>
 
     <!-- ══ HERO ══ -->
@@ -562,58 +588,22 @@
                 muted
                 loop
                 playsinline
+                preload="auto"
                 poster="https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=1920&q=80"
             >
-                <!-- Cinematic free stock video sources -->
-                <source src="https://storage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" type="video/mp4">
-                <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4" type="video/mp4">
-                <!-- Fallback img if browser can't play video -->
-                <img src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=1920&q=80" alt="Feature Film" style="width:100%;height:100%;object-fit:cover;">
+                <source src="https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4" type="video/mp4">
             </video>
         </div>
         <div class="hero-gradient"></div>
         <div class="hero-side-gradient"></div>
 
         <div class="hero-content">
-            <div class="hero-studio">LUMIÈRE ORIGINALS</div>
-            <h1 class="hero-title font-cinzel">SHADOWS<br>OF<br>TOMORROW</h1>
-            <div class="hero-meta">
-                <span>2026</span>
-                <span class="hero-meta-dot"></span>
-                <span>2h 18m</span>
-                <span class="hero-meta-dot"></span>
-                <span>Sci-Fi · Drama</span>
-                <span class="hero-meta-dot" style="margin-left:0.5rem;"></span>
-                <div class="hero-rating">
-                    4.9
-                    <div>
-                        <div class="hero-stars">★★★★★</div>
-                    </div>
-                </div>
-            </div>
-            <p class="hero-desc">A cinematic journey through fractured time and buried memory. Shot entirely on 65mm in the Saharan night.</p>
-            <div class="hero-actions">
-                <button class="btn-play">
-                    <svg fill="currentColor" viewBox="0 0 20 20"><path d="M6.3 2.84L17 10 6.3 17.16V2.84z"/></svg>
-                    Play Now
-                </button>
-                <button class="btn-list">+ Add to List</button>
-            </div>
-        </div>
 
-        <!-- Thumbnail Rail -->
-        <div class="hero-thumbs">
-            <div class="hero-thumb active">
-                <img src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=200&q=60" alt="">
-            </div>
-            <div class="hero-thumb">
-                <img src="https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?w=200&q=60" alt="">
-            </div>
-            <div class="hero-thumb">
-                <img src="https://images.unsplash.com/photo-1478720568477-152d9b164e26?w=200&q=60" alt="">
-            </div>
-            <div class="hero-thumb">
-                <img src="https://images.unsplash.com/photo-1598899134739-24c46f58b8c0?w=200&q=60" alt="">
+            <h1 class="hero-title font-outfit">SIMPLIFYING<br>VIDEO<br>PRODUCTION</h1>
+
+            <div class="hero-actions">
+                <button class="btn-play">Book Session</button>
+                <button class="btn-list">Know More</button>
             </div>
         </div>
     </section>
@@ -623,284 +613,242 @@
         <div class="row-header reveal">
             <div class="row-title">
                 <span class="accent-line"></span>
-                TOP TRENDING
+OUR TOP CLIENTS
             </div>
-            <div class="row-action">Drag to explore</div>
+
         </div>
-        <div class="scroll-row reveal" style="transition-delay:0.1s">
-            <div class="featured-card">
-                <img src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=800&q=80" alt="">
-                <div class="featured-num">1</div>
-                <div class="featured-card-overlay">
-                    <div class="featured-cat">Feature Film</div>
-                    <div class="featured-name">Shadows of Tomorrow</div>
-                    <div class="featured-sub">2h 18m · Sci-Fi Drama</div>
+        <div class="marquee-container">
+            <div class="marquee-track">
+                <div class="featured-card">
+                    <img src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=800&q=80" alt="">
+                    <div class="featured-num">1</div>
+                    <div class="featured-card-overlay">
+                        <div class="featured-cat">Feature Film</div>
+                        <div class="featured-name">Shadows of Tomorrow</div>
+                        <div class="featured-sub">2h 18m · Sci-Fi Drama</div>
+                    </div>
+                </div>
+                <div class="featured-card">
+                    <img src="https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?w=800&q=80" alt="">
+                    <div class="featured-num">2</div>
+                    <div class="featured-card-overlay">
+                        <div class="featured-cat">Music Video</div>
+                        <div class="featured-name">Neon Dreams</div>
+                        <div class="featured-sub">Visual symphony · The Midnight Collective</div>
+                    </div>
+                </div>
+                <div class="featured-card">
+                    <img src="https://images.unsplash.com/photo-1478720568477-152d9b164e26?w=800&q=80" alt="">
+                    <div class="featured-num">3</div>
+                    <div class="featured-card-overlay">
+                        <div class="featured-cat">Documentary</div>
+                        <div class="featured-name">The Last Reel</div>
+                        <div class="featured-sub">1h 44m · Preserving analog cinema</div>
+                    </div>
+                </div>
+                <div class="featured-card">
+                    <img src="https://images.unsplash.com/photo-1598899134739-24c46f58b8c0?w=800&q=80" alt="">
+                    <div class="featured-num">4</div>
+                    <div class="featured-card-overlay">
+                        <div class="featured-cat">Commercial</div>
+                        <div class="featured-name">Eternal Light</div>
+                        <div class="featured-sub">Shot on 35mm · Luxury Campaign</div>
+                    </div>
+                </div>
+                <div class="featured-card">
+                    <img src="https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=800&q=80" alt="">
+                    <div class="featured-num">5</div>
+                    <div class="featured-card-overlay">
+                        <div class="featured-cat">Short Film</div>
+                        <div class="featured-name">Frames of Mind</div>
+                        <div class="featured-sub">38m · Award-winning psychological thriller</div>
+                    </div>
+                </div>
+                <div class="featured-card">
+                    <img src="https://images.unsplash.com/photo-1518676590629-3dcbd9c5a5c9?w=800&q=80" alt="">
+                    <div class="featured-num">6</div>
+                    <div class="featured-card-overlay">
+                        <div class="featured-cat">Web Series</div>
+                        <div class="featured-name">Behind The Lens</div>
+                        <div class="featured-sub">8 Episodes · Drama Series</div>
+                    </div>
+                </div>
+                <div class="featured-card">
+                    <img src="https://images.unsplash.com/photo-1485846234645-a62644f84728?w=800&q=80" alt="">
+                    <div class="featured-num">7</div>
+                    <div class="featured-card-overlay">
+                        <div class="featured-cat">Short Film</div>
+                        <div class="featured-name">Aperture</div>
+                        <div class="featured-sub">22m · Cinematic Short</div>
+                    </div>
+                </div>
+                <div class="featured-card">
+                    <img src="https://images.unsplash.com/photo-1524712245354-2c4e5e7121c0?w=800&q=80" alt="">
+                    <div class="featured-num">8</div>
+                    <div class="featured-card-overlay">
+                        <div class="featured-cat">Music Video</div>
+                        <div class="featured-name">Electric Soul</div>
+                        <div class="featured-sub">4K · Artist Promo</div>
+                    </div>
+                </div>
+                <div class="featured-card">
+                    <img src="https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?w=800&q=80" alt="">
+                    <div class="featured-num">9</div>
+                    <div class="featured-card-overlay">
+                        <div class="featured-cat">Documentary</div>
+                        <div class="featured-name">Infinite Horizon</div>
+                        <div class="featured-sub">1h 32m · Travel Documentary</div>
+                    </div>
+                </div>
+                <div class="featured-card">
+                    <img src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=800&q=80" alt="">
+                    <div class="featured-num">10</div>
+                    <div class="featured-card-overlay">
+                        <div class="featured-cat">Commercial</div>
+                        <div class="featured-name">Vision Collective</div>
+                        <div class="featured-sub">Brand Campaign · 4K</div>
+                    </div>
+                </div>
+                <div class="featured-card">
+                    <img src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=800&q=80" alt="">
+                    <div class="featured-num">1</div>
+                    <div class="featured-card-overlay">
+                        <div class="featured-cat">Feature Film</div>
+                        <div class="featured-name">Shadows of Tomorrow</div>
+                        <div class="featured-sub">2h 18m · Sci-Fi Drama</div>
+                    </div>
+                </div>
+                <div class="featured-card">
+                    <img src="https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?w=800&q=80" alt="">
+                    <div class="featured-num">2</div>
+                    <div class="featured-card-overlay">
+                        <div class="featured-cat">Music Video</div>
+                        <div class="featured-name">Neon Dreams</div>
+                        <div class="featured-sub">Visual symphony · The Midnight Collective</div>
+                    </div>
+                </div>
+                <div class="featured-card">
+                    <img src="https://images.unsplash.com/photo-1478720568477-152d9b164e26?w=800&q=80" alt="">
+                    <div class="featured-num">3</div>
+                    <div class="featured-card-overlay">
+                        <div class="featured-cat">Documentary</div>
+                        <div class="featured-name">The Last Reel</div>
+                        <div class="featured-sub">1h 44m · Preserving analog cinema</div>
+                    </div>
+                </div>
+                <div class="featured-card">
+                    <img src="https://images.unsplash.com/photo-1598899134739-24c46f58b8c0?w=800&q=80" alt="">
+                    <div class="featured-num">4</div>
+                    <div class="featured-card-overlay">
+                        <div class="featured-cat">Commercial</div>
+                        <div class="featured-name">Eternal Light</div>
+                        <div class="featured-sub">Shot on 35mm · Luxury Campaign</div>
+                    </div>
+                </div>
+                <div class="featured-card">
+                    <img src="https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=800&q=80" alt="">
+                    <div class="featured-num">5</div>
+                    <div class="featured-card-overlay">
+                        <div class="featured-cat">Short Film</div>
+                        <div class="featured-name">Frames of Mind</div>
+                        <div class="featured-sub">38m · Award-winning psychological thriller</div>
+                    </div>
+                </div>
+                <div class="featured-card">
+                    <img src="https://images.unsplash.com/photo-1518676590629-3dcbd9c5a5c9?w=800&q=80" alt="">
+                    <div class="featured-num">6</div>
+                    <div class="featured-card-overlay">
+                        <div class="featured-cat">Web Series</div>
+                        <div class="featured-name">Behind The Lens</div>
+                        <div class="featured-sub">8 Episodes · Drama Series</div>
+                    </div>
+                </div>
+                <div class="featured-card">
+                    <img src="https://images.unsplash.com/photo-1485846234645-a62644f84728?w=800&q=80" alt="">
+                    <div class="featured-num">7</div>
+                    <div class="featured-card-overlay">
+                        <div class="featured-cat">Short Film</div>
+                        <div class="featured-name">Aperture</div>
+                        <div class="featured-sub">22m · Cinematic Short</div>
+                    </div>
+                </div>
+                <div class="featured-card">
+                    <img src="https://images.unsplash.com/photo-1524712245354-2c4e5e7121c0?w=800&q=80" alt="">
+                    <div class="featured-num">8</div>
+                    <div class="featured-card-overlay">
+                        <div class="featured-cat">Music Video</div>
+                        <div class="featured-name">Electric Soul</div>
+                        <div class="featured-sub">4K · Artist Promo</div>
+                    </div>
+                </div>
+                <div class="featured-card">
+                    <img src="https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?w=800&q=80" alt="">
+                    <div class="featured-num">9</div>
+                    <div class="featured-card-overlay">
+                        <div class="featured-cat">Documentary</div>
+                        <div class="featured-name">Infinite Horizon</div>
+                        <div class="featured-sub">1h 32m · Travel Documentary</div>
+                    </div>
+                </div>
+                <div class="featured-card">
+                    <img src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=800&q=80" alt="">
+                    <div class="featured-num">10</div>
+                    <div class="featured-card-overlay">
+                        <div class="featured-cat">Commercial</div>
+                        <div class="featured-name">Vision Collective</div>
+                        <div class="featured-sub">Brand Campaign · 4K</div>
+                    </div>
                 </div>
             </div>
-            <div class="featured-card">
-                <img src="https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?w=800&q=80" alt="">
-                <div class="featured-num">2</div>
-                <div class="featured-card-overlay">
-                    <div class="featured-cat">Music Video</div>
-                    <div class="featured-name">Neon Dreams</div>
-                    <div class="featured-sub">Visual symphony · The Midnight Collective</div>
-                </div>
-            </div>
-            <div class="featured-card">
-                <img src="https://images.unsplash.com/photo-1478720568477-152d9b164e26?w=800&q=80" alt="">
-                <div class="featured-num">3</div>
-                <div class="featured-card-overlay">
-                    <div class="featured-cat">Documentary</div>
-                    <div class="featured-name">The Last Reel</div>
-                    <div class="featured-sub">1h 44m · Preserving analog cinema</div>
-                </div>
-            </div>
-            <div class="featured-card">
-                <img src="https://images.unsplash.com/photo-1598899134739-24c46f58b8c0?w=800&q=80" alt="">
-                <div class="featured-num">4</div>
-                <div class="featured-card-overlay">
-                    <div class="featured-cat">Commercial</div>
-                    <div class="featured-name">Eternal Light</div>
-                    <div class="featured-sub">Shot on 35mm · Luxury Campaign</div>
-                </div>
-            </div>
-            <div class="featured-card">
-                <img src="https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=800&q=80" alt="">
-                <div class="featured-num">5</div>
-                <div class="featured-card-overlay">
-                    <div class="featured-cat">Short Film</div>
-                    <div class="featured-name">Frames of Mind</div>
-                    <div class="featured-sub">38m · Award-winning psychological thriller</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ══ LATEST RELEASE (poster cards) ══ -->
-    <section class="section-wrap" style="padding-top:0">
-        <div class="row-header reveal">
-            <div class="row-title gold-accent">
-                <span class="accent-line"></span>
-                LATEST RELEASE
-            </div>
-            <div class="row-action">See all</div>
-        </div>
-        <div class="scroll-row reveal" style="transition-delay:0.1s">
-            <div class="poster-card">
-                <img src="https://images.unsplash.com/photo-1518676590629-3dcbd9c5a5c9?w=400&q=80" alt="">
-                <div class="poster-card-overlay">
-                    <div class="poster-card-title">Behind The Lens</div>
-                    <div class="poster-card-cat">Web Series</div>
-                </div>
-            </div>
-            <div class="poster-card">
-                <img src="https://images.unsplash.com/photo-1485846234645-a62644f84728?w=400&q=80" alt="">
-                <div class="poster-card-overlay">
-                    <div class="poster-card-title">Aperture</div>
-                    <div class="poster-card-cat">Short Film</div>
-                </div>
-            </div>
-            <div class="poster-card">
-                <img src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=400&q=80" alt="">
-                <div class="poster-card-overlay">
-                    <div class="poster-card-title">Darkroom</div>
-                    <div class="poster-card-cat">Feature Film</div>
-                </div>
-            </div>
-            <div class="poster-card">
-                <img src="https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?w=400&q=80" alt="">
-                <div class="poster-card-overlay">
-                    <div class="poster-card-title">Volta</div>
-                    <div class="poster-card-cat">Music Video</div>
-                </div>
-            </div>
-            <div class="poster-card">
-                <img src="https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=400&q=80" alt="">
-                <div class="poster-card-overlay">
-                    <div class="poster-card-title">Threshold</div>
-                    <div class="poster-card-cat">Documentary</div>
-                </div>
-            </div>
-            <div class="poster-card">
-                <img src="https://images.unsplash.com/photo-1478720568477-152d9b164e26?w=400&q=80" alt="">
-                <div class="poster-card-overlay">
-                    <div class="poster-card-title">Still Frame</div>
-                    <div class="poster-card-cat">Short Film</div>
-                </div>
-            </div>
-            <div class="poster-card">
-                <img src="https://images.unsplash.com/photo-1598899134739-24c46f58b8c0?w=400&q=80" alt="">
-                <div class="poster-card-overlay">
-                    <div class="poster-card-title">Chiaroscuro</div>
-                    <div class="poster-card-cat">Experimental</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ══ SELECT GENRE ══ -->
-    <section class="section-wrap" style="padding-top:0">
-        <div class="row-header reveal">
-            <div class="row-title">
-                <span class="accent-line"></span>
-                SELECT GENRE
-            </div>
-        </div>
-        <div class="scroll-row reveal" style="transition-delay:0.1s">
-            <div class="genre-card" style="background:#C0392B;">
-                <span class="genre-label">Drama</span>
-            </div>
-            <div class="genre-card" style="background:#6C3483;">
-                <span class="genre-label">Thriller</span>
-            </div>
-            <div class="genre-card" style="background:#117A65;">
-                <span class="genre-label">Documentary</span>
-            </div>
-            <div class="genre-card" style="background:#B7950B;">
-                <span class="genre-label">Experimental</span>
-            </div>
-            <div class="genre-card" style="background:#1A5276;">
-                <span class="genre-label">Sci-Fi</span>
-            </div>
-            <div class="genre-card" style="background:#784212;">
-                <span class="genre-label">Western</span>
-            </div>
-            <div class="genre-card" style="background:#1E8449;">
-                <span class="genre-label">Nature</span>
-            </div>
-        </div>
-    </section>
-
-    <!-- ══ CAST SECTION (Image 1 style) ══ -->
-    <section class="cast-section">
-        <div class="row-header reveal">
-            <div class="row-title gold-accent">
-                <span class="accent-line"></span>
-                CAST SPOTLIGHT
-            </div>
-            <div class="row-action">Full roster</div>
-        </div>
-        <div class="cast-scroll reveal" style="transition-delay:0.1s">
-
-            <div class="cast-card">
-                <div class="cast-color-block" style="background:#0D47A1;"></div>
-                <div class="cast-fade" style="background:linear-gradient(to right,#0D47A1,transparent);"></div>
-                <img class="cast-img" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&q=80" alt="">
-                <div class="cast-num">01</div>
-                <div class="cast-info">
-                    <div class="cast-role">LEAD ACTOR</div>
-                    <div class="cast-name">Marcus<br>Renault</div>
-                    <div class="cast-films">12 Films · 3 Awards</div>
-                </div>
-                <div class="cast-rating">
-                    5.0
-                    <div class="cast-stars">★★★★★</div>
-                </div>
-            </div>
-
-            <div class="cast-card">
-                <div class="cast-color-block" style="background:#7B0000;"></div>
-                <div class="cast-fade" style="background:linear-gradient(to right,#7B0000,transparent);"></div>
-                <img class="cast-img" src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=400&q=80" alt="">
-                <div class="cast-num">02</div>
-                <div class="cast-info">
-                    <div class="cast-role">LEAD ACTRESS</div>
-                    <div class="cast-name">Isabelle<br>Moreau</div>
-                    <div class="cast-films">9 Films · 5 Awards</div>
-                </div>
-                <div class="cast-rating">
-                    4.9
-                    <div class="cast-stars">★★★★★</div>
-                </div>
-            </div>
-
-            <div class="cast-card">
-                <div class="cast-color-block" style="background:#1B5E20;"></div>
-                <div class="cast-fade" style="background:linear-gradient(to right,#1B5E20,transparent);"></div>
-                <img class="cast-img" src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=400&q=80" alt="">
-                <div class="cast-num">03</div>
-                <div class="cast-info">
-                    <div class="cast-role">SUPPORTING</div>
-                    <div class="cast-name">Kieran<br>Voss</div>
-                    <div class="cast-films">7 Films · 2 Awards</div>
-                </div>
-                <div class="cast-rating">
-                    4.8
-                    <div class="cast-stars">★★★★½</div>
-                </div>
-            </div>
-
-            <div class="cast-card">
-                <div class="cast-color-block" style="background:#4A148C;"></div>
-                <div class="cast-fade" style="background:linear-gradient(to right,#4A148C,transparent);"></div>
-                <img class="cast-img" src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=400&q=80" alt="">
-                <div class="cast-num">04</div>
-                <div class="cast-info">
-                    <div class="cast-role">SUPPORTING</div>
-                    <div class="cast-name">Priya<br>Dalmia</div>
-                    <div class="cast-films">6 Films · 1 Award</div>
-                </div>
-                <div class="cast-rating">
-                    4.9
-                    <div class="cast-stars">★★★★★</div>
-                </div>
-            </div>
-
-            <div class="cast-card">
-                <div class="cast-color-block" style="background:#BF360C;"></div>
-                <div class="cast-fade" style="background:linear-gradient(to right,#BF360C,transparent);"></div>
-                <img class="cast-img" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&q=80" alt="">
-                <div class="cast-num">05</div>
-                <div class="cast-info">
-                    <div class="cast-role">ANTAGONIST</div>
-                    <div class="cast-name">Elias<br>Stroud</div>
-                    <div class="cast-films">14 Films · 6 Awards</div>
-                </div>
-                <div class="cast-rating">
-                    5.0
-                    <div class="cast-stars">★★★★★</div>
-                </div>
-            </div>
-
         </div>
     </section>
 
-    <!-- ══ PODCASTS (Image 2 style) ══ -->
+    <!-- ══ PODCASTS ══ -->
     <section class="podcast-section">
         <div class="row-header reveal">
             <div class="row-title gold-accent">
                 <span class="accent-line"></span>
-                THE REEL TALK
+                PROJECTS
             </div>
             <div class="row-action">All episodes</div>
         </div>
         <div class="podcast-layout">
             <div class="podcast-visual reveal">
-                <div class="audio-wave" id="audioWave"></div>
-                <div class="podcast-play-btn">
-                    <svg fill="currentColor" viewBox="0 0 20 20"><path d="M6.3 2.84L17 10 6.3 17.16V2.84z"/></svg>
+                <div class="project-preview" id="projectPreview">
+                    <img src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=800&q=80" alt="" class="preview-img" id="previewImg">
+                    <div class="preview-overlay">
+                        <div class="preview-cat" id="previewCat">Feature Film</div>
+                        <div class="preview-title" id="previewTitle">Shadows of Tomorrow</div>
+                        <div class="preview-sub" id="previewSub">2h 18m · Sci-Fi Drama</div>
+                    </div>
                 </div>
+                <div class="audio-wave" id="audioWave"></div>
             </div>
             <div class="podcast-list reveal" style="transition-delay:0.15s">
-                <div class="podcast-item">
-                    <div class="podcast-ep">EP. 047</div>
-                    <div class="podcast-name font-playfair">The Art of Cinematography</div>
-                    <div class="podcast-desc">Legendary DP Roger Deakins on light, shadow, and the evolution of digital filmmaking.</div>
+                <div class="podcast-item" data-img="https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=800&q=80" data-cat="Feature Film" data-title="Shadows of Tomorrow" data-sub="2h 18m · Sci-Fi Drama">
+                    <div class="podcast-ep">PROJECT 01</div>
+                    <div class="podcast-name font-outfit">Shadows of Tomorrow</div>
+                    <div class="podcast-desc">A cinematic journey through fractured time and buried memory.</div>
                 </div>
-                <div class="podcast-item">
-                    <div class="podcast-ep">EP. 046</div>
-                    <div class="podcast-name font-playfair">Directing Performance</div>
-                    <div class="podcast-desc">How to extract authentic emotion from actors in the most artificial of environments.</div>
+                <div class="podcast-item" data-img="https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?w=800&q=80" data-cat="Music Video" data-title="Neon Dreams" data-sub="Visual Symphony · The Midnight Collective">
+                    <div class="podcast-ep">PROJECT 02</div>
+                    <div class="podcast-name font-outfit">Neon Dreams</div>
+                    <div class="podcast-desc">Visual symphony exploring light and sound in urban landscapes.</div>
                 </div>
-                <div class="podcast-item">
-                    <div class="podcast-ep">EP. 045</div>
-                    <div class="podcast-name font-playfair">The Color of Sound</div>
-                    <div class="podcast-desc">Synesthetic film scoring and audio-visual harmony explored with Hans Richter.</div>
+                <div class="podcast-item" data-img="https://images.unsplash.com/photo-1478720568477-152d9b164e26?w=800&q=80" data-cat="Documentary" data-title="The Last Reel" data-sub="1h 44m · Preserving Analog Cinema">
+                    <div class="podcast-ep">PROJECT 03</div>
+                    <div class="podcast-name font-outfit">The Last Reel</div>
+                    <div class="podcast-desc">Preserving the art of analog filmmaking for future generations.</div>
                 </div>
-                <div class="podcast-item">
-                    <div class="podcast-ep">EP. 044</div>
-                    <div class="podcast-name font-playfair">Indie Film Renaissance</div>
-                    <div class="podcast-desc">How streaming platforms are reshaping independent cinema distribution globally.</div>
+                <div class="podcast-item" data-img="https://images.unsplash.com/photo-1598899134739-24c46f58b8c0?w=800&q=80" data-cat="Commercial" data-title="Eternal Light" data-sub="Shot on 35mm · Luxury Campaign">
+                    <div class="podcast-ep">PROJECT 04</div>
+                    <div class="podcast-name font-outfit">Eternal Light</div>
+                    <div class="podcast-desc">Luxury brand campaign shot on classic 35mm film stock.</div>
+                </div>
+                <div class="podcast-item" data-img="https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=800&q=80" data-cat="Short Film" data-title="Frames of Mind" data-sub="38m · Award-winning Thriller">
+                    <div class="podcast-ep">PROJECT 05</div>
+                    <div class="podcast-name font-outfit">Frames of Mind</div>
+                    <div class="podcast-desc">Award-winning psychological thriller exploring perception.</div>
                 </div>
             </div>
         </div>
@@ -926,20 +874,76 @@
         </div>
     </section>
 
+    <!-- ══ SERVICES ══ -->
+    <section class="services-section">
+        <div class="services-container">
+            <div class="row-header reveal">
+                <div class="row-title">
+                    <span class="accent-line"></span>
+                    SERVICES WE OFFER
+                </div>
+            </div>
+            <div class="services-grid">
+                <div class="service-card reveal">
+                    <div class="service-icon">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
+                    </div>
+                    <div class="service-name">Video Production</div>
+                    <div class="service-desc">From concept to final cut, we craft compelling visual stories that captivate and inspire your audience.</div>
+                </div>
+                <div class="service-card reveal" style="transition-delay:0.1s">
+                    <div class="service-icon">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                    </div>
+                    <div class="service-name">Commercials</div>
+                    <div class="service-desc">High-impact commercial content that elevates your brand and drives meaningful engagement.</div>
+                </div>
+                <div class="service-card reveal" style="transition-delay:0.2s">
+                    <div class="service-icon">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    </div>
+                    <div class="service-name">Music Videos</div>
+                    <div class="service-desc">Creative visual narratives that bring your music to life with stunning cinematography.</div>
+                </div>
+                <div class="service-card reveal" style="transition-delay:0.3s">
+                    <div class="service-icon">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                    </div>
+                    <div class="service-name">Podcast</div>
+                    <div class="service-desc">Professional podcast production with high-quality audio and video recording services.</div>
+                </div>
+                <div class="service-card reveal" style="transition-delay:0.4s">
+                    <div class="service-icon">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>
+                    </div>
+                    <div class="service-name">Post-Production</div>
+                    <div class="service-desc">Expert editing, color grading, VFX, and sound design to polish your content to perfection.</div>
+                </div>
+                <div class="service-card reveal" style="transition-delay:0.5s">
+                    <div class="service-icon">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>
+                    </div>
+                    <div class="service-name">Drone Coverage</div>
+                    <div class="service-desc">Breathtaking aerial footage that adds cinematic scale and perspective to your projects.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- ══ CONTACT ══ -->
     <section class="contact-section">
-        <div class="contact-bg-text font-bebas">START YOUR PROJECT · START YOUR PROJECT · </div>
+        <div class="contact-bg-text font-cabinet">START YOUR PROJECT · START YOUR PROJECT · </div>
         <div class="contact-content reveal">
-            <h2 class="contact-title font-cinzel">START YOUR<br>PROJECT</h2>
+            <h2 class="contact-title font-outfit">START YOUR<br>PROJECT</h2>
             <p class="contact-sub">Every great film begins with a conversation</p>
             <p class="contact-body">From concept to final cut, we partner with visionary storytellers to create content that resonates across screens and cultures. Whether you're planning an epic feature or an intimate documentary.</p>
-            <button class="contact-btn" id="contactBtn">Initiate Project</button>
+            <button class="contact-btn" id="contactBtn">Book Session</button>
         </div>
     </section>
 
     <!-- Footer -->
     <footer>
-        <div>© 2026 LUMIÈRE MOTION PICTURES. ALL RIGHTS RESERVED.</div>
+        <div>© 2026 NINETYSIXFILMCO MOTION PICTURES. ALL RIGHTS RESERVED.</div>
         <div class="footer-links">
             <span class="footer-link">Instagram</span>
             <span class="footer-link">Vimeo</span>
@@ -949,44 +953,28 @@
     </footer>
 
     <script>
-        // Loader + video hero init
         const heroBgVideo = document.getElementById('heroBgVideo');
         const heroVideoBg = document.getElementById('heroVideoBg');
 
+        heroBgVideo.play().catch(() => {});
+        
         function revealHero() {
             document.getElementById('loader').classList.add('hidden');
-            setTimeout(() => heroVideoBg.classList.add('active'), 200);
+            heroVideoBg.classList.add('active');
         }
 
-        // Try to play video; reveal hero after loader regardless
         window.addEventListener('load', () => {
-            // Attempt autoplay
-            const playPromise = heroBgVideo.play();
-            if (playPromise !== undefined) {
-                playPromise.catch(() => {
-                    // Autoplay blocked — video poster still shows as fallback
-                });
-            }
             setTimeout(revealHero, 1400);
         });
 
-        // If video can't load at all, show poster via CSS (already set on <video poster>)
-        heroBgVideo.addEventListener('error', () => {
-            heroVideoBg.style.backgroundImage = 'url(https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=1920&q=80)';
-            heroVideoBg.style.backgroundSize = 'cover';
-        });
-
-        // Spotlight — core snaps, glow lerps smoothly behind
+        // Spotlight — smooth cursor glow
         const spotlight = document.getElementById('spotlight');
-        const spotlightCore = document.getElementById('spotlightCore');
         let mouseX = window.innerWidth / 2, mouseY = window.innerHeight / 2;
         let glowX = mouseX, glowY = mouseY;
 
         document.addEventListener('mousemove', e => {
             mouseX = e.clientX;
             mouseY = e.clientY;
-            spotlightCore.style.left = mouseX + 'px';
-            spotlightCore.style.top = mouseY + 'px';
         });
 
         (function animateGlow() {
@@ -997,20 +985,26 @@
             requestAnimationFrame(animateGlow);
         })();
 
-        // Navbar scroll
-        window.addEventListener('scroll', () => {
-            document.getElementById('navbar').classList.toggle('scrolled', window.pageYOffset > 80);
-        });
 
-        // Audio wave bars
-        const waveEl = document.getElementById('audioWave');
-        for (let i = 0; i < 50; i++) {
-            const bar = document.createElement('div');
-            bar.className = 'wave-bar';
-            const h = Math.random() * 90 + 20;
-            bar.style.cssText = `height:${h}px;animation-delay:${i * 0.04}s;opacity:${Math.random() * 0.4 + 0.2};`;
-            waveEl.appendChild(bar);
-        }
+
+        // Project preview hover
+        const previewImg = document.getElementById('previewImg');
+        const previewCat = document.getElementById('previewCat');
+        const previewTitle = document.getElementById('previewTitle');
+        const previewSub = document.getElementById('previewSub');
+        
+        document.querySelectorAll('.podcast-item').forEach(item => {
+            item.addEventListener('mouseenter', () => {
+                const img = item.dataset.img;
+                const cat = item.dataset.cat;
+                const title = item.dataset.title;
+                const sub = item.dataset.sub;
+                if (previewImg) previewImg.src = img;
+                if (previewCat) previewCat.textContent = cat;
+                if (previewTitle) previewTitle.textContent = title;
+                if (previewSub) previewSub.textContent = sub;
+            });
+        });
 
         // Scroll reveal
         const observer = new IntersectionObserver(entries => {
