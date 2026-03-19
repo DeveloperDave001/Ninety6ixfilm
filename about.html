@@ -1,0 +1,1385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LUMIÈRE MOTION PICTURES | Our Story</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;800;900&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Bebas+Neue&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #D4AF37;
+            --gold-light: #F4E4BC;
+            --red: #E50914;
+            --dark: #0a0a0a;
+            --darker: #050505;
+            --mid: #111111;
+        }
+
+        *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            background: var(--darker);
+            color: #fff;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            cursor: none;
+        }
+
+        /* ══ GRAIN ══ */
+        .film-grain {
+            position: fixed; inset: 0; pointer-events: none; z-index: 9999; opacity: 0.04;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+        }
+
+        /* ══ CURSOR ══ */
+        .spotlight {
+            position: fixed; width: 700px; height: 700px;
+            background:
+                radial-gradient(circle, rgba(255,235,120,0.55) 0%, transparent 18%),
+                radial-gradient(circle, rgba(212,175,55,0.35) 0%, transparent 40%),
+                radial-gradient(circle, rgba(212,175,55,0.12) 0%, transparent 70%);
+            pointer-events: none; z-index: 50;
+            transform: translate(-50%,-50%); mix-blend-mode: screen; filter: blur(2px);
+        }
+        .spotlight-core {
+            position: fixed; width: 12px; height: 12px; border-radius: 50%;
+            background: radial-gradient(circle, rgba(255,248,180,0.95) 0%, transparent 100%);
+            pointer-events: none; z-index: 51;
+            transform: translate(-50%,-50%); mix-blend-mode: screen;
+        }
+
+        /* ══ LOADER ══ */
+        .loader {
+            position: fixed; inset: 0; background: var(--darker); z-index: 10000;
+            display: flex; align-items: center; justify-content: center; flex-direction: column;
+            transition: opacity 1s, visibility 1s;
+        }
+        .loader.hidden { opacity: 0; visibility: hidden; }
+        .loader-reel {
+            width: 64px; height: 64px; border-radius: 50%;
+            border: 2px solid #1a1a1a;
+            border-top-color: var(--gold); border-right-color: var(--red);
+            animation: spin 0.8s linear infinite;
+        }
+        .loader-text { font-family:'Bebas Neue',cursive; font-size:0.9rem; letter-spacing:0.6em; margin-top:1.5rem; color:var(--gold); }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* ══ NAV ══ */
+        .nav {
+            position: fixed; top: 0; left: 0; width: 100%;
+            padding: 1.5rem 4rem; z-index: 200;
+            display: flex; justify-content: space-between; align-items: center;
+            transition: all 0.5s ease;
+        }
+        .nav.scrolled {
+            background: rgba(5,5,5,0.93);
+            backdrop-filter: blur(14px);
+            border-bottom: 1px solid rgba(212,175,55,0.1);
+        }
+        .nav-logo { font-family:'Cinzel',serif; font-size:1.4rem; letter-spacing:0.3em; font-weight:800; cursor:pointer; }
+        .nav-logo span { color:var(--gold); }
+        .nav-links { display:flex; gap:2.5rem; align-items:center; }
+        .nav-link { font-size:0.78rem; letter-spacing:0.2em; text-transform:uppercase; cursor:pointer; transition:color 0.3s; color:#aaa; }
+        .nav-link:hover, .nav-link.active { color:#fff; }
+        .nav-link.active { color:var(--gold); }
+        .nav-subscribe {
+            font-family:'Bebas Neue',cursive; font-size:0.95rem; letter-spacing:0.15em;
+            padding:0.6rem 1.8rem; background:var(--red); border:none; color:white;
+            cursor:pointer; transition:background 0.3s;
+            clip-path:polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%);
+        }
+        .nav-subscribe:hover { background:#ff1420; }
+        @media (max-width:768px) {
+            .nav { padding:1.5rem 2rem; }
+            .nav-links { display:none; }
+        }
+
+        /* ══════════════════════════════════════════════════════
+           HERO 1 — TYPOGRAPHIC / STILL
+        ══════════════════════════════════════════════════════ */
+        .hero1 {
+            height: 100vh; position: relative;
+            display: grid; grid-template-columns: 1fr 1fr;
+            overflow: hidden;
+        }
+
+        /* Left: pure dark with large type */
+        .hero1-left {
+            position: relative; z-index: 10;
+            display: flex; flex-direction: column; justify-content: flex-end;
+            padding: 0 4rem 7rem;
+            background: var(--darker);
+        }
+        .hero1-eyebrow {
+            font-size: 0.72rem; letter-spacing: 0.55em; color: var(--red);
+            text-transform: uppercase; margin-bottom: 1.5rem;
+            display: flex; align-items: center; gap: 0.8rem;
+            opacity: 0; animation: fadeUp 0.9s ease forwards; animation-delay: 1.6s;
+        }
+        .hero1-eyebrow::before { content:''; width:28px; height:1px; background:var(--red); display:block; }
+
+        .hero1-title {
+            font-family: 'Cinzel', serif; font-weight: 900;
+            font-size: clamp(3.2rem, 6vw, 5.8rem);
+            line-height: 1; letter-spacing: 0.03em;
+            opacity: 0; animation: fadeUp 1s cubic-bezier(0.16,1,0.3,1) forwards; animation-delay: 1.8s;
+        }
+        .hero1-title .line { display: block; overflow: hidden; }
+        .hero1-title .gold { color: var(--gold); }
+        .hero1-title .stroke {
+            color: transparent;
+            -webkit-text-stroke: 1px rgba(255,255,255,0.35);
+        }
+
+        .hero1-body {
+            font-family: 'Playfair Display', serif; font-style: italic;
+            font-size: 1.05rem; color: #888; line-height: 1.8;
+            max-width: 400px; margin-top: 2rem;
+            opacity: 0; animation: fadeUp 0.9s ease forwards; animation-delay: 2.1s;
+        }
+
+        .hero1-scroll {
+            margin-top: 3.5rem; display: flex; align-items: center; gap: 1rem;
+            opacity: 0; animation: fadeUp 0.9s ease forwards; animation-delay: 2.4s;
+        }
+        .scroll-line { width: 60px; height: 1px; background: #333; position: relative; overflow: hidden; }
+        .scroll-line::after {
+            content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+            background: var(--gold); animation: scanLine 2s ease-in-out infinite;
+        }
+        @keyframes scanLine { 0%{left:-100%} 50%,100%{left:100%} }
+        .scroll-label { font-size:0.7rem; letter-spacing:0.35em; color:#555; text-transform:uppercase; }
+
+        /* Right: editorial photo composition */
+        .hero1-right {
+            position: relative; overflow: hidden;
+        }
+        .hero1-img {
+            position: absolute; inset: 0;
+            opacity: 0; transition: opacity 2s ease;
+        }
+        .hero1-img.active { opacity: 1; }
+        .hero1-img img {
+            width: 100%; height: 100%; object-fit: cover;
+            filter: grayscale(30%) contrast(1.1) brightness(0.75);
+            transform: scale(1.03);
+            transition: transform 8s ease;
+        }
+        .hero1-img.active img { transform: scale(1); }
+        /* gold vertical strip accent */
+        .hero1-strip {
+            position: absolute; left: 0; top: 0; width: 3px; height: 100%;
+            background: linear-gradient(to bottom, transparent 0%, var(--gold) 40%, var(--gold) 60%, transparent 100%);
+            z-index: 5; opacity: 0.7;
+        }
+        /* year stamp */
+        .hero1-year {
+            position: absolute; bottom: 6rem; right: 2.5rem; z-index: 10;
+            font-family: 'Bebas Neue', cursive; font-size: 7rem; color: transparent;
+            -webkit-text-stroke: 1px rgba(212,175,55,0.2); line-height: 1;
+            opacity: 0; animation: fadeIn 1s ease forwards; animation-delay: 2.5s;
+        }
+        /* overlay gradient */
+        .hero1-right::after {
+            content: ''; position: absolute; inset: 0;
+            background: linear-gradient(to right, rgba(5,5,5,0.5) 0%, transparent 40%);
+            z-index: 3;
+        }
+        /* floating badge */
+        .hero1-badge {
+            position: absolute; top: 3rem; right: 3rem; z-index: 10;
+            border: 1px solid rgba(212,175,55,0.3); padding: 1rem 1.5rem;
+            text-align: center; background: rgba(5,5,5,0.6); backdrop-filter: blur(8px);
+            opacity: 0; animation: fadeIn 1s ease forwards; animation-delay: 2.6s;
+        }
+        .badge-num { font-family:'Bebas Neue',cursive; font-size:2.5rem; color:var(--gold); line-height:1; }
+        .badge-label { font-size:0.65rem; letter-spacing:0.25em; color:#888; text-transform:uppercase; margin-top:0.2rem; }
+
+        @keyframes fadeUp { from{opacity:0;transform:translateY(30px)} to{opacity:1;transform:translateY(0)} }
+        @keyframes fadeIn { from{opacity:0} to{opacity:1} }
+
+        /* ══════════════════════════════════════════════════════
+           MISSION STATEMENT — FULL-WIDTH PULL QUOTE
+        ══════════════════════════════════════════════════════ */
+        .mission-wrap {
+            padding: 10rem 4rem;
+            position: relative; overflow: hidden;
+            background: var(--darker);
+        }
+        .mission-wrap::before {
+            content: '"'; position: absolute; left: -0.05em; top: -0.1em;
+            font-family: 'Playfair Display', serif; font-size: 40vw;
+            color: transparent; -webkit-text-stroke: 1px rgba(212,175,55,0.04);
+            line-height: 1; pointer-events: none;
+        }
+        .mission-inner { max-width: 1000px; margin: 0 auto; position: relative; z-index: 2; }
+        .mission-label {
+            font-size: 0.72rem; letter-spacing: 0.5em; color: var(--gold);
+            text-transform: uppercase; margin-bottom: 3rem;
+            display: flex; align-items: center; gap: 1rem;
+        }
+        .mission-label::after { content:''; flex:1; height:1px; background: rgba(212,175,55,0.2); }
+        .mission-text {
+            font-family: 'Playfair Display', serif; font-style: italic;
+            font-size: clamp(1.6rem, 3.5vw, 2.8rem);
+            line-height: 1.5; color: #e0e0e0; font-weight: 400;
+        }
+        .mission-text em { color: var(--gold); font-style: normal; }
+        .mission-attribution {
+            margin-top: 3rem; font-size: 0.78rem; letter-spacing: 0.3em;
+            color: #555; text-transform: uppercase; display: flex; align-items: center; gap: 1rem;
+        }
+        .mission-attribution::before { content:'—'; color:var(--gold); }
+
+        /* ══════════════════════════════════════════════════════
+           ORIGIN STORY — TWO-COLUMN TEXT
+        ══════════════════════════════════════════════════════ */
+        .origin-section {
+            padding: 8rem 4rem;
+            display: grid; grid-template-columns: 1fr 1fr;
+            gap: 6rem; align-items: start;
+            background: var(--mid);
+            position: relative;
+        }
+        .origin-section::before {
+            content: ''; position: absolute;
+            top: 0; left: 0; right: 0; height: 1px;
+            background: linear-gradient(to right, transparent, rgba(212,175,55,0.2), transparent);
+        }
+        .origin-left { position: sticky; top: 8rem; }
+        .origin-chapter {
+            font-family: 'Bebas Neue', cursive; font-size: 0.8rem; letter-spacing: 0.4em;
+            color: var(--red); margin-bottom: 1rem;
+        }
+        .origin-heading {
+            font-family: 'Cinzel', serif; font-weight: 900;
+            font-size: clamp(2.2rem, 4vw, 3.5rem); line-height: 1.05;
+        }
+        .origin-heading em { color: var(--gold); font-style: normal; display: block; }
+        .origin-tagline {
+            font-family: 'Playfair Display', serif; font-style: italic;
+            color: #777; font-size: 1rem; margin-top: 1.5rem; line-height: 1.7;
+        }
+        .origin-img-wrap {
+            margin-top: 3rem; position: relative; overflow: hidden; height: 280px;
+        }
+        .origin-img-wrap img {
+            width: 100%; height: 100%; object-fit: cover;
+            filter: grayscale(60%) contrast(1.1);
+            transition: filter 0.5s;
+        }
+        .origin-img-wrap:hover img { filter: grayscale(0%) contrast(1.05); }
+        .origin-img-caption {
+            position: absolute; bottom: 1rem; left: 1rem;
+            font-size: 0.68rem; letter-spacing: 0.2em; color: rgba(255,255,255,0.5);
+            text-transform: uppercase;
+        }
+
+        .origin-right { padding-top: 0.5rem; }
+        .origin-p {
+            font-size: 0.95rem; color: #999; line-height: 1.9; margin-bottom: 2rem;
+        }
+        .origin-p strong { color: #ddd; font-weight: 500; }
+        .origin-pullquote {
+            border-left: 2px solid var(--gold); padding-left: 1.8rem;
+            margin: 2.5rem 0;
+        }
+        .origin-pullquote p {
+            font-family: 'Playfair Display', serif; font-style: italic;
+            font-size: 1.15rem; color: #ccc; line-height: 1.7;
+        }
+        .origin-pullquote cite { font-size:0.72rem; letter-spacing:0.2em; color:#666; display:block; margin-top:0.75rem; }
+
+        /* ══════════════════════════════════════════════════════
+           TIMELINE
+        ══════════════════════════════════════════════════════ */
+        .timeline-section {
+            padding: 10rem 4rem;
+            background: var(--darker);
+            position: relative; overflow: hidden;
+        }
+        .timeline-section::before {
+            content: 'HISTORY';
+            position: absolute; right: -0.05em; top: 50%; transform: translateY(-50%);
+            font-family: 'Bebas Neue', cursive; font-size: 22vw;
+            color: transparent; -webkit-text-stroke: 1px rgba(255,255,255,0.02);
+            pointer-events: none; line-height: 1; white-space: nowrap;
+        }
+        .timeline-header { margin-bottom: 6rem; }
+        .timeline-label {
+            font-size: 0.72rem; letter-spacing: 0.5em; color: var(--gold);
+            text-transform: uppercase; margin-bottom: 1rem; display: flex; align-items: center; gap: 1rem;
+        }
+        .timeline-label::after { content:''; width:60px; height:1px; background:rgba(212,175,55,0.3); }
+        .timeline-heading {
+            font-family: 'Cinzel', serif; font-weight: 900;
+            font-size: clamp(2rem, 4vw, 3.2rem);
+        }
+
+        .timeline { position: relative; max-width: 900px; }
+        .timeline::before {
+            content: ''; position: absolute; left: 120px; top: 0; bottom: 0; width: 1px;
+            background: linear-gradient(to bottom, transparent 0%, #2a2a2a 10%, #2a2a2a 90%, transparent 100%);
+        }
+        .timeline-item {
+            display: grid; grid-template-columns: 120px 1fr;
+            gap: 0; margin-bottom: 5rem; position: relative;
+        }
+        .timeline-item:last-child { margin-bottom: 0; }
+        .t-year {
+            font-family: 'Bebas Neue', cursive; font-size: 1.3rem; letter-spacing: 0.1em;
+            color: #444; padding-top: 0.2rem; text-align: right; padding-right: 2rem;
+            transition: color 0.3s;
+        }
+        .timeline-item:hover .t-year { color: var(--gold); }
+        .t-dot {
+            position: absolute; left: 116px; top: 0.4rem;
+            width: 9px; height: 9px; border-radius: 50%;
+            border: 1px solid #333; background: var(--darker);
+            transition: all 0.3s;
+        }
+        .timeline-item:hover .t-dot {
+            border-color: var(--gold); background: var(--gold);
+            box-shadow: 0 0 12px rgba(212,175,55,0.4);
+        }
+        .t-content { padding-left: 3rem; }
+        .t-event {
+            font-family: 'Cinzel', serif; font-size: 1.05rem; font-weight: 600;
+            margin-bottom: 0.6rem; letter-spacing: 0.04em;
+        }
+        .t-desc { font-size: 0.88rem; color: #777; line-height: 1.75; max-width: 500px; }
+        .t-tag {
+            display: inline-block; margin-top: 0.8rem;
+            padding: 0.25rem 0.8rem; font-size: 0.65rem;
+            letter-spacing: 0.2em; text-transform: uppercase;
+            border: 1px solid #2a2a2a; color: #555;
+        }
+        .t-tag.gold { border-color: rgba(212,175,55,0.3); color: var(--gold); }
+        .t-tag.red { border-color: rgba(229,9,20,0.3); color: var(--red); }
+
+        /* ══════════════════════════════════════════════════════
+           HERO 2 — VIDEO MANIFESTO
+        ══════════════════════════════════════════════════════ */
+        .hero2 {
+            height: 100vh; position: relative;
+            display: flex; align-items: center; justify-content: center;
+            overflow: hidden;
+        }
+        .hero2-video-wrap {
+            position: absolute; inset: 0; z-index: 1;
+            opacity: 0; transition: opacity 2.5s ease;
+        }
+        .hero2-video-wrap.active { opacity: 1; }
+        .hero2-video-wrap video {
+            width: 100%; height: 100%; object-fit: cover;
+            filter: brightness(0.35) contrast(1.2) saturate(0.5);
+        }
+        /* cinematic bars */
+        .h2-bar { position: absolute; left: 0; width: 100%; height: 10vh; background: #000; z-index: 4; }
+        .h2-bar.top { top: 0; }
+        .h2-bar.bottom { bottom: 0; }
+        /* scan lines */
+        .hero2-scanlines {
+            position: absolute; inset: 0; z-index: 3; pointer-events: none;
+            background: repeating-linear-gradient(
+                to bottom,
+                transparent 0px, transparent 3px,
+                rgba(0,0,0,0.08) 3px, rgba(0,0,0,0.08) 4px
+            );
+        }
+        /* vignette */
+        .hero2-vignette {
+            position: absolute; inset: 0; z-index: 3; pointer-events: none;
+            background: radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.75) 100%);
+        }
+        /* gold horizontal lines frame */
+        .h2-frame-top, .h2-frame-bottom {
+            position: absolute; left: 4rem; right: 4rem; height: 1px;
+            background: linear-gradient(to right, transparent, rgba(212,175,55,0.4) 30%, rgba(212,175,55,0.4) 70%, transparent);
+            z-index: 6;
+        }
+        .h2-frame-top { top: 12vh; }
+        .h2-frame-bottom { bottom: 12vh; }
+
+        .hero2-content {
+            position: relative; z-index: 10; text-align: center; max-width: 900px; padding: 0 3rem;
+        }
+        .hero2-kicker {
+            font-size: 0.7rem; letter-spacing: 0.7em; color: var(--gold);
+            text-transform: uppercase; margin-bottom: 2.5rem;
+            opacity: 0; transition: opacity 0.8s ease 0.4s;
+        }
+        .hero2-video-wrap.active ~ .hero2-content .hero2-kicker,
+        .hero2-content .hero2-kicker.show { opacity: 1; }
+        .hero2-manifesto {
+            font-family: 'Cinzel', serif; font-weight: 900;
+            font-size: clamp(2.2rem, 5.5vw, 5rem); line-height: 1.05;
+            letter-spacing: 0.04em;
+        }
+        .hero2-manifesto .word {
+            display: inline-block; overflow: hidden; margin: 0 0.15em;
+        }
+        .hero2-manifesto .word span {
+            display: inline-block;
+            transform: translateY(110%); opacity: 0;
+            transition: transform 0.8s cubic-bezier(0.16,1,0.3,1), opacity 0.6s ease;
+        }
+        .hero2-manifesto .word span.reveal-word { transform: translateY(0); opacity: 1; }
+        .hero2-manifesto .accent { color: var(--gold); }
+
+        .hero2-sub {
+            font-family: 'Playfair Display', serif; font-style: italic;
+            font-size: 1.1rem; color: rgba(255,255,255,0.55); margin-top: 2.5rem;
+            line-height: 1.7; max-width: 600px; margin-left: auto; margin-right: auto;
+            opacity: 0; transform: translateY(20px);
+            transition: opacity 1s ease 1.6s, transform 1s ease 1.6s;
+        }
+        .hero2-video-wrap.active ~ .hero2-content .hero2-sub { opacity: 1; transform: translateY(0); }
+
+        .hero2-cta {
+            display: flex; align-items: center; justify-content: center; gap: 2rem;
+            margin-top: 3.5rem;
+            opacity: 0; transform: translateY(20px);
+            transition: opacity 1s ease 2s, transform 1s ease 2s;
+        }
+        .hero2-video-wrap.active ~ .hero2-content .hero2-cta { opacity: 1; transform: translateY(0); }
+        .h2-btn-primary {
+            font-family: 'Bebas Neue', cursive; font-size: 1.05rem; letter-spacing: 0.25em;
+            padding: 1.1rem 3rem; background: var(--gold); color: var(--darker);
+            border: none; cursor: pointer; transition: background 0.3s;
+            clip-path: polygon(10px 0%,100% 0%,calc(100% - 10px) 100%,0% 100%);
+        }
+        .h2-btn-primary:hover { background: #e8c84a; }
+        .h2-btn-secondary {
+            font-family: 'Bebas Neue', cursive; font-size: 1.05rem; letter-spacing: 0.25em;
+            padding: 1.1rem 3rem; background: transparent; color: rgba(255,255,255,0.7);
+            border: 1px solid rgba(255,255,255,0.2); cursor: pointer; transition: all 0.3s;
+        }
+        .h2-btn-secondary:hover { border-color: rgba(255,255,255,0.6); color: white; }
+
+        /* role counter bottom-right */
+        .hero2-counter {
+            position: absolute; bottom: 14vh; right: 4rem; z-index: 10;
+            text-align: right;
+        }
+        .h2c-num { font-family:'Bebas Neue',cursive; font-size:3.5rem; color:var(--gold); line-height:1; }
+        .h2c-label { font-size:0.65rem; letter-spacing:0.3em; color:#666; text-transform:uppercase; margin-top:0.2rem; }
+        /* progress bar */
+        .hero2-progress {
+            position: absolute; bottom: 10vh; left: 4rem; right: 4rem; height: 2px;
+            background: rgba(255,255,255,0.06); z-index: 10;
+        }
+        .hero2-progress-bar {
+            height: 100%; background: var(--gold); width: 0%;
+            transition: width 0.1s linear;
+        }
+
+        /* ══════════════════════════════════════════════════════
+           PHILOSOPHY — 3 PILLARS
+        ══════════════════════════════════════════════════════ */
+        .philosophy-section {
+            padding: 10rem 4rem;
+            background: var(--mid);
+            position: relative;
+        }
+        .philosophy-section::before {
+            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+            background: linear-gradient(to right, transparent, rgba(212,175,55,0.15), transparent);
+        }
+        .philosophy-header {
+            display: grid; grid-template-columns: 1fr 1fr;
+            gap: 4rem; margin-bottom: 7rem; align-items: end;
+        }
+        .phil-heading {
+            font-family: 'Cinzel', serif; font-weight: 900;
+            font-size: clamp(2rem, 4vw, 3.2rem); line-height: 1.05;
+        }
+        .phil-heading em { color: var(--gold); font-style: normal; }
+        .phil-intro { font-size: 0.92rem; color: #888; line-height: 1.8; }
+        .phil-label {
+            font-size: 0.72rem; letter-spacing: 0.5em; color: var(--gold);
+            text-transform: uppercase; margin-bottom: 1.2rem; display: flex; align-items: center; gap: 1rem;
+        }
+        .phil-label::after { content:''; width:50px; height:1px; background:rgba(212,175,55,0.3); }
+
+        .pillars-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 2px; }
+        .pillar {
+            padding: 3.5rem 2.5rem; background: #0c0c0c;
+            position: relative; overflow: hidden;
+            transition: background 0.4s;
+        }
+        .pillar::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 2px;
+            background: var(--gold); transform: scaleX(0); transform-origin: left;
+            transition: transform 0.5s cubic-bezier(0.16,1,0.3,1);
+        }
+        .pillar:hover { background: #101010; }
+        .pillar:hover::before { transform: scaleX(1); }
+        .pillar-number {
+            font-family: 'Bebas Neue', cursive; font-size: 5rem; line-height: 1;
+            color: transparent; -webkit-text-stroke: 1px rgba(212,175,55,0.2);
+            margin-bottom: 1.5rem; display: block;
+            transition: -webkit-text-stroke-color 0.3s;
+        }
+        .pillar:hover .pillar-number { -webkit-text-stroke-color: rgba(212,175,55,0.5); }
+        .pillar-name {
+            font-family: 'Cinzel', serif; font-size: 1.3rem; font-weight: 700;
+            margin-bottom: 1.2rem; letter-spacing: 0.05em;
+        }
+        .pillar-text { font-size: 0.88rem; color: #777; line-height: 1.8; }
+
+        /* ══════════════════════════════════════════════════════
+           TEAM
+        ══════════════════════════════════════════════════════ */
+        .team-section {
+            padding: 10rem 4rem;
+            background: var(--darker);
+        }
+        .team-header { margin-bottom: 5rem; }
+        .team-label {
+            font-size: 0.72rem; letter-spacing: 0.5em; color: var(--gold);
+            text-transform: uppercase; margin-bottom: 1rem; display: flex; align-items: center; gap: 1rem;
+        }
+        .team-label::after { content:''; width:60px; height:1px; background:rgba(212,175,55,0.3); }
+        .team-heading {
+            font-family: 'Cinzel', serif; font-weight: 900;
+            font-size: clamp(2rem, 4vw, 3.2rem);
+        }
+        .team-sub { color: #666; font-size: 0.9rem; margin-top: 0.75rem; max-width: 500px; line-height: 1.7; }
+
+        .team-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 1.5rem; }
+        .team-card {
+            position: relative; overflow: hidden; cursor: pointer;
+            background: #0e0e0e;
+        }
+        .team-card-img {
+            height: 380px; overflow: hidden; position: relative;
+        }
+        .team-card-img img {
+            width: 100%; height: 100%; object-fit: cover; object-position: top;
+            filter: grayscale(80%) contrast(1.1) brightness(0.8);
+            transition: filter 0.6s, transform 0.7s;
+        }
+        .team-card:hover .team-card-img img {
+            filter: grayscale(0%) contrast(1.05) brightness(0.9);
+            transform: scale(1.05);
+        }
+        /* gold accent bar slides in on hover */
+        .team-card-img::after {
+            content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 3px;
+            background: var(--gold); transform: scaleX(0); transform-origin: left;
+            transition: transform 0.5s cubic-bezier(0.16,1,0.3,1);
+        }
+        .team-card:hover .team-card-img::after { transform: scaleX(1); }
+        .team-card-info { padding: 1.5rem; }
+        .team-card-role {
+            font-size: 0.65rem; letter-spacing: 0.3em; color: var(--gold);
+            text-transform: uppercase; margin-bottom: 0.4rem;
+        }
+        .team-card-name {
+            font-family: 'Playfair Display', serif; font-size: 1.15rem; font-weight: 700;
+            margin-bottom: 0.4rem;
+        }
+        .team-card-bio { font-size: 0.78rem; color: #666; line-height: 1.6; }
+        /* social links appear on hover */
+        .team-socials {
+            display: flex; gap: 0.75rem; margin-top: 1rem;
+            max-height: 0; overflow: hidden; transition: max-height 0.4s ease;
+        }
+        .team-card:hover .team-socials { max-height: 40px; }
+        .tsocial {
+            width: 28px; height: 28px; border: 1px solid #2a2a2a;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 0.7rem; color: #666; cursor: pointer; transition: all 0.3s;
+        }
+        .tsocial:hover { border-color: var(--gold); color: var(--gold); }
+
+        /* ══════════════════════════════════════════════════════
+           PROCESS
+        ══════════════════════════════════════════════════════ */
+        .process-section {
+            padding: 10rem 4rem;
+            background: var(--mid);
+            position: relative;
+        }
+        .process-section::before {
+            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+            background: linear-gradient(to right, transparent, rgba(212,175,55,0.15), transparent);
+        }
+        .process-header { margin-bottom: 5rem; }
+        .process-label {
+            font-size: 0.72rem; letter-spacing: 0.5em; color: var(--gold);
+            text-transform: uppercase; margin-bottom: 1rem; display: flex; align-items: center; gap: 1rem;
+        }
+        .process-label::after { content:''; width:60px; height:1px; background:rgba(212,175,55,0.3); }
+        .process-heading {
+            font-family: 'Cinzel', serif; font-weight: 900;
+            font-size: clamp(2rem, 4vw, 3.2rem);
+        }
+
+        .process-steps { display: grid; grid-template-columns: repeat(5,1fr); gap: 0; position: relative; }
+        .process-steps::before {
+            content: ''; position: absolute; top: 24px; left: 10%; right: 10%; height: 1px;
+            background: linear-gradient(to right, transparent, #2a2a2a 20%, #2a2a2a 80%, transparent);
+            z-index: 0;
+        }
+        .process-step { text-align: center; padding: 0 1.5rem; position: relative; z-index: 2; }
+        .ps-num {
+            width: 50px; height: 50px; border: 1px solid #2a2a2a; border-radius: 50%;
+            background: var(--darker); margin: 0 auto 1.5rem;
+            display: flex; align-items: center; justify-content: center;
+            font-family: 'Bebas Neue', cursive; font-size: 1.1rem; color: #555;
+            transition: all 0.4s;
+        }
+        .process-step:hover .ps-num {
+            border-color: var(--gold); color: var(--gold);
+            box-shadow: 0 0 20px rgba(212,175,55,0.2);
+        }
+        .ps-name {
+            font-family: 'Cinzel', serif; font-size: 0.85rem; font-weight: 600;
+            letter-spacing: 0.08em; margin-bottom: 0.75rem; color: #ccc;
+        }
+        .ps-desc { font-size: 0.78rem; color: #666; line-height: 1.7; }
+
+        /* ══════════════════════════════════════════════════════
+           AWARDS BAND
+        ══════════════════════════════════════════════════════ */
+        .awards-band {
+            padding: 5rem 4rem;
+            background: var(--darker);
+            border-top: 1px solid #161616;
+            border-bottom: 1px solid #161616;
+            overflow: hidden; position: relative;
+        }
+        .awards-band-label {
+            font-size: 0.68rem; letter-spacing: 0.5em; color: #444;
+            text-transform: uppercase; margin-bottom: 2.5rem; text-align: center;
+        }
+        .awards-track {
+            display: flex; gap: 5rem; align-items: center;
+            animation: marquee 30s linear infinite; width: max-content;
+        }
+        @keyframes marquee { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+        .award-item { display: flex; align-items: center; gap: 1.2rem; flex-shrink: 0; }
+        .award-icon { font-size: 1.4rem; color: var(--gold); opacity: 0.7; }
+        .award-text { }
+        .award-name { font-family:'Bebas Neue',cursive; font-size:0.95rem; letter-spacing:0.15em; color:#888; }
+        .award-year { font-size: 0.65rem; letter-spacing:0.2em; color:#444; }
+        .award-sep { width: 1px; height: 30px; background: #222; flex-shrink: 0; }
+
+        /* ══════════════════════════════════════════════════════
+           STATS
+        ══════════════════════════════════════════════════════ */
+        .stats-section {
+            padding: 8rem 4rem;
+            background: var(--mid);
+            display: grid; grid-template-columns: repeat(4,1fr);
+            gap: 2rem; position: relative; overflow: hidden;
+        }
+        .stats-section::before {
+            content: 'LUMIÈRE'; position: absolute;
+            font-family: 'Bebas Neue', cursive; font-size: 22vw;
+            color: transparent; -webkit-text-stroke: 1px rgba(255,255,255,0.02);
+            top: 50%; left: 50%; transform: translate(-50%,-50%);
+            white-space: nowrap; pointer-events: none;
+        }
+        .stat-item { text-align: center; z-index: 2; }
+        .stat-number {
+            font-family: 'Bebas Neue', cursive;
+            font-size: clamp(3.5rem, 7vw, 5.5rem);
+            color: var(--gold); line-height: 1; margin-bottom: 0.75rem;
+        }
+        .stat-label { font-size: 0.75rem; letter-spacing: 0.35em; text-transform: uppercase; color: #555; }
+
+        /* ══════════════════════════════════════════════════════
+           CTA FOOTER BAND
+        ══════════════════════════════════════════════════════ */
+        .cta-section {
+            min-height: 70vh; display: flex; align-items: center; justify-content: center;
+            position: relative; overflow: hidden;
+            background: var(--darker);
+        }
+        .cta-bg-text {
+            position: absolute; font-family: 'Bebas Neue', cursive;
+            font-size: 18vw; color: transparent;
+            -webkit-text-stroke: 1px rgba(212,175,55,0.05);
+            white-space: nowrap; animation: scrollText 22s linear infinite;
+            pointer-events: none; user-select: none;
+        }
+        @keyframes scrollText { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+        .cta-content { text-align: center; z-index: 2; max-width: 700px; padding: 0 2rem; }
+        .cta-title {
+            font-family: 'Cinzel', serif; font-weight: 900;
+            font-size: clamp(2.5rem, 6vw, 4.5rem); line-height: 1;
+        }
+        .cta-sub {
+            font-family: 'Playfair Display', serif; font-style: italic;
+            color: #888; font-size: 1.1rem; margin-top: 1rem;
+        }
+        .cta-btns { display: flex; gap: 1.2rem; justify-content: center; margin-top: 3rem; flex-wrap: wrap; }
+        .cta-btn-gold {
+            font-family: 'Bebas Neue', cursive; font-size: 1.05rem; letter-spacing: 0.25em;
+            padding: 1.1rem 3rem; background: var(--gold); color: var(--darker);
+            border: none; cursor: pointer; transition: background 0.3s;
+            clip-path: polygon(10px 0%,100% 0%,calc(100% - 10px) 100%,0% 100%);
+        }
+        .cta-btn-gold:hover { background: #e8c84a; }
+        .cta-btn-outline {
+            font-family: 'Bebas Neue', cursive; font-size: 1.05rem; letter-spacing: 0.25em;
+            padding: 1.1rem 3rem; background: transparent; color: #888;
+            border: 1px solid #333; cursor: pointer; transition: all 0.3s;
+        }
+        .cta-btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+
+        /* ══════════════════════════════════════════════════════
+           FOOTER
+        ══════════════════════════════════════════════════════ */
+        footer {
+            padding: 3rem 4rem; border-top: 1px solid #161616;
+            display: flex; justify-content: space-between; align-items: center;
+            font-size: 0.75rem; color: #444; background: var(--darker);
+        }
+        .footer-links { display: flex; gap: 2rem; }
+        .footer-link { cursor: pointer; transition: color 0.3s; }
+        .footer-link:hover { color: var(--gold); }
+
+        /* ══ REVEAL ══ */
+        .reveal { opacity: 0; transform: translateY(35px); transition: opacity 0.9s cubic-bezier(0.16,1,0.3,1), transform 0.9s cubic-bezier(0.16,1,0.3,1); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+        .reveal-left { opacity: 0; transform: translateX(-40px); transition: opacity 0.9s cubic-bezier(0.16,1,0.3,1), transform 0.9s cubic-bezier(0.16,1,0.3,1); }
+        .reveal-left.active { opacity: 1; transform: translateX(0); }
+        .reveal-right { opacity: 0; transform: translateX(40px); transition: opacity 0.9s cubic-bezier(0.16,1,0.3,1), transform 0.9s cubic-bezier(0.16,1,0.3,1); }
+        .reveal-right.active { opacity: 1; transform: translateX(0); }
+
+        /* ══ RESPONSIVE ══ */
+        @media (max-width: 1024px) {
+            .hero1 { grid-template-columns: 1fr; }
+            .hero1-right { display: none; }
+            .hero1-left { padding: 0 2rem 6rem; min-height: 100vh; justify-content: flex-end; }
+            .origin-section { grid-template-columns: 1fr; gap: 3rem; }
+            .origin-left { position: static; }
+            .pillars-grid { grid-template-columns: 1fr; gap: 2px; }
+            .team-grid { grid-template-columns: repeat(2,1fr); }
+            .process-steps { grid-template-columns: repeat(2,1fr); gap: 3rem; }
+            .process-steps::before { display: none; }
+            .stats-section { grid-template-columns: repeat(2,1fr); }
+            .philosophy-header { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 640px) {
+            .nav { padding: 1.2rem 1.5rem; }
+            .hero1-left { padding: 0 1.5rem 5rem; }
+            .mission-wrap, .origin-section, .timeline-section,
+            .philosophy-section, .team-section, .process-section,
+            .awards-band, .stats-section, .cta-section { padding-left: 1.5rem; padding-right: 1.5rem; }
+            .team-grid { grid-template-columns: 1fr; }
+            footer { flex-direction: column; gap: 1.5rem; }
+        }
+
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: var(--darker); }
+        ::-webkit-scrollbar-thumb { background: #1e1e1e; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--gold); }
+    </style>
+</head>
+<body>
+
+<div class="film-grain"></div>
+<div class="spotlight" id="spotlight"></div>
+<div class="spotlight-core" id="spotlightCore"></div>
+
+<!-- Loader -->
+<div class="loader" id="loader">
+    <div class="loader-reel"></div>
+    <div class="loader-text">OUR STORY</div>
+</div>
+
+<!-- Nav -->
+<nav class="nav" id="navbar">
+    <div class="nav-logo" onclick="location.href='lumiere.html'">LUMIÈRE<span>.</span></div>
+    <div class="nav-links">
+        <div class="nav-link" onclick="location.href='lumiere.html'">Films</div>
+        <div class="nav-link active">About</div>
+        <div class="nav-link" onclick="location.href='lumiere.html'">Podcasts</div>
+        <div class="nav-link" onclick="location.href='lumiere.html'">Cast</div>
+        <div class="nav-link" onclick="location.href='lumiere.html'">Studio</div>
+    </div>
+    <button class="nav-subscribe" onclick="location.href='lumiere-booking.html'">Book a Project</button>
+</nav>
+
+<!-- ════════════════════════════════════════════════════
+     HERO 1 — TYPOGRAPHIC / EDITORIAL
+════════════════════════════════════════════════════ -->
+<section class="hero1">
+
+    <div class="hero1-left">
+        <div class="hero1-eyebrow">Est. 2011 · Lagos & London</div>
+        <h1 class="hero1-title">
+            <span class="line">We Don't</span>
+            <span class="line gold">Make</span>
+            <span class="line stroke">Movies.</span>
+            <span class="line">We Build</span>
+            <span class="line gold">Worlds.</span>
+        </h1>
+        <p class="hero1-body">
+            Lumière Motion Pictures is a global cinematic studio rooted in the belief that every frame holds the power to shift a culture, shake a conscience, and ignite a generation.
+        </p>
+        <div class="hero1-scroll">
+            <div class="scroll-line"></div>
+            <span class="scroll-label">Scroll to explore</span>
+        </div>
+    </div>
+
+    <div class="hero1-right">
+        <div class="hero1-strip"></div>
+        <div class="hero1-img" id="h1img">
+            <img src="https://images.unsplash.com/photo-1485846234645-a62644f84728?w=1200&q=85" alt="Lumière Studio">
+        </div>
+        <div class="hero1-year">2026</div>
+        <div class="hero1-badge">
+            <div class="badge-num">48</div>
+            <div class="badge-label">Awards Won</div>
+        </div>
+    </div>
+
+</section>
+
+<!-- ════════════════════════════════════════════════════
+     MISSION STATEMENT
+════════════════════════════════════════════════════ -->
+<div class="mission-wrap">
+    <div class="mission-inner">
+        <div class="mission-label reveal">Our Mission</div>
+        <p class="mission-text reveal">
+            "To illuminate the <em>human condition</em> through moving images — stories so honest they feel like memory, so bold they become legend."
+        </p>
+        <div class="mission-attribution reveal">
+            Théodore Lumière, Founder &amp; Creative Director
+        </div>
+    </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════
+     ORIGIN STORY
+════════════════════════════════════════════════════ -->
+<section class="origin-section">
+    <div class="origin-left reveal-left">
+        <div class="origin-chapter">Chapter 01</div>
+        <h2 class="origin-heading">
+            Born From
+            <em>Obsession</em>
+        </h2>
+        <p class="origin-tagline">
+            Two cameras. One rented warehouse. An unshakeable conviction that cinema could be more than entertainment — it could be truth.
+        </p>
+        <div class="origin-img-wrap">
+            <img src="https://images.unsplash.com/photo-1478720568477-152d9b164e26?w=800&q=80" alt="Early days">
+            <div class="origin-img-caption">First production set · Lagos, 2011</div>
+        </div>
+    </div>
+
+    <div class="origin-right reveal-right">
+        <p class="origin-p">
+            In 2011, <strong>Théodore Lumière</strong> and <strong>Amara Osei</strong> converted a disused printing factory in Surulere, Lagos into a working film studio. They had no investors, no distribution deals, and no industry connections. What they had was an archive of 4,000 films watched between them, an intimate understanding of African storytelling, and a refusal to make anything mediocre.
+        </p>
+        <div class="origin-pullquote">
+            <p>"The industry told us our stories weren't 'commercially viable.' We built a studio to prove that art and commerce aren't enemies — they're the same thing when the work is extraordinary."</p>
+            <cite>— Théodore Lumière</cite>
+        </div>
+        <p class="origin-p">
+            Their debut short, <strong>Ekó at Dusk</strong>, screened at three international festivals in its first year. Shot on a borrowed 16mm Bolex with a crew of seven, it announced a new cinematic voice — one rooted in Lagos but speaking to the world. Within two years, Lumière Motion Pictures had its first feature commission from a UK broadcaster.
+        </p>
+        <p class="origin-p">
+            The studio grew not by chasing trends, but by obsessively protecting its creative vision. Every hire was made for passion first. Every project was chosen because it needed to exist — not because it was safe. Today, that same philosophy governs a studio with offices on three continents and a catalogue spanning 127 productions.
+        </p>
+        <p class="origin-p">
+            From the gritty urban realism of <strong>The Forgotten Quarter</strong> to the sweeping desert epic <strong>Shadows of Tomorrow</strong>, each film carries the same fingerprint — an unapologetic commitment to truth, craft, and the kind of imagery that refuses to be forgotten.
+        </p>
+    </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════
+     TIMELINE
+════════════════════════════════════════════════════ -->
+<section class="timeline-section">
+    <div class="timeline-header">
+        <div class="timeline-label reveal">Our Journey</div>
+        <h2 class="timeline-heading reveal">Fifteen Years.<br>One Direction.</h2>
+    </div>
+
+    <div class="timeline reveal">
+        <div class="timeline-item">
+            <div class="t-year">2011</div>
+            <div class="t-dot"></div>
+            <div class="t-content">
+                <div class="t-event">Founded in Lagos, Nigeria</div>
+                <div class="t-desc">Théodore Lumière and Amara Osei establish the studio in a converted factory in Surulere. First production: the short film <em>Ekó at Dusk</em>, shot on 16mm Bolex.</div>
+                <span class="t-tag">Origin</span>
+            </div>
+        </div>
+        <div class="timeline-item">
+            <div class="t-year">2013</div>
+            <div class="t-dot"></div>
+            <div class="t-content">
+                <div class="t-event">First International Recognition</div>
+                <div class="t-desc"><em>Ekó at Dusk</em> premieres at Sundance and FESPACO. The studio secures its first broadcast commission from Channel 4 UK for a feature documentary.</div>
+                <span class="t-tag gold">Milestone</span>
+            </div>
+        </div>
+        <div class="timeline-item">
+            <div class="t-year">2015</div>
+            <div class="t-dot"></div>
+            <div class="t-content">
+                <div class="t-event">The Forgotten Quarter — Theatrical Release</div>
+                <div class="t-desc">Lumière's debut feature film opens in 14 countries. Critics call it "the most vital urban African cinema since City of God." The film wins 7 international awards.</div>
+                <span class="t-tag gold">Landmark</span>
+            </div>
+        </div>
+        <div class="timeline-item">
+            <div class="t-year">2017</div>
+            <div class="t-dot"></div>
+            <div class="t-content">
+                <div class="t-event">London Studio Opens</div>
+                <div class="t-desc">Second headquarters established in Shoreditch, London. The studio expands into commercial work and music video production, partnering with Mercury Prize artists and major luxury brands.</div>
+                <span class="t-tag">Expansion</span>
+            </div>
+        </div>
+        <div class="timeline-item">
+            <div class="t-year">2019</div>
+            <div class="t-dot"></div>
+            <div class="t-content">
+                <div class="t-event">The Reel Talk Podcast Launches</div>
+                <div class="t-desc">Our long-form audio series on the craft of filmmaking reaches 2 million downloads in its first year. Guests include Oscar-winning DPs, studio executives, and emerging voices from the African diaspora.</div>
+                <span class="t-tag">Media</span>
+            </div>
+        </div>
+        <div class="timeline-item">
+            <div class="t-year">2021</div>
+            <div class="t-dot"></div>
+            <div class="t-content">
+                <div class="t-event">Streaming Partnership &amp; 10th Anniversary</div>
+                <div class="t-desc">Multi-year deal signed with a major streaming platform. The back catalogue becomes available globally. Studio celebrates a decade with a retrospective at the BFI Southbank.</div>
+                <span class="t-tag gold">Partnership</span>
+            </div>
+        </div>
+        <div class="timeline-item">
+            <div class="t-year">2023</div>
+            <div class="t-dot"></div>
+            <div class="t-content">
+                <div class="t-event">New York Office &amp; Shadows of Tomorrow</div>
+                <div class="t-desc">Third global office opens in Brooklyn. <em>Shadows of Tomorrow</em> becomes the studio's most ambitious production — shot entirely on 65mm in Morocco and Iceland, entering post-production in 2024.</div>
+                <span class="t-tag red">Latest</span>
+            </div>
+        </div>
+        <div class="timeline-item">
+            <div class="t-year">2026</div>
+            <div class="t-dot"></div>
+            <div class="t-content">
+                <div class="t-event">Today — Still Rolling</div>
+                <div class="t-desc">127 productions. 48 awards. 40+ countries. 89 global partners. The only thing that hasn't changed since day one: the obsession with the frame.</div>
+                <span class="t-tag gold">Present</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════
+     HERO 2 — VIDEO MANIFESTO
+════════════════════════════════════════════════════ -->
+<section class="hero2" id="hero2section">
+
+    <div class="h2-bar top"></div>
+    <div class="h2-bar bottom"></div>
+
+    <div class="hero2-video-wrap" id="h2videowrap">
+        <video autoplay muted loop playsinline
+               poster="https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=1920&q=80">
+            <source src="https://storage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4" type="video/mp4">
+            <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" type="video/mp4">
+        </video>
+    </div>
+
+    <div class="hero2-scanlines"></div>
+    <div class="hero2-vignette"></div>
+    <div class="h2-frame-top"></div>
+    <div class="h2-frame-bottom"></div>
+
+    <div class="hero2-content" id="h2content">
+        <div class="hero2-kicker">Our Manifesto</div>
+        <h2 class="hero2-manifesto" id="h2manifesto">
+            <span class="word"><span>Light</span></span>
+            <span class="word accent"><span>defines</span></span>
+            <span class="word"><span>what</span></span>
+            <span class="word"><span>shadow</span></span>
+            <span class="word accent"><span>conceals.</span></span>
+            <br>
+            <span class="word"><span>We</span></span>
+            <span class="word"><span>control</span></span>
+            <span class="word accent"><span>both.</span></span>
+        </h2>
+        <p class="hero2-sub">
+            Cinema is not a medium. It is a language spoken between two humans — one behind the camera, one in the dark. We choose every word of that conversation with the precision of a poet and the recklessness of someone who has nothing to lose.
+        </p>
+        <div class="hero2-cta">
+            <button class="h2-btn-primary" onclick="location.href='lumiere-booking.html'">Start Your Project</button>
+            <button class="h2-btn-secondary" onclick="location.href='lumiere.html'">Explore Our Work</button>
+        </div>
+    </div>
+
+    <div class="hero2-counter">
+        <div class="h2c-num" id="h2counter">127</div>
+        <div class="h2c-label">Productions</div>
+    </div>
+
+    <div class="hero2-progress">
+        <div class="hero2-progress-bar" id="h2progress"></div>
+    </div>
+
+</section>
+
+<!-- ════════════════════════════════════════════════════
+     PHILOSOPHY — 3 PILLARS
+════════════════════════════════════════════════════ -->
+<section class="philosophy-section">
+    <div class="philosophy-header">
+        <div class="reveal-left">
+            <div class="phil-label">How We Think</div>
+            <h2 class="phil-heading">The Three Laws<br>of <em>Lumière</em></h2>
+        </div>
+        <div class="reveal-right">
+            <p class="phil-intro">We don't have a mission statement on the wall. We have three laws that govern every decision, from the first draft to the final grade — and they've never been broken.</p>
+        </div>
+    </div>
+
+    <div class="pillars-grid">
+        <div class="pillar reveal">
+            <span class="pillar-number">I</span>
+            <div class="pillar-name">Truth Before Beauty</div>
+            <p class="pillar-text">A beautiful lie is still a lie. We chase authentic emotion above everything else. If the scene isn't true, we reshoot it. If the story isn't honest, we rewrite it. Cinematic beauty without emotional truth is decoration — and we've never been in the decorating business.</p>
+        </div>
+        <div class="pillar reveal" style="transition-delay:0.12s">
+            <span class="pillar-number">II</span>
+            <div class="pillar-name">Craft Is Non-Negotiable</div>
+            <p class="pillar-text">Every frame is a painting. Every cut is a decision. We obsess over the things the audience never consciously notices — the colour temperature of a shadow, the rhythm of a silence, the exact amount of grain that makes a memory feel real. This obsession is not perfectionism. It is respect for the audience.</p>
+        </div>
+        <div class="pillar reveal" style="transition-delay:0.24s">
+            <span class="pillar-number">III</span>
+            <div class="pillar-name">Story Over Everything</div>
+            <p class="pillar-text">Technology changes. Trends vanish. Budgets expand and collapse. The only constant is narrative. We build stories so structurally sound, so emotionally loaded, that they would work as radio plays, as novels, as campfire tales. The camera comes after. Always.</p>
+        </div>
+    </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════
+     TEAM
+════════════════════════════════════════════════════ -->
+<section class="team-section">
+    <div class="team-header">
+        <div class="team-label reveal">The People</div>
+        <h2 class="team-heading reveal">Behind Every<br>Frame</h2>
+        <p class="team-sub reveal">A collective of obsessives. Directors, cinematographers, editors, composers and producers who chose depth over comfort and meaning over money.</p>
+    </div>
+
+    <div class="team-grid">
+        <div class="team-card reveal">
+            <div class="team-card-img">
+                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=80" alt="Théodore Lumière">
+            </div>
+            <div class="team-card-info">
+                <div class="team-card-role">Founder · Creative Director</div>
+                <div class="team-card-name">Théodore Lumière</div>
+                <div class="team-card-bio">Lagos-born director and visual architect. Trained at FAMU Prague. Has directed 22 features across 4 continents. The soul of the studio.</div>
+                <div class="team-socials">
+                    <div class="tsocial">in</div>
+                    <div class="tsocial">ig</div>
+                    <div class="tsocial">▶</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="team-card reveal" style="transition-delay:0.1s">
+            <div class="team-card-img">
+                <img src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=600&q=80" alt="Amara Osei">
+            </div>
+            <div class="team-card-info">
+                <div class="team-card-role">Co-Founder · Head of Production</div>
+                <div class="team-card-name">Amara Osei</div>
+                <div class="team-card-bio">The operational mind behind Lumière's global expansion. Former BBC documentary producer turned studio architect. Built the infrastructure that turned a dream into a business.</div>
+                <div class="team-socials">
+                    <div class="tsocial">in</div>
+                    <div class="tsocial">ig</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="team-card reveal" style="transition-delay:0.2s">
+            <div class="team-card-img">
+                <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=600&q=80" alt="Rafael Montoya">
+            </div>
+            <div class="team-card-info">
+                <div class="team-card-role">Director of Photography</div>
+                <div class="team-card-name">Rafael Montoya</div>
+                <div class="team-card-bio">ASC-affiliated cinematographer. Shot every Lumière feature from 2016 onwards. Known for working exclusively with practical light sources and his signature use of golden-hour interiors.</div>
+                <div class="team-socials">
+                    <div class="tsocial">in</div>
+                    <div class="tsocial">ig</div>
+                    <div class="tsocial">▶</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="team-card reveal" style="transition-delay:0.3s">
+            <div class="team-card-img">
+                <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=600&q=80" alt="Yuki Tanaka">
+            </div>
+            <div class="team-card-info">
+                <div class="team-card-role">Head of Post-Production</div>
+                <div class="team-card-name">Yuki Tanaka</div>
+                <div class="team-card-bio">The alchemist of the editing suite. Former Thelma Schoonmaker mentee. Responsible for the rhythmic language that defines every Lumière cut. A BAFTA nominee at 29.</div>
+                <div class="team-socials">
+                    <div class="tsocial">in</div>
+                    <div class="tsocial">ig</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════
+     PROCESS
+════════════════════════════════════════════════════ -->
+<section class="process-section">
+    <div class="process-header">
+        <div class="process-label reveal">How We Work</div>
+        <h2 class="process-heading reveal">From Idea to<br>Icon</h2>
+    </div>
+
+    <div class="process-steps">
+        <div class="process-step reveal">
+            <div class="ps-num">01</div>
+            <div class="ps-name">Discovery</div>
+            <p class="ps-desc">We listen before we speak. A deep-dive conversation to understand your story, your audience, and what success looks like for you.</p>
+        </div>
+        <div class="process-step reveal" style="transition-delay:0.1s">
+            <div class="ps-num">02</div>
+            <div class="ps-name">Development</div>
+            <p class="ps-desc">Script, visual treatment, tone references, and a preliminary production design. The idea becomes a blueprint that everyone can feel.</p>
+        </div>
+        <div class="process-step reveal" style="transition-delay:0.2s">
+            <div class="ps-num">03</div>
+            <div class="ps-name">Production</div>
+            <p class="ps-desc">Cameras roll. Our crew operates like a military unit with an artist's soul — efficient, disciplined, and totally committed to the vision.</p>
+        </div>
+        <div class="process-step reveal" style="transition-delay:0.3s">
+            <div class="ps-num">04</div>
+            <div class="ps-name">Post</div>
+            <p class="ps-desc">Where the film is truly born. Edit, colour grade, sound design, original score, and VFX — all handled in-house with obsessive attention.</p>
+        </div>
+        <div class="process-step reveal" style="transition-delay:0.4s">
+            <div class="ps-num">05</div>
+            <div class="ps-name">Release</div>
+            <p class="ps-desc">Delivery, distribution strategy, festival submissions, and press. We don't just make the film — we get it seen by the people who need it.</p>
+        </div>
+    </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════
+     AWARDS BAND
+════════════════════════════════════════════════════ -->
+<div class="awards-band">
+    <div class="awards-band-label">Recognition</div>
+    <div class="awards-track" id="awardsTrack">
+        <!-- Duplicated for seamless marquee -->
+        <div class="award-item"><div class="award-icon">✦</div><div class="award-text"><div class="award-name">FESPACO Grand Prix</div><div class="award-year">2015</div></div></div>
+        <div class="award-sep"></div>
+        <div class="award-item"><div class="award-icon">✦</div><div class="award-text"><div class="award-name">Sundance Special Jury</div><div class="award-year">2016</div></div></div>
+        <div class="award-sep"></div>
+        <div class="award-item"><div class="award-icon">✦</div><div class="award-text"><div class="award-name">BAFTA Nomination</div><div class="award-year">2018</div></div></div>
+        <div class="award-sep"></div>
+        <div class="award-item"><div class="award-icon">✦</div><div class="award-text"><div class="award-name">Cannes Un Certain Regard</div><div class="award-year">2019</div></div></div>
+        <div class="award-sep"></div>
+        <div class="award-item"><div class="award-icon">✦</div><div class="award-text"><div class="award-name">BFI Best Documentary</div><div class="award-year">2020</div></div></div>
+        <div class="award-sep"></div>
+        <div class="award-item"><div class="award-icon">✦</div><div class="award-text"><div class="award-name">African Film Academy Award</div><div class="award-year">2021</div></div></div>
+        <div class="award-sep"></div>
+        <div class="award-item"><div class="award-icon">✦</div><div class="award-text"><div class="award-name">Toronto Audience Award</div><div class="award-year">2022</div></div></div>
+        <div class="award-sep"></div>
+        <div class="award-item"><div class="award-icon">✦</div><div class="award-text"><div class="award-name">Venice Silver Lion</div><div class="award-year">2023</div></div></div>
+        <div class="award-sep"></div>
+        <!-- DUPLICATE for seamless loop -->
+        <div class="award-item"><div class="award-icon">✦</div><div class="award-text"><div class="award-name">FESPACO Grand Prix</div><div class="award-year">2015</div></div></div>
+        <div class="award-sep"></div>
+        <div class="award-item"><div class="award-icon">✦</div><div class="award-text"><div class="award-name">Sundance Special Jury</div><div class="award-year">2016</div></div></div>
+        <div class="award-sep"></div>
+        <div class="award-item"><div class="award-icon">✦</div><div class="award-text"><div class="award-name">BAFTA Nomination</div><div class="award-year">2018</div></div></div>
+        <div class="award-sep"></div>
+        <div class="award-item"><div class="award-icon">✦</div><div class="award-text"><div class="award-name">Cannes Un Certain Regard</div><div class="award-year">2019</div></div></div>
+        <div class="award-sep"></div>
+        <div class="award-item"><div class="award-icon">✦</div><div class="award-text"><div class="award-name">BFI Best Documentary</div><div class="award-year">2020</div></div></div>
+        <div class="award-sep"></div>
+        <div class="award-item"><div class="award-icon">✦</div><div class="award-text"><div class="award-name">African Film Academy Award</div><div class="award-year">2021</div></div></div>
+        <div class="award-sep"></div>
+        <div class="award-item"><div class="award-icon">✦</div><div class="award-text"><div class="award-name">Toronto Audience Award</div><div class="award-year">2022</div></div></div>
+        <div class="award-sep"></div>
+        <div class="award-item"><div class="award-icon">✦</div><div class="award-text"><div class="award-name">Venice Silver Lion</div><div class="award-year">2023</div></div></div>
+    </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════
+     STATS
+════════════════════════════════════════════════════ -->
+<section class="stats-section">
+    <div class="stat-item reveal">
+        <div class="stat-number" data-target="127">0</div>
+        <div class="stat-label">Productions</div>
+    </div>
+    <div class="stat-item reveal" style="transition-delay:0.1s">
+        <div class="stat-number" data-target="48">0</div>
+        <div class="stat-label">Awards Won</div>
+    </div>
+    <div class="stat-item reveal" style="transition-delay:0.2s">
+        <div class="stat-number" data-target="40">0</div>
+        <div class="stat-label">Countries</div>
+    </div>
+    <div class="stat-item reveal" style="transition-delay:0.3s">
+        <div class="stat-number" data-target="89">0</div>
+        <div class="stat-label">Global Partners</div>
+    </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════
+     CTA
+════════════════════════════════════════════════════ -->
+<section class="cta-section">
+    <div class="cta-bg-text">YOUR STORY · YOUR STORY · YOUR STORY · </div>
+    <div class="cta-content reveal">
+        <h2 class="cta-title">Your Story<br>Deserves This</h2>
+        <p class="cta-sub">Let's begin with a conversation.</p>
+        <div class="cta-btns">
+            <button class="cta-btn-gold" onclick="location.href='lumiere-booking.html'">Book a Project</button>
+            <button class="cta-btn-outline" onclick="location.href='lumiere.html'">View Our Work</button>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer>
+    <div>© 2026 LUMIÈRE MOTION PICTURES. ALL RIGHTS RESERVED.</div>
+    <div class="footer-links">
+        <span class="footer-link">Instagram</span>
+        <span class="footer-link">Vimeo</span>
+        <span class="footer-link">LinkedIn</span>
+        <span class="footer-link">Press Kit</span>
+    </div>
+</footer>
+
+<script>
+    // ── LOADER ──────────────────────────────────────────────
+    window.addEventListener('load', () => {
+        setTimeout(() => {
+            document.getElementById('loader').classList.add('hidden');
+            // Reveal hero 1 image
+            setTimeout(() => document.getElementById('h1img').classList.add('active'), 300);
+        }, 1400);
+    });
+
+    // ── CURSOR ──────────────────────────────────────────────
+    const spotlight = document.getElementById('spotlight');
+    const core = document.getElementById('spotlightCore');
+    let mx = window.innerWidth/2, my = window.innerHeight/2, gx = mx, gy = my;
+    document.addEventListener('mousemove', e => {
+        mx = e.clientX; my = e.clientY;
+        core.style.left = mx+'px'; core.style.top = my+'px';
+    });
+    (function loop() {
+        gx += (mx-gx)*0.1; gy += (my-gy)*0.1;
+        spotlight.style.left = gx+'px'; spotlight.style.top = gy+'px';
+        requestAnimationFrame(loop);
+    })();
+
+    // ── NAV SCROLL ──────────────────────────────────────────
+    window.addEventListener('scroll', () => {
+        document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 80);
+    });
+
+    // ── SCROLL REVEAL ───────────────────────────────────────
+    const revObs = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+            if (e.isIntersecting) {
+                e.target.classList.add('active');
+                const num = e.target.querySelector('.stat-number');
+                if (num) animateNum(num);
+            }
+        });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(el => revObs.observe(el));
+
+    // ── STAT COUNTER ────────────────────────────────────────
+    function animateNum(el) {
+        const target = parseInt(el.dataset.target);
+        const dur = 2000, step = target/(dur/16);
+        let cur = 0;
+        const t = setInterval(() => {
+            cur += step;
+            if (cur >= target) { el.textContent = target; clearInterval(t); }
+            else el.textContent = Math.floor(cur);
+        }, 16);
+    }
+
+    // ── HERO 2: VIDEO + WORD REVEAL ─────────────────────────
+    const h2section = document.getElementById('hero2section');
+    const h2wrap = document.getElementById('h2videowrap');
+    const h2content = document.getElementById('h2content');
+    const words = document.querySelectorAll('#h2manifesto .word span');
+    let h2revealed = false;
+
+    const h2obs = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+            if (e.isIntersecting && !h2revealed) {
+                h2revealed = true;
+                // Activate video
+                setTimeout(() => {
+                    h2wrap.classList.add('active');
+                    // Animate kicker
+                    h2content.querySelector('.hero2-kicker').classList.add('show');
+                    // Stagger words
+                    words.forEach((w, i) => {
+                        setTimeout(() => w.classList.add('reveal-word'), 400 + i * 100);
+                    });
+                }, 200);
+            }
+        });
+    }, { threshold: 0.3 });
+    h2obs.observe(h2section);
+
+    // ── HERO 2: VIDEO PROGRESS BAR ──────────────────────────
+    const h2video = h2wrap.querySelector('video');
+    const progressBar = document.getElementById('h2progress');
+    h2video.addEventListener('timeupdate', () => {
+        if (h2video.duration) {
+            progressBar.style.width = (h2video.currentTime/h2video.duration*100) + '%';
+        }
+    });
+
+    // ── HERO 2 COUNTER: count up on enter ───────────────────
+    let counterDone = false;
+    const counterObs = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+            if (e.isIntersecting && !counterDone) {
+                counterDone = true;
+                let c = 0;
+                const t = setInterval(() => {
+                    c += 3;
+                    document.getElementById('h2counter').textContent = c;
+                    if (c >= 127) { document.getElementById('h2counter').textContent = 127; clearInterval(t); }
+                }, 18);
+            }
+        });
+    }, { threshold: 0.5 });
+    counterObs.observe(h2section);
+</script>
+
+</body>
+</html>

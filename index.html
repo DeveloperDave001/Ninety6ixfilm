@@ -1,0 +1,1081 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LUMIÈRE MOTION PICTURES | Cinematic Excellence</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;800;900&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Bebas+Neue&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #D4AF37;
+            --gold-light: #F4E4BC;
+            --red: #E50914;
+            --red-dim: #8B0000;
+            --dark: #0a0a0a;
+            --darker: #050505;
+            --card-bg: #111111;
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            background-color: var(--darker);
+            color: #ffffff;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+        
+        .font-cinzel { font-family: 'Cinzel', serif; }
+        .font-playfair { font-family: 'Playfair Display', serif; }
+        .font-bebas { font-family: 'Bebas Neue', cursive; }
+
+        /* Film Grain */
+        .film-grain {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none; z-index: 9999; opacity: 0.035;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+        }
+
+        /* Loading Screen */
+        .loader {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: var(--darker); z-index: 10000;
+            display: flex; align-items: center; justify-content: center; flex-direction: column;
+            transition: opacity 0.8s, visibility 0.8s;
+        }
+        .loader.hidden { opacity: 0; visibility: hidden; }
+        .loader-reel {
+            width: 64px; height: 64px;
+            border: 2px solid #222;
+            border-top-color: var(--gold);
+            border-right-color: var(--red);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+        .loader-text { font-family: 'Bebas Neue', cursive; font-size: 1rem; letter-spacing: 0.6em; margin-top: 1.5rem; color: var(--gold); }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* Spotlight */
+        .spotlight {
+            position: fixed; width: 700px; height: 700px;
+            background:
+                radial-gradient(circle, rgba(255,235,120,0.55) 0%, transparent 18%),
+                radial-gradient(circle, rgba(212,175,55,0.35) 0%, transparent 40%),
+                radial-gradient(circle, rgba(212,175,55,0.12) 0%, transparent 70%);
+            pointer-events: none; z-index: 50; transform: translate(-50%, -50%);
+            mix-blend-mode: screen; transition: opacity 0.3s;
+            filter: blur(2px);
+        }
+        /* Tight hot core dot */
+        .spotlight-core {
+            position: fixed; width: 12px; height: 12px;
+            background: radial-gradient(circle, rgba(255,248,180,0.95) 0%, transparent 100%);
+            pointer-events: none; z-index: 51; transform: translate(-50%, -50%);
+            mix-blend-mode: screen;
+            border-radius: 50%;
+        }
+
+        /* Navigation */
+        .nav {
+            position: fixed; top: 0; left: 0; width: 100%;
+            padding: 1.5rem 4rem; z-index: 200;
+            display: flex; justify-content: space-between; align-items: center;
+            transition: all 0.5s ease;
+        }
+        .nav.scrolled {
+            background: rgba(5,5,5,0.92);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(212,175,55,0.1);
+        }
+        .nav-logo { font-family: 'Cinzel', serif; font-size: 1.4rem; letter-spacing: 0.3em; font-weight: 800; }
+        .nav-logo span { color: var(--gold); }
+        .nav-links { display: flex; gap: 2.5rem; align-items: center; }
+        .nav-link {
+            font-size: 0.78rem; letter-spacing: 0.2em; text-transform: uppercase;
+            cursor: pointer; transition: color 0.3s; color: #aaa;
+        }
+        .nav-link:hover { color: #fff; }
+        .nav-subscribe {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 0.95rem; letter-spacing: 0.15em;
+            padding: 0.6rem 1.8rem;
+            background: var(--red);
+            border: none; color: white; cursor: pointer;
+            transition: background 0.3s; clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+        }
+        .nav-subscribe:hover { background: #ff0f1c; }
+
+        /* ═══════════════════════════════ HERO ═══════════════════════════════ */
+        .hero {
+            height: 100vh; position: relative;
+            display: flex; align-items: flex-end;
+            overflow: hidden; padding-bottom: 6rem;
+        }
+        .hero-bg {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(135deg, #1a0a0a 0%, #0a0a0a 100%);
+            z-index: 1;
+        }
+        .hero-img {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 2; opacity: 0; transition: opacity 2s ease;
+        }
+        .hero-img.active { opacity: 1; }
+        .hero-img img {
+            width: 100%; height: 100%; object-fit: cover;
+            filter: contrast(1.1) saturate(0.7) brightness(0.55);
+        }
+        /* Video background */
+        .hero-video-bg {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 2; opacity: 0; transition: opacity 2.5s ease;
+        }
+        .hero-video-bg.active { opacity: 1; }
+        .hero-video-bg video {
+            width: 100%; height: 100%; object-fit: cover;
+            filter: contrast(1.15) saturate(0.6) brightness(0.45) sepia(0.08);
+            transform: scale(1.05);
+        }
+        .hero-gradient {
+            position: absolute; bottom: 0; left: 0; width: 100%; height: 80%;
+            background: linear-gradient(to top, var(--darker) 10%, transparent 100%);
+            z-index: 3;
+        }
+        .hero-side-gradient {
+            position: absolute; top: 0; left: 0; width: 50%; height: 100%;
+            background: linear-gradient(to right, rgba(5,5,5,0.85) 0%, transparent 100%);
+            z-index: 3;
+        }
+        .hero-content {
+            position: relative; z-index: 10; padding: 0 4rem; max-width: 700px;
+            opacity: 0; transform: translateY(40px);
+            animation: slideUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            animation-delay: 1.8s;
+        }
+        @keyframes slideUp { to { opacity: 1; transform: translateY(0); } }
+        .hero-studio {
+            font-size: 0.75rem; letter-spacing: 0.4em; color: var(--gold);
+            text-transform: uppercase; margin-bottom: 0.75rem;
+            display: flex; align-items: center; gap: 0.75rem;
+        }
+        .hero-studio::before {
+            content: ''; display: block; width: 30px; height: 1px; background: var(--gold);
+        }
+        .hero-title {
+            font-family: 'Cinzel', serif; font-weight: 900;
+            font-size: clamp(3.5rem, 9vw, 7.5rem);
+            line-height: 0.95; letter-spacing: 0.05em;
+            text-shadow: 0 0 80px rgba(212,175,55,0.2);
+        }
+        .hero-meta {
+            display: flex; gap: 1.5rem; align-items: center; margin-top: 1.5rem;
+            font-size: 0.8rem; color: #888; letter-spacing: 0.1em;
+        }
+        .hero-meta-dot { width: 3px; height: 3px; background: #666; border-radius: 50%; }
+        .hero-rating {
+            font-family: 'Bebas Neue', cursive; font-size: 1.5rem; color: var(--gold);
+            display: flex; align-items: center; gap: 0.5rem;
+        }
+        .hero-stars { color: var(--gold); font-size: 0.7rem; letter-spacing: 0.1em; }
+        .hero-desc {
+            font-size: 0.9rem; color: #999; line-height: 1.7; margin-top: 1.2rem;
+            max-width: 480px; font-family: 'Playfair Display', serif; font-style: italic;
+        }
+        .hero-actions { display: flex; gap: 1rem; margin-top: 2.5rem; align-items: center; }
+        .btn-play {
+            display: flex; align-items: center; gap: 0.75rem;
+            padding: 1rem 2.5rem; background: var(--red);
+            font-family: 'Bebas Neue', cursive; font-size: 1.1rem; letter-spacing: 0.15em;
+            border: none; color: white; cursor: pointer; transition: all 0.3s;
+            clip-path: polygon(10px 0%, 100% 0%, calc(100% - 10px) 100%, 0% 100%);
+        }
+        .btn-play:hover { background: #ff0f1c; transform: translateX(3px); }
+        .btn-play svg { width: 14px; height: 14px; }
+        .btn-list {
+            display: flex; align-items: center; gap: 0.75rem;
+            padding: 1rem 2.5rem; background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.2);
+            font-family: 'Bebas Neue', cursive; font-size: 1.1rem; letter-spacing: 0.15em;
+            color: white; cursor: pointer; transition: all 0.3s;
+        }
+        .btn-list:hover { background: rgba(255,255,255,0.15); }
+
+        /* Hero thumbnail rail */
+        .hero-thumbs {
+            position: absolute; right: 4rem; bottom: 6rem; z-index: 10;
+            display: flex; flex-direction: column; gap: 0.75rem;
+            opacity: 0; animation: fadeIn 1s ease forwards; animation-delay: 2.2s;
+        }
+        .hero-thumb {
+            width: 80px; height: 55px; overflow: hidden; cursor: pointer;
+            border: 2px solid transparent; transition: border-color 0.3s;
+            position: relative;
+        }
+        .hero-thumb.active { border-color: var(--gold); }
+        .hero-thumb img { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.7); }
+        .hero-thumb:hover img { filter: brightness(1); }
+        @keyframes fadeIn { to { opacity: 1; } }
+
+        /* ═══════════════════════════════ SECTION HEADERS ═══════════════════ */
+        .section-wrap { padding: 5rem 4rem; }
+
+        .row-header {
+            display: flex; justify-content: space-between; align-items: flex-end;
+            margin-bottom: 2rem;
+        }
+        .row-title {
+            font-family: 'Bebas Neue', cursive;
+            font-size: clamp(2rem, 4vw, 3rem);
+            letter-spacing: 0.08em; line-height: 1;
+            position: relative; display: inline-flex; align-items: center; gap: 1rem;
+        }
+        .row-title .accent-line {
+            display: block; width: 4px; height: 100%; min-height: 2.5rem;
+            background: var(--red);
+        }
+        .row-title.gold-accent .accent-line { background: var(--gold); }
+        .row-action {
+            font-size: 0.75rem; letter-spacing: 0.25em; color: #666;
+            text-transform: uppercase; cursor: pointer;
+            display: flex; align-items: center; gap: 0.5rem;
+            transition: color 0.3s; white-space: nowrap;
+        }
+        .row-action:hover { color: var(--gold); }
+        .row-action::after { content: '→'; font-size: 1rem; }
+
+        /* ═══════════════════════════════ HORIZONTAL SCROLL ROWS ═══════════ */
+        .scroll-row {
+            display: flex; gap: 1.2rem; overflow-x: auto; padding-bottom: 1rem;
+            scrollbar-width: none;
+        }
+        .scroll-row::-webkit-scrollbar { display: none; }
+
+        /* NUMBERED FEATURED CARD (like Image 1 / Image 2 style) */
+        .featured-card {
+            flex: 0 0 420px; height: 260px; position: relative;
+            overflow: hidden; cursor: pointer; background: #1a1a1a;
+            transition: transform 0.4s ease;
+        }
+        .featured-card:hover { transform: translateY(-6px); }
+        .featured-card img {
+            width: 100%; height: 100%; object-fit: cover;
+            filter: brightness(0.65) contrast(1.1);
+            transition: filter 0.5s, transform 0.6s;
+        }
+        .featured-card:hover img { filter: brightness(0.85) contrast(1.1) saturate(1.1); transform: scale(1.05); }
+        .featured-num {
+            position: absolute; left: -0.1em; bottom: -0.15em;
+            font-family: 'Bebas Neue', cursive; font-size: 10rem;
+            line-height: 1; color: transparent;
+            -webkit-text-stroke: 2px rgba(212,175,55,0.7);
+            z-index: 5; pointer-events: none;
+            transition: -webkit-text-stroke-color 0.3s;
+        }
+        .featured-card:hover .featured-num { -webkit-text-stroke-color: var(--gold); }
+        .featured-card-overlay {
+            position: absolute; bottom: 0; left: 0; width: 100%;
+            padding: 1.5rem 1.5rem 1.5rem 7rem;
+            background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, transparent 100%);
+            z-index: 6;
+        }
+        .featured-cat {
+            font-size: 0.68rem; letter-spacing: 0.3em; color: var(--red);
+            text-transform: uppercase; margin-bottom: 0.3rem;
+        }
+        .featured-name {
+            font-family: 'Playfair Display', serif; font-style: italic;
+            font-size: 1.2rem; line-height: 1.2;
+        }
+        .featured-sub { font-size: 0.75rem; color: #888; margin-top: 0.25rem; }
+
+        /* COLOR BLOCK CARD — genre style (Image 3) */
+        .genre-card {
+            flex: 0 0 180px; height: 120px;
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer; position: relative; overflow: hidden;
+            transition: transform 0.3s;
+        }
+        .genre-card:hover { transform: scale(1.05); }
+        .genre-label {
+            font-family: 'Bebas Neue', cursive; font-size: 1.6rem; letter-spacing: 0.12em;
+            color: white; z-index: 2; text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+        }
+        .genre-card::after {
+            content: ''; position: absolute; inset: 0;
+            background: rgba(0,0,0,0.15); transition: background 0.3s;
+        }
+        .genre-card:hover::after { background: rgba(0,0,0,0); }
+
+        /* POSTER CARD (vertical) */
+        .poster-card {
+            flex: 0 0 160px; height: 240px; position: relative;
+            overflow: hidden; cursor: pointer; background: #1a1a1a;
+            transition: transform 0.3s;
+        }
+        .poster-card:hover { transform: translateY(-5px); }
+        .poster-card img {
+            width: 100%; height: 100%; object-fit: cover;
+            filter: brightness(0.8) grayscale(20%);
+            transition: filter 0.4s, transform 0.5s;
+        }
+        .poster-card:hover img { filter: brightness(1) grayscale(0%); transform: scale(1.06); }
+        .poster-card-overlay {
+            position: absolute; bottom: 0; left: 0; width: 100%; padding: 1rem;
+            background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+            z-index: 2; opacity: 0; transition: opacity 0.3s;
+        }
+        .poster-card:hover .poster-card-overlay { opacity: 1; }
+        .poster-card-title { font-family: 'Playfair Display', serif; font-size: 0.85rem; }
+        .poster-card-cat { font-size: 0.65rem; letter-spacing: 0.2em; color: var(--gold); margin-top: 0.2rem; }
+
+        /* ═══════════════════════════════ CAST SECTION ═══════════════════════ */
+        /* Bold cast card inspired by Image 1 (color blocking, large number, portrait) */
+        .cast-section { background: #080808; padding: 6rem 4rem; }
+        .cast-scroll { display: flex; gap: 1.5rem; overflow-x: auto; padding-bottom: 1rem; scrollbar-width: none; }
+        .cast-scroll::-webkit-scrollbar { display: none; }
+        .cast-card {
+            flex: 0 0 340px; height: 220px; position: relative; overflow: hidden;
+            cursor: pointer; background: #111;
+            transition: transform 0.4s ease;
+        }
+        .cast-card:hover { transform: translateY(-8px); }
+        .cast-img {
+            position: absolute; right: 0; top: 0; width: 65%; height: 100%;
+            object-fit: cover; object-position: top;
+            filter: brightness(0.75) contrast(1.1);
+            transition: filter 0.4s;
+        }
+        .cast-card:hover .cast-img { filter: brightness(0.95) contrast(1.1); }
+        .cast-color-block {
+            position: absolute; left: 0; top: 0; width: 40%; height: 100%;
+            z-index: 2;
+        }
+        .cast-fade {
+            position: absolute; left: 30%; top: 0; width: 30%; height: 100%;
+            z-index: 3;
+        }
+        .cast-num {
+            position: absolute; left: -0.05em; bottom: -0.1em;
+            font-family: 'Bebas Neue', cursive; font-size: 9rem;
+            line-height: 1; color: rgba(255,255,255,0.12); z-index: 5;
+        }
+        .cast-info {
+            position: absolute; left: 1.2rem; bottom: 1.2rem; z-index: 6;
+        }
+        .cast-role { font-size: 0.68rem; letter-spacing: 0.25em; color: rgba(255,255,255,0.6); margin-bottom: 0.2rem; }
+        .cast-name {
+            font-family: 'Bebas Neue', cursive; font-size: 2rem; line-height: 1;
+            letter-spacing: 0.05em;
+        }
+        .cast-films { font-size: 0.7rem; color: rgba(255,255,255,0.5); margin-top: 0.2rem; }
+        .cast-rating {
+            position: absolute; right: 1.2rem; top: 1.2rem; z-index: 6;
+            font-family: 'Bebas Neue', cursive; font-size: 1.8rem; color: white;
+        }
+        .cast-stars { font-size: 0.6rem; color: var(--gold); letter-spacing: 0.1em; }
+
+        /* ═══════════════════════════════ PODCAST SECTION ═══════════════════ */
+        .podcast-section { background: #0c0c0c; padding: 6rem 4rem; }
+        .podcast-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+        .podcast-visual {
+            position: relative; height: 500px;
+            background: linear-gradient(135deg, #1a1a1a, #222);
+            overflow: hidden; display: flex; align-items: center; justify-content: center;
+        }
+        .audio-wave {
+            position: absolute; width: 100%; height: 100%;
+            display: flex; align-items: center; justify-content: center; gap: 3px;
+        }
+        .wave-bar {
+            width: 3px; background: var(--gold); opacity: 0.5;
+            animation: wave 1.2s ease-in-out infinite;
+        }
+        @keyframes wave { 0%, 100% { transform: scaleY(0.3); } 50% { transform: scaleY(1); } }
+        .podcast-play-btn {
+            width: 100px; height: 100px; border-radius: 50%;
+            border: 2px solid var(--gold); background: rgba(212,175,55,0.1);
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer; z-index: 2; transition: background 0.3s;
+        }
+        .podcast-play-btn:hover { background: rgba(212,175,55,0.25); }
+        .podcast-play-btn svg { width: 28px; height: 28px; color: var(--gold); margin-left: 4px; }
+        .podcast-list { display: flex; flex-direction: column; gap: 0; }
+        .podcast-item {
+            padding: 1.8rem 2rem; border-left: 3px solid #222;
+            cursor: pointer; position: relative; overflow: hidden;
+            transition: all 0.3s;
+        }
+        .podcast-item::before {
+            content: ''; position: absolute; left: 0; top: 0;
+            width: 0; height: 100%; background: rgba(212,175,55,0.06);
+            transition: width 0.4s;
+        }
+        .podcast-item:hover::before { width: 100%; }
+        .podcast-item:hover { border-left-color: var(--gold); padding-left: 2.5rem; }
+        .podcast-ep {
+            font-family: 'Bebas Neue', cursive; font-size: 0.85rem;
+            letter-spacing: 0.25em; color: var(--red); margin-bottom: 0.4rem;
+        }
+        .podcast-name { font-size: 1.15rem; font-family: 'Playfair Display', serif; }
+        .podcast-desc { font-size: 0.82rem; color: #777; margin-top: 0.4rem; line-height: 1.6; }
+
+        /* ═══════════════════════════════ STATS ═══════════════════════════════ */
+        .stats-section {
+            padding: 6rem 4rem;
+            display: grid; grid-template-columns: repeat(4, 1fr);
+            gap: 2rem; position: relative; overflow: hidden;
+            background: linear-gradient(180deg, #080808 0%, #0e0e0e 100%);
+        }
+        .stats-section::before {
+            content: 'LUMIÈRE'; position: absolute;
+            font-family: 'Bebas Neue', cursive; font-size: 22vw; font-weight: 400;
+            color: transparent; -webkit-text-stroke: 1px rgba(255,255,255,0.03);
+            top: 50%; left: 50%; transform: translate(-50%, -50%);
+            white-space: nowrap; pointer-events: none;
+        }
+        .stat-item { text-align: center; position: relative; z-index: 2; }
+        .stat-number {
+            font-family: 'Bebas Neue', cursive;
+            font-size: clamp(3.5rem, 7vw, 5.5rem);
+            color: var(--gold); line-height: 1; margin-bottom: 0.75rem;
+        }
+        .stat-label { font-size: 0.75rem; letter-spacing: 0.35em; text-transform: uppercase; color: #666; }
+
+        /* ═══════════════════════════════ CONTACT ═══════════════════════════ */
+        .contact-section {
+            min-height: 80vh; display: flex; align-items: center; justify-content: center;
+            position: relative; overflow: hidden; padding: 6rem 4rem;
+        }
+        .contact-bg-text {
+            position: absolute; font-family: 'Bebas Neue', cursive;
+            font-size: 18vw; color: transparent;
+            -webkit-text-stroke: 1px rgba(212,175,55,0.07);
+            white-space: nowrap; animation: scrollText 20s linear infinite;
+            pointer-events: none;
+        }
+        @keyframes scrollText { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+        .contact-content { text-align: center; z-index: 2; max-width: 700px; }
+        .contact-title {
+            font-family: 'Cinzel', serif; font-weight: 900;
+            font-size: clamp(2.5rem, 6vw, 4.5rem); line-height: 1;
+        }
+        .contact-sub {
+            font-family: 'Playfair Display', serif; font-style: italic;
+            color: #888; font-size: 1.15rem; margin-top: 1rem;
+        }
+        .contact-body { color: #666; max-width: 500px; margin: 1.5rem auto; line-height: 1.8; font-size: 0.9rem; }
+        .contact-btn {
+            display: inline-block; padding: 1.2rem 4rem; margin-top: 2.5rem;
+            border: none; font-family: 'Bebas Neue', cursive;
+            font-size: 1.1rem; letter-spacing: 0.3em; cursor: pointer;
+            background: transparent; color: var(--gold);
+            position: relative; overflow: hidden;
+            clip-path: polygon(12px 0%, 100% 0%, calc(100% - 12px) 100%, 0% 100%);
+            transition: color 0.4s;
+        }
+        .contact-btn::before {
+            content: ''; position: absolute; inset: 0;
+            border: 1px solid var(--gold); pointer-events: none;
+            clip-path: polygon(12px 0%, 100% 0%, calc(100% - 12px) 100%, 0% 100%);
+        }
+        .contact-btn::after {
+            content: ''; position: absolute; top: 0; left: -110%; width: 100%; height: 100%;
+            background: var(--gold); transition: left 0.4s cubic-bezier(0.16, 1, 0.3, 1); z-index: -1;
+        }
+        .contact-btn:hover { color: var(--darker); }
+        .contact-btn:hover::after { left: 0; }
+
+        /* Footer */
+        footer {
+            padding: 3rem 4rem; border-top: 1px solid #1a1a1a;
+            display: flex; justify-content: space-between; align-items: center;
+            font-size: 0.75rem; color: #444;
+        }
+        .footer-links { display: flex; gap: 2rem; }
+        .footer-link { cursor: pointer; transition: color 0.3s; }
+        .footer-link:hover { color: var(--gold); }
+
+        /* Reveal */
+        .reveal { opacity: 0; transform: translateY(40px); transition: all 0.9s cubic-bezier(0.16, 1, 0.3, 1); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        /* ═══════════════════════════════ RESPONSIVE ═════════════════════════ */
+        @media (max-width: 900px) {
+            .nav { padding: 1.5rem 2rem; }
+            .nav-links { display: none; }
+            .hero-content { padding: 0 2rem; }
+            .hero-thumbs { display: none; }
+            .section-wrap { padding: 4rem 2rem; }
+            .cast-section, .podcast-section { padding: 4rem 2rem; }
+            .podcast-layout { grid-template-columns: 1fr; }
+            .stats-section { grid-template-columns: repeat(2,1fr); padding: 4rem 2rem; }
+            .contact-section { padding: 4rem 2rem; }
+            footer { flex-direction: column; gap: 1.5rem; text-align: center; }
+            .featured-card { flex: 0 0 300px; height: 200px; }
+            .cast-card { flex: 0 0 280px; height: 190px; }
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: var(--darker); }
+        ::-webkit-scrollbar-thumb { background: #282828; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--gold); }
+    </style>
+</head>
+<body>
+    <!-- Loader -->
+    <div class="loader" id="loader">
+        <div class="loader-reel"></div>
+        <div class="loader-text">ROLLING...</div>
+    </div>
+
+    <!-- Film Grain -->
+    <div class="film-grain"></div>
+
+    <!-- Spotlight -->
+    <div class="spotlight" id="spotlight"></div>
+    <div class="spotlight-core" id="spotlightCore"></div>
+
+    <!-- Navigation -->
+    <nav class="nav" id="navbar">
+        <div class="nav-logo font-cinzel">LUMIÈRE<span>.</span></div>
+        <div class="nav-links">
+            <div class="nav-link">Films</div>
+            <div class="nav-link">Series</div>
+            <div class="nav-link">Podcasts</div>
+            <div class="nav-link">Cast</div>
+            <div class="nav-link">Studio</div>
+        </div>
+        <button class="nav-subscribe">Subscribe</button>
+    </nav>
+
+    <!-- ══ HERO ══ -->
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <!-- Video background — falls back to poster image if video can't load -->
+        <div class="hero-video-bg" id="heroVideoBg">
+            <video
+                id="heroBgVideo"
+                autoplay
+                muted
+                loop
+                playsinline
+                poster="https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=1920&q=80"
+            >
+                <!-- Cinematic free stock video sources -->
+                <source src="https://storage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" type="video/mp4">
+                <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4" type="video/mp4">
+                <!-- Fallback img if browser can't play video -->
+                <img src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=1920&q=80" alt="Feature Film" style="width:100%;height:100%;object-fit:cover;">
+            </video>
+        </div>
+        <div class="hero-gradient"></div>
+        <div class="hero-side-gradient"></div>
+
+        <div class="hero-content">
+            <div class="hero-studio">LUMIÈRE ORIGINALS</div>
+            <h1 class="hero-title font-cinzel">SHADOWS<br>OF<br>TOMORROW</h1>
+            <div class="hero-meta">
+                <span>2026</span>
+                <span class="hero-meta-dot"></span>
+                <span>2h 18m</span>
+                <span class="hero-meta-dot"></span>
+                <span>Sci-Fi · Drama</span>
+                <span class="hero-meta-dot" style="margin-left:0.5rem;"></span>
+                <div class="hero-rating">
+                    4.9
+                    <div>
+                        <div class="hero-stars">★★★★★</div>
+                    </div>
+                </div>
+            </div>
+            <p class="hero-desc">A cinematic journey through fractured time and buried memory. Shot entirely on 65mm in the Saharan night.</p>
+            <div class="hero-actions">
+                <button class="btn-play">
+                    <svg fill="currentColor" viewBox="0 0 20 20"><path d="M6.3 2.84L17 10 6.3 17.16V2.84z"/></svg>
+                    Play Now
+                </button>
+                <button class="btn-list">+ Add to List</button>
+            </div>
+        </div>
+
+        <!-- Thumbnail Rail -->
+        <div class="hero-thumbs">
+            <div class="hero-thumb active">
+                <img src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=200&q=60" alt="">
+            </div>
+            <div class="hero-thumb">
+                <img src="https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?w=200&q=60" alt="">
+            </div>
+            <div class="hero-thumb">
+                <img src="https://images.unsplash.com/photo-1478720568477-152d9b164e26?w=200&q=60" alt="">
+            </div>
+            <div class="hero-thumb">
+                <img src="https://images.unsplash.com/photo-1598899134739-24c46f58b8c0?w=200&q=60" alt="">
+            </div>
+        </div>
+    </section>
+
+    <!-- ══ TOP TRENDING (numbered cards) ══ -->
+    <section class="section-wrap">
+        <div class="row-header reveal">
+            <div class="row-title">
+                <span class="accent-line"></span>
+                TOP TRENDING
+            </div>
+            <div class="row-action">Drag to explore</div>
+        </div>
+        <div class="scroll-row reveal" style="transition-delay:0.1s">
+            <div class="featured-card">
+                <img src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=800&q=80" alt="">
+                <div class="featured-num">1</div>
+                <div class="featured-card-overlay">
+                    <div class="featured-cat">Feature Film</div>
+                    <div class="featured-name">Shadows of Tomorrow</div>
+                    <div class="featured-sub">2h 18m · Sci-Fi Drama</div>
+                </div>
+            </div>
+            <div class="featured-card">
+                <img src="https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?w=800&q=80" alt="">
+                <div class="featured-num">2</div>
+                <div class="featured-card-overlay">
+                    <div class="featured-cat">Music Video</div>
+                    <div class="featured-name">Neon Dreams</div>
+                    <div class="featured-sub">Visual symphony · The Midnight Collective</div>
+                </div>
+            </div>
+            <div class="featured-card">
+                <img src="https://images.unsplash.com/photo-1478720568477-152d9b164e26?w=800&q=80" alt="">
+                <div class="featured-num">3</div>
+                <div class="featured-card-overlay">
+                    <div class="featured-cat">Documentary</div>
+                    <div class="featured-name">The Last Reel</div>
+                    <div class="featured-sub">1h 44m · Preserving analog cinema</div>
+                </div>
+            </div>
+            <div class="featured-card">
+                <img src="https://images.unsplash.com/photo-1598899134739-24c46f58b8c0?w=800&q=80" alt="">
+                <div class="featured-num">4</div>
+                <div class="featured-card-overlay">
+                    <div class="featured-cat">Commercial</div>
+                    <div class="featured-name">Eternal Light</div>
+                    <div class="featured-sub">Shot on 35mm · Luxury Campaign</div>
+                </div>
+            </div>
+            <div class="featured-card">
+                <img src="https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=800&q=80" alt="">
+                <div class="featured-num">5</div>
+                <div class="featured-card-overlay">
+                    <div class="featured-cat">Short Film</div>
+                    <div class="featured-name">Frames of Mind</div>
+                    <div class="featured-sub">38m · Award-winning psychological thriller</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ══ LATEST RELEASE (poster cards) ══ -->
+    <section class="section-wrap" style="padding-top:0">
+        <div class="row-header reveal">
+            <div class="row-title gold-accent">
+                <span class="accent-line"></span>
+                LATEST RELEASE
+            </div>
+            <div class="row-action">See all</div>
+        </div>
+        <div class="scroll-row reveal" style="transition-delay:0.1s">
+            <div class="poster-card">
+                <img src="https://images.unsplash.com/photo-1518676590629-3dcbd9c5a5c9?w=400&q=80" alt="">
+                <div class="poster-card-overlay">
+                    <div class="poster-card-title">Behind The Lens</div>
+                    <div class="poster-card-cat">Web Series</div>
+                </div>
+            </div>
+            <div class="poster-card">
+                <img src="https://images.unsplash.com/photo-1485846234645-a62644f84728?w=400&q=80" alt="">
+                <div class="poster-card-overlay">
+                    <div class="poster-card-title">Aperture</div>
+                    <div class="poster-card-cat">Short Film</div>
+                </div>
+            </div>
+            <div class="poster-card">
+                <img src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=400&q=80" alt="">
+                <div class="poster-card-overlay">
+                    <div class="poster-card-title">Darkroom</div>
+                    <div class="poster-card-cat">Feature Film</div>
+                </div>
+            </div>
+            <div class="poster-card">
+                <img src="https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?w=400&q=80" alt="">
+                <div class="poster-card-overlay">
+                    <div class="poster-card-title">Volta</div>
+                    <div class="poster-card-cat">Music Video</div>
+                </div>
+            </div>
+            <div class="poster-card">
+                <img src="https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=400&q=80" alt="">
+                <div class="poster-card-overlay">
+                    <div class="poster-card-title">Threshold</div>
+                    <div class="poster-card-cat">Documentary</div>
+                </div>
+            </div>
+            <div class="poster-card">
+                <img src="https://images.unsplash.com/photo-1478720568477-152d9b164e26?w=400&q=80" alt="">
+                <div class="poster-card-overlay">
+                    <div class="poster-card-title">Still Frame</div>
+                    <div class="poster-card-cat">Short Film</div>
+                </div>
+            </div>
+            <div class="poster-card">
+                <img src="https://images.unsplash.com/photo-1598899134739-24c46f58b8c0?w=400&q=80" alt="">
+                <div class="poster-card-overlay">
+                    <div class="poster-card-title">Chiaroscuro</div>
+                    <div class="poster-card-cat">Experimental</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ══ SELECT GENRE ══ -->
+    <section class="section-wrap" style="padding-top:0">
+        <div class="row-header reveal">
+            <div class="row-title">
+                <span class="accent-line"></span>
+                SELECT GENRE
+            </div>
+        </div>
+        <div class="scroll-row reveal" style="transition-delay:0.1s">
+            <div class="genre-card" style="background:#C0392B;">
+                <span class="genre-label">Drama</span>
+            </div>
+            <div class="genre-card" style="background:#6C3483;">
+                <span class="genre-label">Thriller</span>
+            </div>
+            <div class="genre-card" style="background:#117A65;">
+                <span class="genre-label">Documentary</span>
+            </div>
+            <div class="genre-card" style="background:#B7950B;">
+                <span class="genre-label">Experimental</span>
+            </div>
+            <div class="genre-card" style="background:#1A5276;">
+                <span class="genre-label">Sci-Fi</span>
+            </div>
+            <div class="genre-card" style="background:#784212;">
+                <span class="genre-label">Western</span>
+            </div>
+            <div class="genre-card" style="background:#1E8449;">
+                <span class="genre-label">Nature</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ══ CAST SECTION (Image 1 style) ══ -->
+    <section class="cast-section">
+        <div class="row-header reveal">
+            <div class="row-title gold-accent">
+                <span class="accent-line"></span>
+                CAST SPOTLIGHT
+            </div>
+            <div class="row-action">Full roster</div>
+        </div>
+        <div class="cast-scroll reveal" style="transition-delay:0.1s">
+
+            <div class="cast-card">
+                <div class="cast-color-block" style="background:#0D47A1;"></div>
+                <div class="cast-fade" style="background:linear-gradient(to right,#0D47A1,transparent);"></div>
+                <img class="cast-img" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&q=80" alt="">
+                <div class="cast-num">01</div>
+                <div class="cast-info">
+                    <div class="cast-role">LEAD ACTOR</div>
+                    <div class="cast-name">Marcus<br>Renault</div>
+                    <div class="cast-films">12 Films · 3 Awards</div>
+                </div>
+                <div class="cast-rating">
+                    5.0
+                    <div class="cast-stars">★★★★★</div>
+                </div>
+            </div>
+
+            <div class="cast-card">
+                <div class="cast-color-block" style="background:#7B0000;"></div>
+                <div class="cast-fade" style="background:linear-gradient(to right,#7B0000,transparent);"></div>
+                <img class="cast-img" src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=400&q=80" alt="">
+                <div class="cast-num">02</div>
+                <div class="cast-info">
+                    <div class="cast-role">LEAD ACTRESS</div>
+                    <div class="cast-name">Isabelle<br>Moreau</div>
+                    <div class="cast-films">9 Films · 5 Awards</div>
+                </div>
+                <div class="cast-rating">
+                    4.9
+                    <div class="cast-stars">★★★★★</div>
+                </div>
+            </div>
+
+            <div class="cast-card">
+                <div class="cast-color-block" style="background:#1B5E20;"></div>
+                <div class="cast-fade" style="background:linear-gradient(to right,#1B5E20,transparent);"></div>
+                <img class="cast-img" src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=400&q=80" alt="">
+                <div class="cast-num">03</div>
+                <div class="cast-info">
+                    <div class="cast-role">SUPPORTING</div>
+                    <div class="cast-name">Kieran<br>Voss</div>
+                    <div class="cast-films">7 Films · 2 Awards</div>
+                </div>
+                <div class="cast-rating">
+                    4.8
+                    <div class="cast-stars">★★★★½</div>
+                </div>
+            </div>
+
+            <div class="cast-card">
+                <div class="cast-color-block" style="background:#4A148C;"></div>
+                <div class="cast-fade" style="background:linear-gradient(to right,#4A148C,transparent);"></div>
+                <img class="cast-img" src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=400&q=80" alt="">
+                <div class="cast-num">04</div>
+                <div class="cast-info">
+                    <div class="cast-role">SUPPORTING</div>
+                    <div class="cast-name">Priya<br>Dalmia</div>
+                    <div class="cast-films">6 Films · 1 Award</div>
+                </div>
+                <div class="cast-rating">
+                    4.9
+                    <div class="cast-stars">★★★★★</div>
+                </div>
+            </div>
+
+            <div class="cast-card">
+                <div class="cast-color-block" style="background:#BF360C;"></div>
+                <div class="cast-fade" style="background:linear-gradient(to right,#BF360C,transparent);"></div>
+                <img class="cast-img" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&q=80" alt="">
+                <div class="cast-num">05</div>
+                <div class="cast-info">
+                    <div class="cast-role">ANTAGONIST</div>
+                    <div class="cast-name">Elias<br>Stroud</div>
+                    <div class="cast-films">14 Films · 6 Awards</div>
+                </div>
+                <div class="cast-rating">
+                    5.0
+                    <div class="cast-stars">★★★★★</div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ══ PODCASTS (Image 2 style) ══ -->
+    <section class="podcast-section">
+        <div class="row-header reveal">
+            <div class="row-title gold-accent">
+                <span class="accent-line"></span>
+                THE REEL TALK
+            </div>
+            <div class="row-action">All episodes</div>
+        </div>
+        <div class="podcast-layout">
+            <div class="podcast-visual reveal">
+                <div class="audio-wave" id="audioWave"></div>
+                <div class="podcast-play-btn">
+                    <svg fill="currentColor" viewBox="0 0 20 20"><path d="M6.3 2.84L17 10 6.3 17.16V2.84z"/></svg>
+                </div>
+            </div>
+            <div class="podcast-list reveal" style="transition-delay:0.15s">
+                <div class="podcast-item">
+                    <div class="podcast-ep">EP. 047</div>
+                    <div class="podcast-name font-playfair">The Art of Cinematography</div>
+                    <div class="podcast-desc">Legendary DP Roger Deakins on light, shadow, and the evolution of digital filmmaking.</div>
+                </div>
+                <div class="podcast-item">
+                    <div class="podcast-ep">EP. 046</div>
+                    <div class="podcast-name font-playfair">Directing Performance</div>
+                    <div class="podcast-desc">How to extract authentic emotion from actors in the most artificial of environments.</div>
+                </div>
+                <div class="podcast-item">
+                    <div class="podcast-ep">EP. 045</div>
+                    <div class="podcast-name font-playfair">The Color of Sound</div>
+                    <div class="podcast-desc">Synesthetic film scoring and audio-visual harmony explored with Hans Richter.</div>
+                </div>
+                <div class="podcast-item">
+                    <div class="podcast-ep">EP. 044</div>
+                    <div class="podcast-name font-playfair">Indie Film Renaissance</div>
+                    <div class="podcast-desc">How streaming platforms are reshaping independent cinema distribution globally.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ══ STATS ══ -->
+    <section class="stats-section">
+        <div class="stat-item reveal">
+            <div class="stat-number" data-target="127">0</div>
+            <div class="stat-label">Films Produced</div>
+        </div>
+        <div class="stat-item reveal" style="transition-delay:0.1s">
+            <div class="stat-number" data-target="48">0</div>
+            <div class="stat-label">Awards Won</div>
+        </div>
+        <div class="stat-item reveal" style="transition-delay:0.2s">
+            <div class="stat-number" data-target="15">0</div>
+            <div class="stat-label">Years Active</div>
+        </div>
+        <div class="stat-item reveal" style="transition-delay:0.3s">
+            <div class="stat-number" data-target="89">0</div>
+            <div class="stat-label">Global Partners</div>
+        </div>
+    </section>
+
+    <!-- ══ CONTACT ══ -->
+    <section class="contact-section">
+        <div class="contact-bg-text font-bebas">START YOUR PROJECT · START YOUR PROJECT · </div>
+        <div class="contact-content reveal">
+            <h2 class="contact-title font-cinzel">START YOUR<br>PROJECT</h2>
+            <p class="contact-sub">Every great film begins with a conversation</p>
+            <p class="contact-body">From concept to final cut, we partner with visionary storytellers to create content that resonates across screens and cultures. Whether you're planning an epic feature or an intimate documentary.</p>
+            <button class="contact-btn" id="contactBtn">Initiate Project</button>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div>© 2026 LUMIÈRE MOTION PICTURES. ALL RIGHTS RESERVED.</div>
+        <div class="footer-links">
+            <span class="footer-link">Instagram</span>
+            <span class="footer-link">Vimeo</span>
+            <span class="footer-link">LinkedIn</span>
+            <span class="footer-link">Press Kit</span>
+        </div>
+    </footer>
+
+    <script>
+        // Loader + video hero init
+        const heroBgVideo = document.getElementById('heroBgVideo');
+        const heroVideoBg = document.getElementById('heroVideoBg');
+
+        function revealHero() {
+            document.getElementById('loader').classList.add('hidden');
+            setTimeout(() => heroVideoBg.classList.add('active'), 200);
+        }
+
+        // Try to play video; reveal hero after loader regardless
+        window.addEventListener('load', () => {
+            // Attempt autoplay
+            const playPromise = heroBgVideo.play();
+            if (playPromise !== undefined) {
+                playPromise.catch(() => {
+                    // Autoplay blocked — video poster still shows as fallback
+                });
+            }
+            setTimeout(revealHero, 1400);
+        });
+
+        // If video can't load at all, show poster via CSS (already set on <video poster>)
+        heroBgVideo.addEventListener('error', () => {
+            heroVideoBg.style.backgroundImage = 'url(https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=1920&q=80)';
+            heroVideoBg.style.backgroundSize = 'cover';
+        });
+
+        // Spotlight — core snaps, glow lerps smoothly behind
+        const spotlight = document.getElementById('spotlight');
+        const spotlightCore = document.getElementById('spotlightCore');
+        let mouseX = window.innerWidth / 2, mouseY = window.innerHeight / 2;
+        let glowX = mouseX, glowY = mouseY;
+
+        document.addEventListener('mousemove', e => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            spotlightCore.style.left = mouseX + 'px';
+            spotlightCore.style.top = mouseY + 'px';
+        });
+
+        (function animateGlow() {
+            glowX += (mouseX - glowX) * 0.1;
+            glowY += (mouseY - glowY) * 0.1;
+            spotlight.style.left = glowX + 'px';
+            spotlight.style.top = glowY + 'px';
+            requestAnimationFrame(animateGlow);
+        })();
+
+        // Navbar scroll
+        window.addEventListener('scroll', () => {
+            document.getElementById('navbar').classList.toggle('scrolled', window.pageYOffset > 80);
+        });
+
+        // Audio wave bars
+        const waveEl = document.getElementById('audioWave');
+        for (let i = 0; i < 50; i++) {
+            const bar = document.createElement('div');
+            bar.className = 'wave-bar';
+            const h = Math.random() * 90 + 20;
+            bar.style.cssText = `height:${h}px;animation-delay:${i * 0.04}s;opacity:${Math.random() * 0.4 + 0.2};`;
+            waveEl.appendChild(bar);
+        }
+
+        // Scroll reveal
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(e => {
+                if (e.isIntersecting) {
+                    e.target.classList.add('active');
+                    const num = e.target.querySelector('.stat-number');
+                    if (num) animateNum(num);
+                }
+            });
+        }, { threshold: 0.1, rootMargin: "0px 0px -40px 0px" });
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // Animate stat numbers
+        function animateNum(el) {
+            const target = parseInt(el.getAttribute('data-target'));
+            const dur = 2000, step = target / (dur / 16);
+            let cur = 0;
+            const t = setInterval(() => {
+                cur += step;
+                if (cur >= target) { el.textContent = target; clearInterval(t); }
+                else el.textContent = Math.floor(cur);
+            }, 16);
+        }
+
+        // Hero thumb switching
+        const thumbs = document.querySelectorAll('.hero-thumb');
+        const heroImgs = [
+            'https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=1920&q=80',
+            'https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?w=1920&q=80',
+            'https://images.unsplash.com/photo-1478720568477-152d9b164e26?w=1920&q=80',
+            'https://images.unsplash.com/photo-1598899134739-24c46f58b8c0?w=1920&q=80'
+        ];
+        thumbs.forEach((thumb, i) => {
+            thumb.addEventListener('click', () => {
+                thumbs.forEach(t => t.classList.remove('active'));
+                thumb.classList.add('active');
+                const img = document.querySelector('#heroImg img');
+                img.style.opacity = 0;
+                setTimeout(() => {
+                    img.src = heroImgs[i];
+                    img.style.opacity = 1;
+                }, 300);
+            });
+        });
+
+        // Contact btn
+        const cBtn = document.getElementById('contactBtn');
+        cBtn.addEventListener('click', function() {
+            this.textContent = 'PROJECT INITIATED ✓';
+            setTimeout(() => { this.textContent = 'Initiate Project'; }, 3000);
+        });
+
+        // Smooth scroll nav
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                const t = link.textContent.toLowerCase();
+                let el;
+                if (t.includes('film') || t.includes('series')) el = document.querySelector('.section-wrap');
+                else if (t.includes('cast')) el = document.querySelector('.cast-section');
+                else if (t.includes('podcast')) el = document.querySelector('.podcast-section');
+                else if (t.includes('studio')) el = document.querySelector('.stats-section');
+                if (el) el.scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+    </script>
+</body>
+</html>
