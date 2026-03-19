@@ -3,18 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LUMIÈRE MOTION PICTURES | Our Story</title>
+    <title>Ninety6ixFilmCo | Our Story</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;800;900&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Bebas+Neue&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Cabinet+Grotesk:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
         :root {
-            --gold: #D4AF37;
-            --gold-light: #F4E4BC;
-            --red: #E50914;
-            --dark: #0a0a0a;
-            --darker: #050505;
-            --mid: #111111;
+            --blue: #3B82F6;
+            --blue-light: #60A5FA;
+            --blue-lighter: #93C5FD;
+            --blue-dark: #1E40AF;
+            --blue-darker: #1E3A8A;
+            --dark: #050810;
+            --darker: #030408;
+            --card-bg: #0a0f1a;
         }
 
         *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
@@ -23,9 +25,8 @@
         body {
             background: var(--darker);
             color: #fff;
-            font-family: 'Inter', sans-serif;
+            font-family: 'Plus Jakarta Sans', sans-serif;
             overflow-x: hidden;
-            cursor: none;
         }
 
         /* ══ GRAIN ══ */
@@ -39,8 +40,8 @@
             position: fixed; width: 700px; height: 700px;
             background:
                 radial-gradient(circle, rgba(255,235,120,0.55) 0%, transparent 18%),
-                radial-gradient(circle, rgba(212,175,55,0.35) 0%, transparent 40%),
-                radial-gradient(circle, rgba(212,175,55,0.12) 0%, transparent 70%);
+                radial-gradient(circle, rgba(59,130,246,0.35) 0%, transparent 40%),
+                radial-gradient(circle, rgba(59,130,246,0.12) 0%, transparent 70%);
             pointer-events: none; z-index: 50;
             transform: translate(-50%,-50%); mix-blend-mode: screen; filter: blur(2px);
         }
@@ -61,40 +62,35 @@
         .loader-reel {
             width: 64px; height: 64px; border-radius: 50%;
             border: 2px solid #1a1a1a;
-            border-top-color: var(--gold); border-right-color: var(--red);
+            border-top-color: var(--blue); border-right-color: var(--blue);
             animation: spin 0.8s linear infinite;
         }
-        .loader-text { font-family:'Bebas Neue',cursive; font-size:0.9rem; letter-spacing:0.6em; margin-top:1.5rem; color:var(--gold); }
+        .loader-text { font-family:'Bebas Neue',cursive; font-size:0.9rem; letter-spacing:0.6em; margin-top:1.5rem; color:var(--blue); }
         @keyframes spin { to { transform: rotate(360deg); } }
 
         /* ══ NAV ══ */
         .nav {
-            position: fixed; top: 0; left: 0; width: 100%;
-            padding: 1.5rem 4rem; z-index: 200;
-            display: flex; justify-content: space-between; align-items: center;
-            transition: all 0.5s ease;
+            position: fixed; top: 0; left: 0; width: 100%; z-index: 200;
         }
-        .nav.scrolled {
-            background: rgba(5,5,5,0.93);
-            backdrop-filter: blur(14px);
-            border-bottom: 1px solid rgba(212,175,55,0.1);
+        .nav-inner {
+            max-width: 700px; margin: 0 auto;
+            padding: 1.2rem 3rem;
+            display: flex; justify-content: center; align-items: center; gap: 4rem;
+            background: rgba(5,5,5,0.95);
+            backdrop-filter: blur(12px);
+            border-radius: 100px;
+            border: 1px solid rgba(59,130,246,0.1);
+            margin-top: 1rem;
         }
-        .nav-logo { font-family:'Cinzel',serif; font-size:1.4rem; letter-spacing:0.3em; font-weight:800; cursor:pointer; }
-        .nav-logo span { color:var(--gold); }
-        .nav-links { display:flex; gap:2.5rem; align-items:center; }
-        .nav-link { font-size:0.78rem; letter-spacing:0.2em; text-transform:uppercase; cursor:pointer; transition:color 0.3s; color:#aaa; }
-        .nav-link:hover, .nav-link.active { color:#fff; }
-        .nav-link.active { color:var(--gold); }
-        .nav-subscribe {
-            font-family:'Bebas Neue',cursive; font-size:0.95rem; letter-spacing:0.15em;
-            padding:0.6rem 1.8rem; background:var(--red); border:none; color:white;
-            cursor:pointer; transition:background 0.3s;
-            clip-path:polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%);
-        }
-        .nav-subscribe:hover { background:#ff1420; }
+        .nav-logo { font-family: 'Outfit', sans-serif; font-size: 1.2rem; letter-spacing: 0.2em; font-weight: 800; cursor: pointer; text-decoration: none; color: #fff; }
+        .nav-logo span { color: var(--blue); }
+        .nav-links { display: flex; gap: 1.5rem; align-items: center; }
+        .nav-link { font-size: 0.78rem; letter-spacing: 0.15em; text-transform: uppercase; cursor: pointer; transition: color 0.3s; color: #aaa; text-decoration: none; }
+        .nav-link:hover, .nav-link.active { color: #fff; }
+        .nav-link.active { color: var(--blue); }
         @media (max-width:768px) {
-            .nav { padding:1.5rem 2rem; }
-            .nav-links { display:none; }
+            .nav-inner { border-radius: 20px; margin: 0.5rem 1rem; }
+            .nav-links { display: none; }
         }
 
         /* ══════════════════════════════════════════════════════
@@ -114,28 +110,28 @@
             background: var(--darker);
         }
         .hero1-eyebrow {
-            font-size: 0.72rem; letter-spacing: 0.55em; color: var(--red);
+            font-size: 0.72rem; letter-spacing: 0.55em; color: var(--blue);
             text-transform: uppercase; margin-bottom: 1.5rem;
             display: flex; align-items: center; gap: 0.8rem;
             opacity: 0; animation: fadeUp 0.9s ease forwards; animation-delay: 1.6s;
         }
-        .hero1-eyebrow::before { content:''; width:28px; height:1px; background:var(--red); display:block; }
+        .hero1-eyebrow::before { content:''; width:28px; height:1px; background:var(--blue); display:block; }
 
         .hero1-title {
-            font-family: 'Cinzel', serif; font-weight: 900;
+            font-family: 'Outfit', sans-serif; font-weight: 900;
             font-size: clamp(3.2rem, 6vw, 5.8rem);
             line-height: 1; letter-spacing: 0.03em;
             opacity: 0; animation: fadeUp 1s cubic-bezier(0.16,1,0.3,1) forwards; animation-delay: 1.8s;
         }
         .hero1-title .line { display: block; overflow: hidden; }
-        .hero1-title .gold { color: var(--gold); }
+        .hero1-title .gold { color: var(--blue); }
         .hero1-title .stroke {
             color: transparent;
             -webkit-text-stroke: 1px rgba(255,255,255,0.35);
         }
 
         .hero1-body {
-            font-family: 'Playfair Display', serif; font-style: italic;
+            font-family: 'Outfit', sans-serif; font-style: italic;
             font-size: 1.05rem; color: #888; line-height: 1.8;
             max-width: 400px; margin-top: 2rem;
             opacity: 0; animation: fadeUp 0.9s ease forwards; animation-delay: 2.1s;
@@ -148,7 +144,7 @@
         .scroll-line { width: 60px; height: 1px; background: #333; position: relative; overflow: hidden; }
         .scroll-line::after {
             content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
-            background: var(--gold); animation: scanLine 2s ease-in-out infinite;
+            background: var(--blue); animation: scanLine 2s ease-in-out infinite;
         }
         @keyframes scanLine { 0%{left:-100%} 50%,100%{left:100%} }
         .scroll-label { font-size:0.7rem; letter-spacing:0.35em; color:#555; text-transform:uppercase; }
@@ -162,24 +158,26 @@
             opacity: 0; transition: opacity 2s ease;
         }
         .hero1-img.active { opacity: 1; }
-        .hero1-img img {
+        .hero1-img img,
+        .hero1-img video {
             width: 100%; height: 100%; object-fit: cover;
             filter: grayscale(30%) contrast(1.1) brightness(0.75);
             transform: scale(1.03);
             transition: transform 8s ease;
         }
-        .hero1-img.active img { transform: scale(1); }
+        .hero1-img.active img,
+        .hero1-img.active video { transform: scale(1); }
         /* gold vertical strip accent */
         .hero1-strip {
             position: absolute; left: 0; top: 0; width: 3px; height: 100%;
-            background: linear-gradient(to bottom, transparent 0%, var(--gold) 40%, var(--gold) 60%, transparent 100%);
+            background: linear-gradient(to bottom, transparent 0%, var(--blue) 40%, var(--blue) 60%, transparent 100%);
             z-index: 5; opacity: 0.7;
         }
         /* year stamp */
         .hero1-year {
             position: absolute; bottom: 6rem; right: 2.5rem; z-index: 10;
-            font-family: 'Bebas Neue', cursive; font-size: 7rem; color: transparent;
-            -webkit-text-stroke: 1px rgba(212,175,55,0.2); line-height: 1;
+            font-family: 'Cabinet Grotesk', sans-serif; font-size: 7rem; color: transparent;
+            -webkit-text-stroke: 1px rgba(59,130,246,0.2); line-height: 1;
             opacity: 0; animation: fadeIn 1s ease forwards; animation-delay: 2.5s;
         }
         /* overlay gradient */
@@ -191,11 +189,11 @@
         /* floating badge */
         .hero1-badge {
             position: absolute; top: 3rem; right: 3rem; z-index: 10;
-            border: 1px solid rgba(212,175,55,0.3); padding: 1rem 1.5rem;
+            border: 1px solid rgba(59,130,246,0.3); padding: 1rem 1.5rem;
             text-align: center; background: rgba(5,5,5,0.6); backdrop-filter: blur(8px);
             opacity: 0; animation: fadeIn 1s ease forwards; animation-delay: 2.6s;
         }
-        .badge-num { font-family:'Bebas Neue',cursive; font-size:2.5rem; color:var(--gold); line-height:1; }
+        .badge-num { font-family:'Bebas Neue',cursive; font-size:2.5rem; color:var(--blue); line-height:1; }
         .badge-label { font-size:0.65rem; letter-spacing:0.25em; color:#888; text-transform:uppercase; margin-top:0.2rem; }
 
         @keyframes fadeUp { from{opacity:0;transform:translateY(30px)} to{opacity:1;transform:translateY(0)} }
@@ -211,28 +209,28 @@
         }
         .mission-wrap::before {
             content: '"'; position: absolute; left: -0.05em; top: -0.1em;
-            font-family: 'Playfair Display', serif; font-size: 40vw;
-            color: transparent; -webkit-text-stroke: 1px rgba(212,175,55,0.04);
+            font-family: 'Outfit', sans-serif; font-size: 40vw;
+            color: transparent; -webkit-text-stroke: 1px rgba(59,130,246,0.04);
             line-height: 1; pointer-events: none;
         }
         .mission-inner { max-width: 1000px; margin: 0 auto; position: relative; z-index: 2; }
         .mission-label {
-            font-size: 0.72rem; letter-spacing: 0.5em; color: var(--gold);
+            font-size: 0.72rem; letter-spacing: 0.5em; color: var(--blue);
             text-transform: uppercase; margin-bottom: 3rem;
             display: flex; align-items: center; gap: 1rem;
         }
-        .mission-label::after { content:''; flex:1; height:1px; background: rgba(212,175,55,0.2); }
+        .mission-label::after { content:''; flex:1; height:1px; background: rgba(59,130,246,0.2); }
         .mission-text {
-            font-family: 'Playfair Display', serif; font-style: italic;
+            font-family: 'Outfit', sans-serif; font-style: italic;
             font-size: clamp(1.6rem, 3.5vw, 2.8rem);
             line-height: 1.5; color: #e0e0e0; font-weight: 400;
         }
-        .mission-text em { color: var(--gold); font-style: normal; }
+        .mission-text em { color: var(--blue); font-style: normal; }
         .mission-attribution {
             margin-top: 3rem; font-size: 0.78rem; letter-spacing: 0.3em;
             color: #555; text-transform: uppercase; display: flex; align-items: center; gap: 1rem;
         }
-        .mission-attribution::before { content:'—'; color:var(--gold); }
+        .mission-attribution::before { content:'—'; color:var(--blue); }
 
         /* ══════════════════════════════════════════════════════
            ORIGIN STORY — TWO-COLUMN TEXT
@@ -247,20 +245,20 @@
         .origin-section::before {
             content: ''; position: absolute;
             top: 0; left: 0; right: 0; height: 1px;
-            background: linear-gradient(to right, transparent, rgba(212,175,55,0.2), transparent);
+            background: linear-gradient(to right, transparent, rgba(59,130,246,0.2), transparent);
         }
         .origin-left { position: sticky; top: 8rem; }
         .origin-chapter {
-            font-family: 'Bebas Neue', cursive; font-size: 0.8rem; letter-spacing: 0.4em;
-            color: var(--red); margin-bottom: 1rem;
+            font-family: 'Cabinet Grotesk', sans-serif; font-size: 0.8rem; letter-spacing: 0.4em;
+            color: var(--blue); margin-bottom: 1rem;
         }
         .origin-heading {
-            font-family: 'Cinzel', serif; font-weight: 900;
+            font-family: 'Outfit', sans-serif; font-weight: 900;
             font-size: clamp(2.2rem, 4vw, 3.5rem); line-height: 1.05;
         }
-        .origin-heading em { color: var(--gold); font-style: normal; display: block; }
+        .origin-heading em { color: var(--blue); font-style: normal; display: block; }
         .origin-tagline {
-            font-family: 'Playfair Display', serif; font-style: italic;
+            font-family: 'Outfit', sans-serif; font-style: italic;
             color: #777; font-size: 1rem; margin-top: 1.5rem; line-height: 1.7;
         }
         .origin-img-wrap {
@@ -284,11 +282,11 @@
         }
         .origin-p strong { color: #ddd; font-weight: 500; }
         .origin-pullquote {
-            border-left: 2px solid var(--gold); padding-left: 1.8rem;
+            border-left: 2px solid var(--blue); padding-left: 1.8rem;
             margin: 2.5rem 0;
         }
         .origin-pullquote p {
-            font-family: 'Playfair Display', serif; font-style: italic;
+            font-family: 'Outfit', sans-serif; font-style: italic;
             font-size: 1.15rem; color: #ccc; line-height: 1.7;
         }
         .origin-pullquote cite { font-size:0.72rem; letter-spacing:0.2em; color:#666; display:block; margin-top:0.75rem; }
@@ -304,18 +302,18 @@
         .timeline-section::before {
             content: 'HISTORY';
             position: absolute; right: -0.05em; top: 50%; transform: translateY(-50%);
-            font-family: 'Bebas Neue', cursive; font-size: 22vw;
+            font-family: 'Cabinet Grotesk', sans-serif; font-size: 22vw;
             color: transparent; -webkit-text-stroke: 1px rgba(255,255,255,0.02);
             pointer-events: none; line-height: 1; white-space: nowrap;
         }
         .timeline-header { margin-bottom: 6rem; }
         .timeline-label {
-            font-size: 0.72rem; letter-spacing: 0.5em; color: var(--gold);
+            font-size: 0.72rem; letter-spacing: 0.5em; color: var(--blue);
             text-transform: uppercase; margin-bottom: 1rem; display: flex; align-items: center; gap: 1rem;
         }
-        .timeline-label::after { content:''; width:60px; height:1px; background:rgba(212,175,55,0.3); }
+        .timeline-label::after { content:''; width:60px; height:1px; background:rgba(59,130,246,0.3); }
         .timeline-heading {
-            font-family: 'Cinzel', serif; font-weight: 900;
+            font-family: 'Outfit', sans-serif; font-weight: 900;
             font-size: clamp(2rem, 4vw, 3.2rem);
         }
 
@@ -330,11 +328,11 @@
         }
         .timeline-item:last-child { margin-bottom: 0; }
         .t-year {
-            font-family: 'Bebas Neue', cursive; font-size: 1.3rem; letter-spacing: 0.1em;
+            font-family: 'Cabinet Grotesk', sans-serif; font-size: 1.8rem; letter-spacing: 0.1em;
             color: #444; padding-top: 0.2rem; text-align: right; padding-right: 2rem;
             transition: color 0.3s;
         }
-        .timeline-item:hover .t-year { color: var(--gold); }
+        .timeline-item:hover .t-year { color: var(--blue); }
         .t-dot {
             position: absolute; left: 116px; top: 0.4rem;
             width: 9px; height: 9px; border-radius: 50%;
@@ -342,23 +340,23 @@
             transition: all 0.3s;
         }
         .timeline-item:hover .t-dot {
-            border-color: var(--gold); background: var(--gold);
-            box-shadow: 0 0 12px rgba(212,175,55,0.4);
+            border-color: var(--blue); background: var(--blue);
+            box-shadow: 0 0 12px rgba(59,130,246,0.4);
         }
         .t-content { padding-left: 3rem; }
         .t-event {
-            font-family: 'Cinzel', serif; font-size: 1.05rem; font-weight: 600;
-            margin-bottom: 0.6rem; letter-spacing: 0.04em;
+            font-family: 'Outfit', sans-serif; font-size: 1.6rem; font-weight: 600;
+            margin-bottom: 1rem; letter-spacing: 0.04em;
         }
-        .t-desc { font-size: 0.88rem; color: #777; line-height: 1.75; max-width: 500px; }
+        .t-desc { font-size: 1.2rem; color: #aaa; line-height: 1.9; max-width: 700px; }
         .t-tag {
             display: inline-block; margin-top: 0.8rem;
             padding: 0.25rem 0.8rem; font-size: 0.65rem;
             letter-spacing: 0.2em; text-transform: uppercase;
             border: 1px solid #2a2a2a; color: #555;
         }
-        .t-tag.gold { border-color: rgba(212,175,55,0.3); color: var(--gold); }
-        .t-tag.red { border-color: rgba(229,9,20,0.3); color: var(--red); }
+        .t-tag.gold { border-color: rgba(59,130,246,0.3); color: var(--blue); }
+        .t-tag.red { border-color: rgba(229,9,20,0.3); color: var(--blue); }
 
         /* ══════════════════════════════════════════════════════
            HERO 2 — VIDEO MANIFESTO
@@ -398,7 +396,7 @@
         /* gold horizontal lines frame */
         .h2-frame-top, .h2-frame-bottom {
             position: absolute; left: 4rem; right: 4rem; height: 1px;
-            background: linear-gradient(to right, transparent, rgba(212,175,55,0.4) 30%, rgba(212,175,55,0.4) 70%, transparent);
+            background: linear-gradient(to right, transparent, rgba(59,130,246,0.4) 30%, rgba(59,130,246,0.4) 70%, transparent);
             z-index: 6;
         }
         .h2-frame-top { top: 12vh; }
@@ -408,14 +406,14 @@
             position: relative; z-index: 10; text-align: center; max-width: 900px; padding: 0 3rem;
         }
         .hero2-kicker {
-            font-size: 0.7rem; letter-spacing: 0.7em; color: var(--gold);
+            font-size: 0.7rem; letter-spacing: 0.7em; color: var(--blue);
             text-transform: uppercase; margin-bottom: 2.5rem;
             opacity: 0; transition: opacity 0.8s ease 0.4s;
         }
         .hero2-video-wrap.active ~ .hero2-content .hero2-kicker,
         .hero2-content .hero2-kicker.show { opacity: 1; }
         .hero2-manifesto {
-            font-family: 'Cinzel', serif; font-weight: 900;
+            font-family: 'Outfit', sans-serif; font-weight: 900;
             font-size: clamp(2.2rem, 5.5vw, 5rem); line-height: 1.05;
             letter-spacing: 0.04em;
         }
@@ -428,10 +426,10 @@
             transition: transform 0.8s cubic-bezier(0.16,1,0.3,1), opacity 0.6s ease;
         }
         .hero2-manifesto .word span.reveal-word { transform: translateY(0); opacity: 1; }
-        .hero2-manifesto .accent { color: var(--gold); }
+        .hero2-manifesto .accent { color: var(--blue); }
 
         .hero2-sub {
-            font-family: 'Playfair Display', serif; font-style: italic;
+            font-family: 'Outfit', sans-serif; font-style: italic;
             font-size: 1.1rem; color: rgba(255,255,255,0.55); margin-top: 2.5rem;
             line-height: 1.7; max-width: 600px; margin-left: auto; margin-right: auto;
             opacity: 0; transform: translateY(20px);
@@ -447,14 +445,14 @@
         }
         .hero2-video-wrap.active ~ .hero2-content .hero2-cta { opacity: 1; transform: translateY(0); }
         .h2-btn-primary {
-            font-family: 'Bebas Neue', cursive; font-size: 1.05rem; letter-spacing: 0.25em;
-            padding: 1.1rem 3rem; background: var(--gold); color: var(--darker);
+            font-family: 'Cabinet Grotesk', sans-serif; font-size: 1.05rem; letter-spacing: 0.25em;
+            padding: 1.1rem 3rem; background: var(--blue); color: var(--darker);
             border: none; cursor: pointer; transition: background 0.3s;
             clip-path: polygon(10px 0%,100% 0%,calc(100% - 10px) 100%,0% 100%);
         }
         .h2-btn-primary:hover { background: #e8c84a; }
         .h2-btn-secondary {
-            font-family: 'Bebas Neue', cursive; font-size: 1.05rem; letter-spacing: 0.25em;
+            font-family: 'Cabinet Grotesk', sans-serif; font-size: 1.05rem; letter-spacing: 0.25em;
             padding: 1.1rem 3rem; background: transparent; color: rgba(255,255,255,0.7);
             border: 1px solid rgba(255,255,255,0.2); cursor: pointer; transition: all 0.3s;
         }
@@ -465,7 +463,7 @@
             position: absolute; bottom: 14vh; right: 4rem; z-index: 10;
             text-align: right;
         }
-        .h2c-num { font-family:'Bebas Neue',cursive; font-size:3.5rem; color:var(--gold); line-height:1; }
+        .h2c-num { font-family:'Bebas Neue',cursive; font-size:3.5rem; color:var(--blue); line-height:1; }
         .h2c-label { font-size:0.65rem; letter-spacing:0.3em; color:#666; text-transform:uppercase; margin-top:0.2rem; }
         /* progress bar */
         .hero2-progress {
@@ -473,7 +471,7 @@
             background: rgba(255,255,255,0.06); z-index: 10;
         }
         .hero2-progress-bar {
-            height: 100%; background: var(--gold); width: 0%;
+            height: 100%; background: var(--blue); width: 0%;
             transition: width 0.1s linear;
         }
 
@@ -487,23 +485,23 @@
         }
         .philosophy-section::before {
             content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
-            background: linear-gradient(to right, transparent, rgba(212,175,55,0.15), transparent);
+            background: linear-gradient(to right, transparent, rgba(59,130,246,0.15), transparent);
         }
         .philosophy-header {
             display: grid; grid-template-columns: 1fr 1fr;
             gap: 4rem; margin-bottom: 7rem; align-items: end;
         }
         .phil-heading {
-            font-family: 'Cinzel', serif; font-weight: 900;
+            font-family: 'Outfit', sans-serif; font-weight: 900;
             font-size: clamp(2rem, 4vw, 3.2rem); line-height: 1.05;
         }
-        .phil-heading em { color: var(--gold); font-style: normal; }
+        .phil-heading em { color: var(--blue); font-style: normal; }
         .phil-intro { font-size: 0.92rem; color: #888; line-height: 1.8; }
         .phil-label {
-            font-size: 0.72rem; letter-spacing: 0.5em; color: var(--gold);
+            font-size: 0.72rem; letter-spacing: 0.5em; color: var(--blue);
             text-transform: uppercase; margin-bottom: 1.2rem; display: flex; align-items: center; gap: 1rem;
         }
-        .phil-label::after { content:''; width:50px; height:1px; background:rgba(212,175,55,0.3); }
+        .phil-label::after { content:''; width:50px; height:1px; background:rgba(59,130,246,0.3); }
 
         .pillars-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 2px; }
         .pillar {
@@ -513,23 +511,23 @@
         }
         .pillar::before {
             content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 2px;
-            background: var(--gold); transform: scaleX(0); transform-origin: left;
+            background: var(--blue); transform: scaleX(0); transform-origin: left;
             transition: transform 0.5s cubic-bezier(0.16,1,0.3,1);
         }
         .pillar:hover { background: #101010; }
         .pillar:hover::before { transform: scaleX(1); }
         .pillar-number {
-            font-family: 'Bebas Neue', cursive; font-size: 5rem; line-height: 1;
-            color: transparent; -webkit-text-stroke: 1px rgba(212,175,55,0.2);
+            font-family: 'Cabinet Grotesk', sans-serif; font-size: 5rem; line-height: 1;
+            color: transparent; -webkit-text-stroke: 1px rgba(59,130,246,0.2);
             margin-bottom: 1.5rem; display: block;
             transition: -webkit-text-stroke-color 0.3s;
         }
-        .pillar:hover .pillar-number { -webkit-text-stroke-color: rgba(212,175,55,0.5); }
+        .pillar:hover .pillar-number { -webkit-text-stroke-color: rgba(59,130,246,0.5); }
         .pillar-name {
-            font-family: 'Cinzel', serif; font-size: 1.3rem; font-weight: 700;
+            font-family: 'Outfit', sans-serif; font-size: 1.3rem; font-weight: 700;
             margin-bottom: 1.2rem; letter-spacing: 0.05em;
         }
-        .pillar-text { font-size: 0.88rem; color: #777; line-height: 1.8; }
+        .pillar-text { font-size: 1.1rem; color: #999; line-height: 1.9; }
 
         /* ══════════════════════════════════════════════════════
            TEAM
@@ -540,15 +538,15 @@
         }
         .team-header { margin-bottom: 5rem; }
         .team-label {
-            font-size: 0.72rem; letter-spacing: 0.5em; color: var(--gold);
+            font-size: 0.72rem; letter-spacing: 0.5em; color: var(--blue);
             text-transform: uppercase; margin-bottom: 1rem; display: flex; align-items: center; gap: 1rem;
         }
-        .team-label::after { content:''; width:60px; height:1px; background:rgba(212,175,55,0.3); }
+        .team-label::after { content:''; width:60px; height:1px; background:rgba(59,130,246,0.3); }
         .team-heading {
-            font-family: 'Cinzel', serif; font-weight: 900;
+            font-family: 'Outfit', sans-serif; font-weight: 900;
             font-size: clamp(2rem, 4vw, 3.2rem);
         }
-        .team-sub { color: #666; font-size: 0.9rem; margin-top: 0.75rem; max-width: 500px; line-height: 1.7; }
+        .team-sub { color: #888; font-size: 1.1rem; margin-top: 1rem; max-width: 600px; line-height: 1.8; }
 
         .team-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 1.5rem; }
         .team-card {
@@ -570,17 +568,17 @@
         /* gold accent bar slides in on hover */
         .team-card-img::after {
             content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 3px;
-            background: var(--gold); transform: scaleX(0); transform-origin: left;
+            background: var(--blue); transform: scaleX(0); transform-origin: left;
             transition: transform 0.5s cubic-bezier(0.16,1,0.3,1);
         }
         .team-card:hover .team-card-img::after { transform: scaleX(1); }
         .team-card-info { padding: 1.5rem; }
         .team-card-role {
-            font-size: 0.65rem; letter-spacing: 0.3em; color: var(--gold);
+            font-size: 0.65rem; letter-spacing: 0.3em; color: var(--blue);
             text-transform: uppercase; margin-bottom: 0.4rem;
         }
         .team-card-name {
-            font-family: 'Playfair Display', serif; font-size: 1.15rem; font-weight: 700;
+            font-family: 'Outfit', sans-serif; font-size: 1.15rem; font-weight: 700;
             margin-bottom: 0.4rem;
         }
         .team-card-bio { font-size: 0.78rem; color: #666; line-height: 1.6; }
@@ -595,7 +593,7 @@
             display: flex; align-items: center; justify-content: center;
             font-size: 0.7rem; color: #666; cursor: pointer; transition: all 0.3s;
         }
-        .tsocial:hover { border-color: var(--gold); color: var(--gold); }
+        .tsocial:hover { border-color: var(--blue); color: var(--blue); }
 
         /* ══════════════════════════════════════════════════════
            PROCESS
@@ -607,16 +605,16 @@
         }
         .process-section::before {
             content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
-            background: linear-gradient(to right, transparent, rgba(212,175,55,0.15), transparent);
+            background: linear-gradient(to right, transparent, rgba(59,130,246,0.15), transparent);
         }
         .process-header { margin-bottom: 5rem; }
         .process-label {
-            font-size: 0.72rem; letter-spacing: 0.5em; color: var(--gold);
+            font-size: 0.72rem; letter-spacing: 0.5em; color: var(--blue);
             text-transform: uppercase; margin-bottom: 1rem; display: flex; align-items: center; gap: 1rem;
         }
-        .process-label::after { content:''; width:60px; height:1px; background:rgba(212,175,55,0.3); }
+        .process-label::after { content:''; width:60px; height:1px; background:rgba(59,130,246,0.3); }
         .process-heading {
-            font-family: 'Cinzel', serif; font-weight: 900;
+            font-family: 'Outfit', sans-serif; font-weight: 900;
             font-size: clamp(2rem, 4vw, 3.2rem);
         }
 
@@ -631,15 +629,15 @@
             width: 50px; height: 50px; border: 1px solid #2a2a2a; border-radius: 50%;
             background: var(--darker); margin: 0 auto 1.5rem;
             display: flex; align-items: center; justify-content: center;
-            font-family: 'Bebas Neue', cursive; font-size: 1.1rem; color: #555;
+            font-family: 'Cabinet Grotesk', sans-serif; font-size: 1.1rem; color: #555;
             transition: all 0.4s;
         }
         .process-step:hover .ps-num {
-            border-color: var(--gold); color: var(--gold);
-            box-shadow: 0 0 20px rgba(212,175,55,0.2);
+            border-color: var(--blue); color: var(--blue);
+            box-shadow: 0 0 20px rgba(59,130,246,0.2);
         }
         .ps-name {
-            font-family: 'Cinzel', serif; font-size: 0.85rem; font-weight: 600;
+            font-family: 'Outfit', sans-serif; font-size: 0.85rem; font-weight: 600;
             letter-spacing: 0.08em; margin-bottom: 0.75rem; color: #ccc;
         }
         .ps-desc { font-size: 0.78rem; color: #666; line-height: 1.7; }
@@ -664,7 +662,7 @@
         }
         @keyframes marquee { from{transform:translateX(0)} to{transform:translateX(-50%)} }
         .award-item { display: flex; align-items: center; gap: 1.2rem; flex-shrink: 0; }
-        .award-icon { font-size: 1.4rem; color: var(--gold); opacity: 0.7; }
+        .award-icon { font-size: 1.4rem; color: var(--blue); opacity: 0.7; }
         .award-text { }
         .award-name { font-family:'Bebas Neue',cursive; font-size:0.95rem; letter-spacing:0.15em; color:#888; }
         .award-year { font-size: 0.65rem; letter-spacing:0.2em; color:#444; }
@@ -680,17 +678,17 @@
             gap: 2rem; position: relative; overflow: hidden;
         }
         .stats-section::before {
-            content: 'LUMIÈRE'; position: absolute;
-            font-family: 'Bebas Neue', cursive; font-size: 22vw;
+            content: 'Ninety6ixFilmCo'; position: absolute;
+            font-family: 'Cabinet Grotesk', sans-serif; font-size: 22vw;
             color: transparent; -webkit-text-stroke: 1px rgba(255,255,255,0.02);
             top: 50%; left: 50%; transform: translate(-50%,-50%);
             white-space: nowrap; pointer-events: none;
         }
         .stat-item { text-align: center; z-index: 2; }
         .stat-number {
-            font-family: 'Bebas Neue', cursive;
+            font-family: 'Cabinet Grotesk', sans-serif;
             font-size: clamp(3.5rem, 7vw, 5.5rem);
-            color: var(--gold); line-height: 1; margin-bottom: 0.75rem;
+            color: var(--blue); line-height: 1; margin-bottom: 0.75rem;
         }
         .stat-label { font-size: 0.75rem; letter-spacing: 0.35em; text-transform: uppercase; color: #555; }
 
@@ -703,36 +701,36 @@
             background: var(--darker);
         }
         .cta-bg-text {
-            position: absolute; font-family: 'Bebas Neue', cursive;
+            position: absolute; font-family: 'Cabinet Grotesk', sans-serif;
             font-size: 18vw; color: transparent;
-            -webkit-text-stroke: 1px rgba(212,175,55,0.05);
+            -webkit-text-stroke: 1px rgba(59,130,246,0.05);
             white-space: nowrap; animation: scrollText 22s linear infinite;
             pointer-events: none; user-select: none;
         }
         @keyframes scrollText { from{transform:translateX(0)} to{transform:translateX(-50%)} }
         .cta-content { text-align: center; z-index: 2; max-width: 700px; padding: 0 2rem; }
         .cta-title {
-            font-family: 'Cinzel', serif; font-weight: 900;
+            font-family: 'Outfit', sans-serif; font-weight: 900;
             font-size: clamp(2.5rem, 6vw, 4.5rem); line-height: 1;
         }
         .cta-sub {
-            font-family: 'Playfair Display', serif; font-style: italic;
+            font-family: 'Outfit', sans-serif; font-style: italic;
             color: #888; font-size: 1.1rem; margin-top: 1rem;
         }
         .cta-btns { display: flex; gap: 1.2rem; justify-content: center; margin-top: 3rem; flex-wrap: wrap; }
         .cta-btn-gold {
-            font-family: 'Bebas Neue', cursive; font-size: 1.05rem; letter-spacing: 0.25em;
-            padding: 1.1rem 3rem; background: var(--gold); color: var(--darker);
+            font-family: 'Cabinet Grotesk', sans-serif; font-size: 1.05rem; letter-spacing: 0.25em;
+            padding: 1.1rem 3rem; background: var(--blue); color: var(--darker);
             border: none; cursor: pointer; transition: background 0.3s;
             clip-path: polygon(10px 0%,100% 0%,calc(100% - 10px) 100%,0% 100%);
         }
         .cta-btn-gold:hover { background: #e8c84a; }
         .cta-btn-outline {
-            font-family: 'Bebas Neue', cursive; font-size: 1.05rem; letter-spacing: 0.25em;
+            font-family: 'Cabinet Grotesk', sans-serif; font-size: 1.05rem; letter-spacing: 0.25em;
             padding: 1.1rem 3rem; background: transparent; color: #888;
             border: 1px solid #333; cursor: pointer; transition: all 0.3s;
         }
-        .cta-btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+        .cta-btn-outline:hover { border-color: var(--blue); color: var(--blue); }
 
         /* ══════════════════════════════════════════════════════
            FOOTER
@@ -744,7 +742,7 @@
         }
         .footer-links { display: flex; gap: 2rem; }
         .footer-link { cursor: pointer; transition: color 0.3s; }
-        .footer-link:hover { color: var(--gold); }
+        .footer-link:hover { color: var(--blue); }
 
         /* ══ REVEAL ══ */
         .reveal { opacity: 0; transform: translateY(35px); transition: opacity 0.9s cubic-bezier(0.16,1,0.3,1), transform 0.9s cubic-bezier(0.16,1,0.3,1); }
@@ -781,7 +779,7 @@
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: var(--darker); }
         ::-webkit-scrollbar-thumb { background: #1e1e1e; border-radius: 3px; }
-        ::-webkit-scrollbar-thumb:hover { background: var(--gold); }
+        ::-webkit-scrollbar-thumb:hover { background: var(--blue); }
     </style>
 </head>
 <body>
@@ -798,15 +796,14 @@
 
 <!-- Nav -->
 <nav class="nav" id="navbar">
-    <div class="nav-logo" onclick="location.href='lumiere.html'">LUMIÈRE<span>.</span></div>
-    <div class="nav-links">
-        <div class="nav-link" onclick="location.href='lumiere.html'">Films</div>
-        <div class="nav-link active">About</div>
-        <div class="nav-link" onclick="location.href='lumiere.html'">Podcasts</div>
-        <div class="nav-link" onclick="location.href='lumiere.html'">Cast</div>
-        <div class="nav-link" onclick="location.href='lumiere.html'">Studio</div>
+    <div class="nav-inner">
+        <a href="index.html" class="nav-logo">Ninety6ixFilmCo<span>.</span></a>
+        <div class="nav-links">
+            <a href="index.html" class="nav-link">Home</a>
+            <a href="about.html" class="nav-link active">About Us</a>
+            <a href="booking.html" class="nav-link">Book Session</a>
+        </div>
     </div>
-    <button class="nav-subscribe" onclick="location.href='lumiere-booking.html'">Book a Project</button>
 </nav>
 
 <!-- ════════════════════════════════════════════════════
@@ -815,17 +812,11 @@
 <section class="hero1">
 
     <div class="hero1-left">
-        <div class="hero1-eyebrow">Est. 2011 · Lagos & London</div>
         <h1 class="hero1-title">
-            <span class="line">We Don't</span>
-            <span class="line gold">Make</span>
-            <span class="line stroke">Movies.</span>
-            <span class="line">We Build</span>
-            <span class="line gold">Worlds.</span>
+            <span class="line">Making Your</span>
+            <span class="line gold">Dreams</span>
+            <span class="line">Reality</span>
         </h1>
-        <p class="hero1-body">
-            Lumière Motion Pictures is a global cinematic studio rooted in the belief that every frame holds the power to shift a culture, shake a conscience, and ignite a generation.
-        </p>
         <div class="hero1-scroll">
             <div class="scroll-line"></div>
             <span class="scroll-label">Scroll to explore</span>
@@ -835,13 +826,11 @@
     <div class="hero1-right">
         <div class="hero1-strip"></div>
         <div class="hero1-img" id="h1img">
-            <img src="https://images.unsplash.com/photo-1485846234645-a62644f84728?w=1200&q=85" alt="Lumière Studio">
+            <video autoplay muted loop playsinline poster="https://images.unsplash.com/photo-1485846234645-a62644f84728?w=1200&q=85">
+                <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4" type="video/mp4">
+            </video>
         </div>
         <div class="hero1-year">2026</div>
-        <div class="hero1-badge">
-            <div class="badge-num">48</div>
-            <div class="badge-label">Awards Won</div>
-        </div>
     </div>
 
 </section>
@@ -853,10 +842,10 @@
     <div class="mission-inner">
         <div class="mission-label reveal">Our Mission</div>
         <p class="mission-text reveal">
-            "To illuminate the <em>human condition</em> through moving images — stories so honest they feel like memory, so bold they become legend."
+            "To illuminate your ideas through excellent production and editing till the world is filled with your illumination."
         </p>
         <div class="mission-attribution reveal">
-            Théodore Lumière, Founder &amp; Creative Director
+            David Inioluwa, Founder &amp; Creative Director
         </div>
     </div>
 </div>
@@ -882,14 +871,14 @@
 
     <div class="origin-right reveal-right">
         <p class="origin-p">
-            In 2011, <strong>Théodore Lumière</strong> and <strong>Amara Osei</strong> converted a disused printing factory in Surulere, Lagos into a working film studio. They had no investors, no distribution deals, and no industry connections. What they had was an archive of 4,000 films watched between them, an intimate understanding of African storytelling, and a refusal to make anything mediocre.
+            In 2011, <strong>David Inioluwa</strong> converted a disused printing factory in Surulere, Lagos into a working film studio. He had no investors, no distribution deals, and no industry connections. What he had was an archive of 4,000 films watched, an intimate understanding of African storytelling, and a refusal to make anything mediocre.
         </p>
         <div class="origin-pullquote">
             <p>"The industry told us our stories weren't 'commercially viable.' We built a studio to prove that art and commerce aren't enemies — they're the same thing when the work is extraordinary."</p>
-            <cite>— Théodore Lumière</cite>
+            <cite>— David Inioluwa</cite>
         </div>
         <p class="origin-p">
-            Their debut short, <strong>Ekó at Dusk</strong>, screened at three international festivals in its first year. Shot on a borrowed 16mm Bolex with a crew of seven, it announced a new cinematic voice — one rooted in Lagos but speaking to the world. Within two years, Lumière Motion Pictures had its first feature commission from a UK broadcaster.
+            His debut short, <strong>Ekó at Dusk</strong>, screened at three international festivals in its first year. Shot on a borrowed 16mm Bolex with a crew of seven, it announced a new cinematic voice — one rooted in Lagos but speaking to the world. Within two years, Ninety6ixFilmCo Motion Pictures had its first feature commission from a UK broadcaster.
         </p>
         <p class="origin-p">
             The studio grew not by chasing trends, but by obsessively protecting its creative vision. Every hire was made for passion first. Every project was chosen because it needed to exist — not because it was safe. Today, that same philosophy governs a studio with offices on three continents and a catalogue spanning 127 productions.
@@ -915,7 +904,7 @@
             <div class="t-dot"></div>
             <div class="t-content">
                 <div class="t-event">Founded in Lagos, Nigeria</div>
-                <div class="t-desc">Théodore Lumière and Amara Osei establish the studio in a converted factory in Surulere. First production: the short film <em>Ekó at Dusk</em>, shot on 16mm Bolex.</div>
+                <div class="t-desc">David Inioluwa establishes the studio in a converted factory in Surulere. First production: the short film <em>Ekó at Dusk</em>, shot on 16mm Bolex.</div>
                 <span class="t-tag">Origin</span>
             </div>
         </div>
@@ -933,7 +922,7 @@
             <div class="t-dot"></div>
             <div class="t-content">
                 <div class="t-event">The Forgotten Quarter — Theatrical Release</div>
-                <div class="t-desc">Lumière's debut feature film opens in 14 countries. Critics call it "the most vital urban African cinema since City of God." The film wins 7 international awards.</div>
+                <div class="t-desc">Ninety6ixFilmCo's debut feature film opens in 14 countries. Critics call it "the most vital urban African cinema since City of God." The film wins 7 international awards.</div>
                 <span class="t-tag gold">Landmark</span>
             </div>
         </div>
@@ -1007,30 +996,15 @@
     <div class="h2-frame-bottom"></div>
 
     <div class="hero2-content" id="h2content">
-        <div class="hero2-kicker">Our Manifesto</div>
+        <div class="hero2-kicker">Ready to change the world?</div>
         <h2 class="hero2-manifesto" id="h2manifesto">
-            <span class="word"><span>Light</span></span>
-            <span class="word accent"><span>defines</span></span>
-            <span class="word"><span>what</span></span>
-            <span class="word"><span>shadow</span></span>
-            <span class="word accent"><span>conceals.</span></span>
-            <br>
-            <span class="word"><span>We</span></span>
-            <span class="word"><span>control</span></span>
-            <span class="word accent"><span>both.</span></span>
+            <span class="word"><span>Light.</span></span>
+            <span class="word accent"><span>Camera.</span></span>
+            <span class="word"><span>Action.</span></span>
         </h2>
-        <p class="hero2-sub">
-            Cinema is not a medium. It is a language spoken between two humans — one behind the camera, one in the dark. We choose every word of that conversation with the precision of a poet and the recklessness of someone who has nothing to lose.
-        </p>
         <div class="hero2-cta">
-            <button class="h2-btn-primary" onclick="location.href='lumiere-booking.html'">Start Your Project</button>
-            <button class="h2-btn-secondary" onclick="location.href='lumiere.html'">Explore Our Work</button>
+            <button class="h2-btn-primary" onclick="location.href='booking.html'">Book Session</button>
         </div>
-    </div>
-
-    <div class="hero2-counter">
-        <div class="h2c-num" id="h2counter">127</div>
-        <div class="h2c-label">Productions</div>
     </div>
 
     <div class="hero2-progress">
@@ -1046,28 +1020,25 @@
     <div class="philosophy-header">
         <div class="reveal-left">
             <div class="phil-label">How We Think</div>
-            <h2 class="phil-heading">The Three Laws<br>of <em>Lumière</em></h2>
-        </div>
-        <div class="reveal-right">
-            <p class="phil-intro">We don't have a mission statement on the wall. We have three laws that govern every decision, from the first draft to the final grade — and they've never been broken.</p>
+            <h2 class="phil-heading">The Three Laws</h2>
         </div>
     </div>
 
     <div class="pillars-grid">
         <div class="pillar reveal">
             <span class="pillar-number">I</span>
-            <div class="pillar-name">Truth Before Beauty</div>
-            <p class="pillar-text">A beautiful lie is still a lie. We chase authentic emotion above everything else. If the scene isn't true, we reshoot it. If the story isn't honest, we rewrite it. Cinematic beauty without emotional truth is decoration — and we've never been in the decorating business.</p>
+            <div class="pillar-name">Storytelling</div>
+            <p class="pillar-text">We believe every project tells a story worth hearing. From concept to final cut, we craft narratives that resonate, inspire, and leave a lasting impact on your audience.</p>
         </div>
         <div class="pillar reveal" style="transition-delay:0.12s">
             <span class="pillar-number">II</span>
-            <div class="pillar-name">Craft Is Non-Negotiable</div>
-            <p class="pillar-text">Every frame is a painting. Every cut is a decision. We obsess over the things the audience never consciously notices — the colour temperature of a shadow, the rhythm of a silence, the exact amount of grain that makes a memory feel real. This obsession is not perfectionism. It is respect for the audience.</p>
+            <div class="pillar-name">Excellence</div>
+            <p class="pillar-text">Excellence is not negotiable. Every frame, every cut, every detail is obsessively crafted. We deliver nothing less than the highest quality production standards.</p>
         </div>
         <div class="pillar reveal" style="transition-delay:0.24s">
             <span class="pillar-number">III</span>
-            <div class="pillar-name">Story Over Everything</div>
-            <p class="pillar-text">Technology changes. Trends vanish. Budgets expand and collapse. The only constant is narrative. We build stories so structurally sound, so emotionally loaded, that they would work as radio plays, as novels, as campfire tales. The camera comes after. Always.</p>
+            <div class="pillar-name">Client Support</div>
+            <p class="pillar-text">Your vision is our priority. We work closely with you every step of the way, ensuring your ideas come to life exactly as you imagined — and beyond.</p>
         </div>
     </div>
 </section>
@@ -1085,11 +1056,11 @@
     <div class="team-grid">
         <div class="team-card reveal">
             <div class="team-card-img">
-                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=80" alt="Théodore Lumière">
+                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=80" alt="David Inioluwa">
             </div>
             <div class="team-card-info">
                 <div class="team-card-role">Founder · Creative Director</div>
-                <div class="team-card-name">Théodore Lumière</div>
+                <div class="team-card-name">David Inioluwa</div>
                 <div class="team-card-bio">Lagos-born director and visual architect. Trained at FAMU Prague. Has directed 22 features across 4 continents. The soul of the studio.</div>
                 <div class="team-socials">
                     <div class="tsocial">in</div>
@@ -1101,27 +1072,12 @@
 
         <div class="team-card reveal" style="transition-delay:0.1s">
             <div class="team-card-img">
-                <img src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=600&q=80" alt="Amara Osei">
-            </div>
-            <div class="team-card-info">
-                <div class="team-card-role">Co-Founder · Head of Production</div>
-                <div class="team-card-name">Amara Osei</div>
-                <div class="team-card-bio">The operational mind behind Lumière's global expansion. Former BBC documentary producer turned studio architect. Built the infrastructure that turned a dream into a business.</div>
-                <div class="team-socials">
-                    <div class="tsocial">in</div>
-                    <div class="tsocial">ig</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="team-card reveal" style="transition-delay:0.2s">
-            <div class="team-card-img">
                 <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=600&q=80" alt="Rafael Montoya">
             </div>
             <div class="team-card-info">
                 <div class="team-card-role">Director of Photography</div>
                 <div class="team-card-name">Rafael Montoya</div>
-                <div class="team-card-bio">ASC-affiliated cinematographer. Shot every Lumière feature from 2016 onwards. Known for working exclusively with practical light sources and his signature use of golden-hour interiors.</div>
+                <div class="team-card-bio">ASC-affiliated cinematographer. Shot every Ninety6ixFilmCo feature from 2016 onwards. Known for working exclusively with practical light sources and his signature use of golden-hour interiors.</div>
                 <div class="team-socials">
                     <div class="tsocial">in</div>
                     <div class="tsocial">ig</div>
@@ -1137,7 +1093,7 @@
             <div class="team-card-info">
                 <div class="team-card-role">Head of Post-Production</div>
                 <div class="team-card-name">Yuki Tanaka</div>
-                <div class="team-card-bio">The alchemist of the editing suite. Former Thelma Schoonmaker mentee. Responsible for the rhythmic language that defines every Lumière cut. A BAFTA nominee at 29.</div>
+                <div class="team-card-bio">The alchemist of the editing suite. Former Thelma Schoonmaker mentee. Responsible for the rhythmic language that defines every Ninety6ixFilmCo cut. A BAFTA nominee at 29.</div>
                 <div class="team-socials">
                     <div class="tsocial">in</div>
                     <div class="tsocial">ig</div>
@@ -1266,7 +1222,7 @@
 
 <!-- Footer -->
 <footer>
-    <div>© 2026 LUMIÈRE MOTION PICTURES. ALL RIGHTS RESERVED.</div>
+    <div>© 2026 Ninety6ixFilmCo MOTION PICTURES. ALL RIGHTS RESERVED.</div>
     <div class="footer-links">
         <span class="footer-link">Instagram</span>
         <span class="footer-link">Vimeo</span>
