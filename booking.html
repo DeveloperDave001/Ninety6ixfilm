@@ -20,6 +20,7 @@
             --card-bg: #0a0f1a;
             --border: rgba(59,130,246,0.15);
             --input-bg: rgba(255,255,255,0.03);
+            --red: #EF4444;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -56,7 +57,7 @@
             display: flex; align-items: center; justify-content: center;
             transition: opacity 0.8s ease, visibility 0.8s ease;
         }
-        .preloader.hidden { opacity: 0; visibility: hidden; }
+        .preloader.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
         .preloader-content { text-align: center; }
         .preloader-logo { width: 340px; height: auto; animation: pulse 2s ease-in-out infinite; }
         @keyframes pulse { 0%, 100% { opacity: 0.3; transform: scale(0.95); } 50% { opacity: 1; transform: scale(1); } }
@@ -339,8 +340,12 @@
         }
         .btn-next:hover { background: var(--blue); color: transparent; }
         .btn-next:hover::before { bottom: calc(50% - 35px); }
-        .btn-next.submit { background: white; border-color: var(--red); color: var(--red); }
-        .btn-next.submit::before { background: var(--red); }
+        .btn-next.submit { 
+            background: white; 
+            border-color: var(--blue); 
+            color: var(--blue);
+        }
+        .btn-next.submit:hover { background: var(--blue); color: transparent; }
 
         /* ─── SIDEBAR SUMMARY ─── */
         .sidebar { position: sticky; top: 7rem; }
@@ -881,7 +886,7 @@
                 <div class="panel-section">
                     <div class="check-item" id="agreeCheck" data-service="agree" style="margin-bottom:0.5rem">
                         <div class="check-box"><svg fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></div>
-                        <span class="check-text">I confirm the information above is accurate and I agree to be contacted by the Lumière team within 48 hours.</span>
+                        <span class="check-text">I confirm the information above is accurate and I agree to be contacted by the Ninety6ixfilmco. team within 48 hours.</span>
                     </div>
                 </div>
 
@@ -911,7 +916,7 @@
             </div>
 
             <div class="trust-card reveal">
-                <div class="trust-title">Why Lumière?</div>
+                <div class="trust-title">Why Ninety6ixfilmco.?</div>
                 <div class="trust-item">
                     <div class="trust-icon">✦</div>
                     <div class="trust-text"><strong>Response in 48 hours</strong>A senior producer reviews every brief personally.</div>
@@ -962,26 +967,30 @@
         if (preselectedService) {
             state.services = [preselectedService];
             setTimeout(() => {
+                // Select the preselected service
+                document.querySelectorAll('#panel2 .type-card').forEach(card => {
+                    if (card.dataset.service === preselectedService) {
+                        card.classList.add('selected');
+                    }
+                });
+                
+                // Set currentStep to 2
+                currentStep = 2;
+                
+                // Scroll to form area
+                const formArea = document.getElementById('bookingLayout');
+                if (formArea) {
+                    formArea.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+                
                 // Go to step 2 (panel2)
                 document.getElementById('panel1').classList.remove('active');
                 document.getElementById('panel2').classList.add('active');
                 document.querySelectorAll('.step').forEach((s, i) => {
                     s.classList.toggle('active', i === 1);
                 });
-                
-                // Scroll to services section
-                const servicesSection = document.querySelector('[data-service="Video Production"]');
-                if (servicesSection) {
-                    servicesSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                }
-                
-                // Select the preselected service
-                document.querySelectorAll('.type-card').forEach(card => {
-                    if (card.dataset.service === preselectedService) {
-                        card.classList.add('selected');
-                    }
-                });
-            }, 1500);
+                document.getElementById('line1').classList.add('done');
+            }, 1600);
         }
 
         // ─── LOADER ──────────────────────────────────────────────
@@ -1010,9 +1019,10 @@
         // ─── TYPE CARDS ──────────────────────────────────────────
         document.querySelectorAll('.type-card').forEach(card => {
             card.addEventListener('click', () => {
+                console.log('Type card clicked:', card.dataset.type);
                 document.querySelectorAll('.type-card').forEach(c => c.classList.remove('selected'));
                 card.classList.add('selected');
-                state.type = card.dataset.type;
+                state.type = card.dataset.type || card.dataset.service;
                 updateSidebar();
             });
         });
@@ -1121,7 +1131,9 @@
         }
         
         function nextStep() {
+            console.log('nextStep called, currentStep:', currentStep);
             if (!validateStep(currentStep)) {
+                console.log('Validation failed');
                 return;
             }
             if (currentStep < totalSteps) {
