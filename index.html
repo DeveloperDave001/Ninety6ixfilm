@@ -194,12 +194,21 @@
         .hero-actions { display: flex; gap: 1rem; margin-top: 2.5rem; align-items: center; }
         .btn-play {
             display: flex; align-items: center; gap: 0.75rem;
-            padding: 1rem 2.5rem; background: var(--blue);
+            padding: 1rem 2.5rem; background: white;
             font-family: 'Cabinet Grotesk', sans-serif; font-size: 1.1rem; letter-spacing: 0.15em;
-            border: none; color: white; cursor: pointer; transition: all 0.3s;
+            border: 2px solid var(--blue); color: var(--blue); cursor: pointer; transition: all 0.3s;
             clip-path: polygon(10px 0%, 100% 0%, calc(100% - 10px) 100%, 0% 100%);
+            position: relative; overflow: hidden;
         }
-        .btn-play:hover { background: #2563EB; transform: translateX(3px); }
+        .btn-play::before {
+            content: '';
+            position: absolute;
+            right: calc(100% + 10px);
+            width: 50px; height: 50px;
+            background: url('img/icon.png') center/contain no-repeat;
+            transition: right 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .btn-play:hover::before { right: calc(100% - 60px); }
         .btn-play svg { width: 14px; height: 14px; }
         .btn-list {
             display: flex; align-items: center; gap: 0.75rem;
