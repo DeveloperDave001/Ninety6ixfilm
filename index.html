@@ -288,7 +288,7 @@
         }
         .marquee-track {
             display: flex; gap: 1.2rem; width: max-content;
-            animation: marquee 25s linear infinite;
+            animation: marquee 60s linear infinite;
         }
         .marquee-track:hover { animation-play-state: paused; }
         @keyframes marquee {
@@ -305,7 +305,7 @@
         .featured-card:hover { transform: translateY(-6px); }
         .featured-card img {
             width: 100%; height: 100%; object-fit: cover;
-            filter: brightness(0.65) contrast(1.1);
+            filter: brightness(1) contrast(1.1);
             transition: filter 0.5s, transform 0.6s;
         }
         .featured-card:hover img { filter: brightness(0.85) contrast(1.1) saturate(1.1); transform: scale(1.05); }
@@ -665,8 +665,8 @@
             <h1 class="hero-title font-outfit">SIMPLIFYING<br>VIDEO<br>PRODUCTION</h1>
 
             <div class="hero-actions">
-                <button class="btn-play">Book Session</button>
-                <button class="btn-list">Know More</button>
+                <button class="btn-play" onclick="location.href='booking.html'">Book Session</button>
+                <button class="btn-list" onclick="location.href='about.html'">Know More</button>
             </div>
         </div>
 
@@ -687,183 +687,93 @@ OUR TOP CLIENTS
         <div class="marquee-container">
             <div class="marquee-track">
                 <div class="featured-card">
-                    <img src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=800&q=80" alt="">
+                    <img src="img/client1.jpg" alt="">
                     <div class="featured-num">1</div>
                     <div class="featured-card-overlay">
-                        <div class="featured-cat">Feature Film</div>
-                        <div class="featured-name">Shadows of Tomorrow</div>
-                        <div class="featured-sub">2h 18m · Sci-Fi Drama</div>
+                        <div class="featured-cat">Podcast</div>
+                        <div class="featured-name">The Olushola</div>
+                        <div class="featured-sub">The Echo Podcast</div>
                     </div>
                 </div>
                 <div class="featured-card">
-                    <img src="https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?w=800&q=80" alt="">
+                    <img src="img/client2.jpg" alt="">
                     <div class="featured-num">2</div>
                     <div class="featured-card-overlay">
-                        <div class="featured-cat">Music Video</div>
-                        <div class="featured-name">Neon Dreams</div>
-                        <div class="featured-sub">Visual symphony · The Midnight Collective</div>
+                        <div class="featured-cat">Cement Production</div>
+                        <div class="featured-name">Lafarge</div>
+                        <div class="featured-sub">Cement Production Company</div>
                     </div>
                 </div>
                 <div class="featured-card">
-                    <img src="https://images.unsplash.com/photo-1478720568477-152d9b164e26?w=800&q=80" alt="">
+                    <img src="img/client3.jpg" alt="">
                     <div class="featured-num">3</div>
                     <div class="featured-card-overlay">
-                        <div class="featured-cat">Documentary</div>
-                        <div class="featured-name">The Last Reel</div>
-                        <div class="featured-sub">1h 44m · Preserving analog cinema</div>
+                        <div class="featured-cat">E-Commerce</div>
+                        <div class="featured-name">Catlog</div>
+                        <div class="featured-sub">Online Shop Creation Platform</div>
                     </div>
                 </div>
                 <div class="featured-card">
-                    <img src="https://images.unsplash.com/photo-1598899134739-24c46f58b8c0?w=800&q=80" alt="">
+                    <img src="img/Client4.jpg" alt="">
                     <div class="featured-num">4</div>
                     <div class="featured-card-overlay">
-                        <div class="featured-cat">Commercial</div>
-                        <div class="featured-name">Eternal Light</div>
-                        <div class="featured-sub">Shot on 35mm · Luxury Campaign</div>
+                        <div class="featured-cat">Fintech</div>
+                        <div class="featured-name">OneDosh</div>
+                        <div class="featured-sub">Payment Platform</div>
                     </div>
                 </div>
                 <div class="featured-card">
-                    <img src="https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=800&q=80" alt="">
+                    <img src="img/Client5.jpg" alt="">
                     <div class="featured-num">5</div>
                     <div class="featured-card-overlay">
-                        <div class="featured-cat">Short Film</div>
-                        <div class="featured-name">Frames of Mind</div>
-                        <div class="featured-sub">38m · Award-winning psychological thriller</div>
+                        <div class="featured-cat">Investment</div>
+                        <div class="featured-name">Afrinvest</div>
+                        <div class="featured-sub">Investment Platform</div>
                     </div>
                 </div>
                 <div class="featured-card">
-                    <img src="https://images.unsplash.com/photo-1518676590629-3dcbd9c5a5c9?w=800&q=80" alt="">
-                    <div class="featured-num">6</div>
-                    <div class="featured-card-overlay">
-                        <div class="featured-cat">Web Series</div>
-                        <div class="featured-name">Behind The Lens</div>
-                        <div class="featured-sub">8 Episodes · Drama Series</div>
-                    </div>
-                </div>
-                <div class="featured-card">
-                    <img src="https://images.unsplash.com/photo-1485846234645-a62644f84728?w=800&q=80" alt="">
-                    <div class="featured-num">7</div>
-                    <div class="featured-card-overlay">
-                        <div class="featured-cat">Short Film</div>
-                        <div class="featured-name">Aperture</div>
-                        <div class="featured-sub">22m · Cinematic Short</div>
-                    </div>
-                </div>
-                <div class="featured-card">
-                    <img src="https://images.unsplash.com/photo-1524712245354-2c4e5e7121c0?w=800&q=80" alt="">
-                    <div class="featured-num">8</div>
-                    <div class="featured-card-overlay">
-                        <div class="featured-cat">Music Video</div>
-                        <div class="featured-name">Electric Soul</div>
-                        <div class="featured-sub">4K · Artist Promo</div>
-                    </div>
-                </div>
-                <div class="featured-card">
-                    <img src="https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?w=800&q=80" alt="">
-                    <div class="featured-num">9</div>
-                    <div class="featured-card-overlay">
-                        <div class="featured-cat">Documentary</div>
-                        <div class="featured-name">Infinite Horizon</div>
-                        <div class="featured-sub">1h 32m · Travel Documentary</div>
-                    </div>
-                </div>
-                <div class="featured-card">
-                    <img src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=800&q=80" alt="">
-                    <div class="featured-num">10</div>
-                    <div class="featured-card-overlay">
-                        <div class="featured-cat">Commercial</div>
-                        <div class="featured-name">Vision Collective</div>
-                        <div class="featured-sub">Brand Campaign · 4K</div>
-                    </div>
-                </div>
-                <div class="featured-card">
-                    <img src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=800&q=80" alt="">
+                    <img src="img/client1.jpg" alt="">
                     <div class="featured-num">1</div>
                     <div class="featured-card-overlay">
-                        <div class="featured-cat">Feature Film</div>
-                        <div class="featured-name">Shadows of Tomorrow</div>
-                        <div class="featured-sub">2h 18m · Sci-Fi Drama</div>
+                        <div class="featured-cat">Podcast</div>
+                        <div class="featured-name">The Olushola</div>
+                        <div class="featured-sub">The Echo Podcast</div>
                     </div>
                 </div>
                 <div class="featured-card">
-                    <img src="https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?w=800&q=80" alt="">
+                    <img src="img/client2.jpg" alt="">
                     <div class="featured-num">2</div>
                     <div class="featured-card-overlay">
-                        <div class="featured-cat">Music Video</div>
-                        <div class="featured-name">Neon Dreams</div>
-                        <div class="featured-sub">Visual symphony · The Midnight Collective</div>
+                        <div class="featured-cat">Cement Production</div>
+                        <div class="featured-name">Lafarge</div>
+                        <div class="featured-sub">Cement Production Company</div>
                     </div>
                 </div>
                 <div class="featured-card">
-                    <img src="https://images.unsplash.com/photo-1478720568477-152d9b164e26?w=800&q=80" alt="">
+                    <img src="img/client3.jpg" alt="">
                     <div class="featured-num">3</div>
                     <div class="featured-card-overlay">
-                        <div class="featured-cat">Documentary</div>
-                        <div class="featured-name">The Last Reel</div>
-                        <div class="featured-sub">1h 44m · Preserving analog cinema</div>
+                        <div class="featured-cat">E-Commerce</div>
+                        <div class="featured-name">Catlog</div>
+                        <div class="featured-sub">Online Shop Creation Platform</div>
                     </div>
                 </div>
                 <div class="featured-card">
-                    <img src="https://images.unsplash.com/photo-1598899134739-24c46f58b8c0?w=800&q=80" alt="">
+                    <img src="img/Client4.jpg" alt="">
                     <div class="featured-num">4</div>
                     <div class="featured-card-overlay">
-                        <div class="featured-cat">Commercial</div>
-                        <div class="featured-name">Eternal Light</div>
-                        <div class="featured-sub">Shot on 35mm · Luxury Campaign</div>
+                        <div class="featured-cat">Fintech</div>
+                        <div class="featured-name">OneDosh</div>
+                        <div class="featured-sub">Payment Platform</div>
                     </div>
                 </div>
                 <div class="featured-card">
-                    <img src="https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=800&q=80" alt="">
+                    <img src="img/Client5.jpg" alt="">
                     <div class="featured-num">5</div>
                     <div class="featured-card-overlay">
-                        <div class="featured-cat">Short Film</div>
-                        <div class="featured-name">Frames of Mind</div>
-                        <div class="featured-sub">38m · Award-winning psychological thriller</div>
-                    </div>
-                </div>
-                <div class="featured-card">
-                    <img src="https://images.unsplash.com/photo-1518676590629-3dcbd9c5a5c9?w=800&q=80" alt="">
-                    <div class="featured-num">6</div>
-                    <div class="featured-card-overlay">
-                        <div class="featured-cat">Web Series</div>
-                        <div class="featured-name">Behind The Lens</div>
-                        <div class="featured-sub">8 Episodes · Drama Series</div>
-                    </div>
-                </div>
-                <div class="featured-card">
-                    <img src="https://images.unsplash.com/photo-1485846234645-a62644f84728?w=800&q=80" alt="">
-                    <div class="featured-num">7</div>
-                    <div class="featured-card-overlay">
-                        <div class="featured-cat">Short Film</div>
-                        <div class="featured-name">Aperture</div>
-                        <div class="featured-sub">22m · Cinematic Short</div>
-                    </div>
-                </div>
-                <div class="featured-card">
-                    <img src="https://images.unsplash.com/photo-1524712245354-2c4e5e7121c0?w=800&q=80" alt="">
-                    <div class="featured-num">8</div>
-                    <div class="featured-card-overlay">
-                        <div class="featured-cat">Music Video</div>
-                        <div class="featured-name">Electric Soul</div>
-                        <div class="featured-sub">4K · Artist Promo</div>
-                    </div>
-                </div>
-                <div class="featured-card">
-                    <img src="https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?w=800&q=80" alt="">
-                    <div class="featured-num">9</div>
-                    <div class="featured-card-overlay">
-                        <div class="featured-cat">Documentary</div>
-                        <div class="featured-name">Infinite Horizon</div>
-                        <div class="featured-sub">1h 32m · Travel Documentary</div>
-                    </div>
-                </div>
-                <div class="featured-card">
-                    <img src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=800&q=80" alt="">
-                    <div class="featured-num">10</div>
-                    <div class="featured-card-overlay">
-                        <div class="featured-cat">Commercial</div>
-                        <div class="featured-name">Vision Collective</div>
-                        <div class="featured-sub">Brand Campaign · 4K</div>
+                        <div class="featured-cat">Investment</div>
+                        <div class="featured-name">Afrinvest</div>
+                        <div class="featured-sub">Investment Platform</div>
                     </div>
                 </div>
             </div>
@@ -912,10 +822,10 @@ OUR TOP CLIENTS
                     <div class="podcast-name font-outfit">Lafarge</div>
                     <div class="podcast-desc">A short film centered on unity in diversity — two colleagues from different cultural backgrounds navigating tension, understanding, and eventually alignment.</div>
                 </div>
-                <div class="podcast-item" data-img="https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=800&q=80" data-cat="Short Film" data-title="Frames of Mind" data-sub="38m · Award-winning Thriller">
+                <div class="podcast-item" data-img="img/Project5.jpg" data-cat="Commercial" data-title="Catlog" data-sub="Online Shop Creation Platform">
                     <div class="podcast-ep">PROJECT 05</div>
-                    <div class="podcast-name font-outfit">Frames of Mind</div>
-                    <div class="podcast-desc">Award-winning psychological thriller exploring perception.</div>
+                    <div class="podcast-name font-outfit">Catlog</div>
+                    <div class="podcast-desc">An online shop creation platform helping sellers and business people navigate their way online and make more sales.</div>
                 </div>
             </div>
         </div>
@@ -1010,7 +920,7 @@ OUR TOP CLIENTS
             <h2 class="contact-title font-outfit">START YOUR<br>PROJECT</h2>
             <p class="contact-sub">Every great film begins with a conversation</p>
             <p class="contact-body">From concept to final cut, we partner with visionary storytellers to create content that resonates across screens and cultures. Whether you're planning an epic feature or an intimate documentary.</p>
-            <button class="contact-btn" id="contactBtn">Book Session</button>
+            <button class="contact-btn" id="contactBtn" onclick="location.href='booking.html'">Book Session</button>
         </div>
     </section>
 
@@ -1126,8 +1036,8 @@ OUR TOP CLIENTS
         // Contact btn
         const cBtn = document.getElementById('contactBtn');
         cBtn.addEventListener('click', function() {
-            this.textContent = 'PROJECT INITIATED ✓';
-            setTimeout(() => { this.textContent = 'Initiate Project'; }, 3000);
+            this.textContent = 'BOOKING CONFIRMED ✓';
+            setTimeout(() => { this.textContent = 'Book Now'; }, 3000);
         });
 
         // Smooth scroll nav
