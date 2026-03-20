@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NINETYSIXFILMCO | Cinematic Excellence</title>
+    <title>Ninety6ixfilmco. | Cinematic Excellence</title>
+    <link rel="icon" href="img/fav.png" type="image/png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Cabinet+Grotesk:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -84,8 +85,9 @@
             border: 1px solid rgba(59,130,246,0.1);
             margin-top: 1rem;
         }
-        .nav-logo { font-family: 'Outfit', sans-serif; font-size: 1.2rem; letter-spacing: 0.2em; font-weight: 800; }
+        .nav-logo { font-family: 'Outfit', sans-serif; font-size: 1.1rem; letter-spacing: 0.05em; font-weight: 700; display: flex; align-items: center; gap: 0.6rem; }
         .nav-logo span { color: var(--blue); }
+        .nav-logo img { width: 40px; height: 40px; object-fit: contain; }
         .nav-links { display: flex; gap: 1.5rem; align-items: center; }
         .nav-link {
             font-size: 0.78rem; letter-spacing: 0.15em; text-transform: uppercase;
@@ -146,11 +148,31 @@
         }
         .hero-content {
             position: relative; z-index: 10; padding: 0 4rem; max-width: 700px;
+            margin-top: -2rem;
             opacity: 0; transform: translateY(40px);
             animation: slideUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
             animation-delay: 1.8s;
         }
         @keyframes slideUp { to { opacity: 1; transform: translateY(0); } }
+        .hero-logo-overlay {
+            position: absolute; right: -10px; top: 50%; transform: translateY(-50%);
+            z-index: 5; opacity: 1; mix-blend-mode: normal; pointer-events: none;
+        }
+        .hero-logo-overlay video {
+            position: absolute; top: 50%; right: -10px; transform: translateY(-50%);
+            width: 850px; height: auto; object-fit: contain;
+            -webkit-mask-image: url('img/icon.png');
+            -webkit-mask-size: contain;
+            -webkit-mask-repeat: no-repeat;
+            -webkit-mask-position: center;
+            mask-image: url('img/icon.png');
+            mask-size: contain;
+            mask-repeat: no-repeat;
+            mask-position: center;
+        }
+        .hero-logo-overlay img {
+            position: relative; width: 850px; height: auto; object-fit: contain;
+        }
         .hero-studio {
             font-size: 0.75rem; letter-spacing: 0.4em; color: var(--blue);
             text-transform: uppercase; margin-bottom: 0.75rem;
@@ -437,7 +459,7 @@
             background: linear-gradient(180deg, #080808 0%, #0e0e0e 100%);
         }
         .stats-section::before {
-            content: 'NINETYSIXFILMCO'; position: absolute;
+            content: 'Ninety6ixfilmco.'; position: absolute;
             font-family: 'Cabinet Grotesk', sans-serif; font-size: 22vw; font-weight: 400;
             color: transparent; -webkit-text-stroke: 1px rgba(255,255,255,0.03);
             top: 50%; left: 50%; transform: translate(-50%, -50%);
@@ -570,7 +592,7 @@
     <!-- Navigation -->
     <nav class="nav" id="navbar">
         <div class="nav-inner">
-            <div class="nav-logo font-outfit">NINETYSIXFILMCO<span>.</span></div>
+            <div class="nav-logo font-outfit"><img src="img/fav.png" alt="Logo">Ninety6ixfilmco.</div>
             <div class="nav-links">
                 <a href="index.html" class="nav-link">Home</a>
                 <a href="about.html" class="nav-link">About Us</a>
@@ -593,7 +615,7 @@
                 preload="auto"
                 poster="https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=1920&q=80"
             >
-                <source src="https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4" type="video/mp4">
+                <source src="videos/Ninety6ix1.mp4" type="video/mp4">
             </video>
         </div>
         <div class="hero-gradient"></div>
@@ -607,6 +629,10 @@
                 <button class="btn-play">Book Session</button>
                 <button class="btn-list">Know More</button>
             </div>
+        </div>
+
+        <div class="hero-logo-overlay">
+            <video src="videos/Ninety6ix1.mp4" autoplay muted loop></video>
         </div>
     </section>
 
@@ -886,42 +912,42 @@ OUR TOP CLIENTS
                 </div>
             </div>
             <div class="services-grid">
-                <div class="service-card reveal">
+                <div class="service-card reveal" onclick="location.href='booking.html?service=Video Production'">
                     <div class="service-icon">
                         <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
                     </div>
                     <div class="service-name">Video Production</div>
                     <div class="service-desc">From concept to final cut, we craft compelling visual stories that captivate and inspire your audience.</div>
                 </div>
-                <div class="service-card reveal" style="transition-delay:0.1s">
+                <div class="service-card reveal" style="transition-delay:0.1s" onclick="location.href='booking.html?service=Commercials'">
                     <div class="service-icon">
                         <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
                     </div>
                     <div class="service-name">Commercials</div>
                     <div class="service-desc">High-impact commercial content that elevates your brand and drives meaningful engagement.</div>
                 </div>
-                <div class="service-card reveal" style="transition-delay:0.2s">
+                <div class="service-card reveal" style="transition-delay:0.2s" onclick="location.href='booking.html?service=Music Videos'">
                     <div class="service-icon">
                         <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
                     </div>
                     <div class="service-name">Music Videos</div>
                     <div class="service-desc">Creative visual narratives that bring your music to life with stunning cinematography.</div>
                 </div>
-                <div class="service-card reveal" style="transition-delay:0.3s">
+                <div class="service-card reveal" style="transition-delay:0.3s" onclick="location.href='booking.html?service=Podcast'">
                     <div class="service-icon">
                         <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
                     </div>
                     <div class="service-name">Podcast</div>
-                    <div class="service-desc">Professional podcast production with high-quality audio and video recording services.</div>
+                    <div class="service-desc">Professional podcast production with high quality audio and video recording services.</div>
                 </div>
-                <div class="service-card reveal" style="transition-delay:0.4s">
+                <div class="service-card reveal" style="transition-delay:0.4s" onclick="location.href='booking.html?service=Post-Production'">
                     <div class="service-icon">
                         <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>
                     </div>
                     <div class="service-name">Post-Production</div>
                     <div class="service-desc">Expert editing, color grading, VFX, and sound design to polish your content to perfection.</div>
                 </div>
-                <div class="service-card reveal" style="transition-delay:0.5s">
+                <div class="service-card reveal" style="transition-delay:0.5s" onclick="location.href='booking.html?service=Drone Coverage'">
                     <div class="service-icon">
                         <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>
                     </div>
@@ -945,7 +971,7 @@ OUR TOP CLIENTS
 
     <!-- Footer -->
     <footer>
-        <div>© 2026 NINETYSIXFILMCO MOTION PICTURES. ALL RIGHTS RESERVED.</div>
+        <div>© 2026 Ninety6ixfilmco. MOTION PICTURES. ALL RIGHTS RESERVED.</div>
         <div class="footer-links">
             <span class="footer-link">Instagram</span>
             <span class="footer-link">Vimeo</span>
