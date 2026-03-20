@@ -151,11 +151,11 @@
         .hero-logo-overlay video {
             position: absolute; top: 50%; right: -10px; transform: translateY(-50%);
             width: 850px; height: auto; object-fit: contain;
-            -webkit-mask-image: url('img/icon.png');
+            -webkit-mask-image: url('img/white_icon.png');
             -webkit-mask-size: contain;
             -webkit-mask-repeat: no-repeat;
             -webkit-mask-position: center;
-            mask-image: url('img/icon.png');
+            mask-image: url('img/white_icon.png');
             mask-size: contain;
             mask-repeat: no-repeat;
             mask-position: center;
@@ -193,8 +193,8 @@
         }
         .hero-actions { display: flex; gap: 1rem; margin-top: 2.5rem; align-items: center; }
         .btn-play {
-            display: flex; align-items: center; gap: 0.75rem;
-            padding: 1rem 2.5rem; background: white;
+            display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 0.75rem;
+            padding: 1.5rem 2.5rem; background: white;
             font-family: 'Cabinet Grotesk', sans-serif; font-size: 1.1rem; letter-spacing: 0.15em;
             border: 2px solid var(--blue); color: var(--blue); cursor: pointer; transition: all 0.3s;
             clip-path: polygon(10px 0%, 100% 0%, calc(100% - 10px) 100%, 0% 100%);
@@ -203,21 +203,34 @@
         .btn-play::before {
             content: '';
             position: absolute;
-            right: calc(100% + 10px);
-            width: 50px; height: 50px;
-            background: url('img/icon.png') center/contain no-repeat;
-            transition: right 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            bottom: -80px;
+            width: 70px; height: 70px;
+            background: url('img/white_icon.png') center/contain no-repeat;
+            opacity: 1;
+            transition: bottom 0.35s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        .btn-play:hover::before { right: calc(100% - 60px); }
+        .btn-play:hover { background: var(--blue); color: transparent; }
+        .btn-play:hover::before { bottom: calc(50% - 35px); }
         .btn-play svg { width: 14px; height: 14px; }
         .btn-list {
-            display: flex; align-items: center; gap: 0.75rem;
-            padding: 1rem 2.5rem; background: rgba(255,255,255,0.08);
-            border: 1px solid rgba(255,255,255,0.2);
+            display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 0.75rem;
+            padding: 1.5rem 2.5rem; background: white;
             font-family: 'Cabinet Grotesk', sans-serif; font-size: 1.1rem; letter-spacing: 0.15em;
-            color: white; cursor: pointer; transition: all 0.3s;
+            border: 2px solid var(--blue); color: var(--blue); cursor: pointer; transition: all 0.3s;
+            clip-path: polygon(10px 0%, 100% 0%, calc(100% - 10px) 100%, 0% 100%);
+            position: relative; overflow: hidden;
         }
-        .btn-list:hover { background: rgba(255,255,255,0.15); }
+        .btn-list::before {
+            content: '';
+            position: absolute;
+            bottom: -80px;
+            width: 70px; height: 70px;
+            background: url('img/white_icon.png') center/contain no-repeat;
+            opacity: 1;
+            transition: bottom 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .btn-list:hover { background: var(--blue); color: transparent; }
+        .btn-list:hover::before { bottom: calc(50% - 35px); }
 
         /* Hero thumbnail rail */
         .hero-thumbs {
@@ -441,7 +454,16 @@
             width: 0; height: 100%; background: rgba(59,130,246,0.06);
             transition: width 0.4s;
         }
+        .podcast-item::after {
+            content: ''; position: absolute; right: -100px; top: 50%;
+            transform: translateY(-50%);
+            width: 100px; height: 100px;
+            background: url('img/white_icon.png') center/contain no-repeat;
+            opacity: 1;
+            transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
         .podcast-item:hover::before { width: 100%; }
+        .podcast-item:hover::after { right: 20px; }
         .podcast-item:hover { border-left-color: var(--blue); padding-left: 2.5rem; }
         .podcast-ep {
             font-family: 'Cabinet Grotesk', sans-serif; font-size: 0.85rem;
@@ -502,8 +524,9 @@
             margin-bottom: 1rem; color: #fff;
         }
         .service-desc { font-size: 0.9rem; color: #777; line-height: 1.7; }
-        .service-card-overlay { position: absolute; right: 0; bottom: 20px; opacity: 0.05; pointer-events: none; }
+        .service-card-overlay { position: absolute; right: 0; bottom: 20px; opacity: 0.05; pointer-events: none; transition: opacity 0.3s ease, transform 0.3s ease; }
         .service-card-overlay img { width: 300px; height: auto; object-fit: contain; }
+        .service-card:hover .service-card-overlay { opacity: 0.15; transform: scale(1.1); }
 
         @media (max-width: 900px) {
             .services-grid { grid-template-columns: repeat(2, 1fr); }
@@ -533,14 +556,26 @@
         }
         .contact-body { color: #666; max-width: 500px; margin: 1.5rem auto; line-height: 1.8; font-size: 0.9rem; }
         .contact-btn {
-            display: inline-block; padding: 1rem 2.5rem; margin-top: 2.5rem;
-            border: none; font-family: 'Cabinet Grotesk', sans-serif;
+            display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 0.75rem;
+            padding: 1.5rem 2.5rem; margin: 2.5rem auto 0;
+            border: 2px solid var(--blue); font-family: 'Cabinet Grotesk', sans-serif;
             font-size: 1.1rem; letter-spacing: 0.15em; cursor: pointer;
-            background: var(--blue); color: white;
+            background: white; color: var(--blue);
             clip-path: polygon(10px 0%, 100% 0%, calc(100% - 10px) 100%, 0% 100%);
             transition: all 0.3s;
+            position: relative; overflow: hidden;
         }
-        .contact-btn:hover { background: #2563EB; transform: translateX(3px); }
+        .contact-btn::before {
+            content: '';
+            position: absolute;
+            bottom: -80px;
+            width: 70px; height: 70px;
+            background: url('img/white_icon.png') center/contain no-repeat;
+            opacity: 1;
+            transition: bottom 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .contact-btn:hover { background: var(--blue); color: transparent; }
+        .contact-btn:hover::before { bottom: calc(50% - 35px); }
 
         /* Footer */
         footer {
@@ -917,7 +952,7 @@ OUR TOP CLIENTS
             </div>
             <div class="services-grid">
                 <div class="service-card reveal" onclick="location.href='booking.html?service=Video Production'">
-                    <div class="service-card-overlay"><img src="img/icon.png" alt=""></div>
+                    <div class="service-card-overlay"><img src="img/white_icon.png" alt=""></div>
                     <div class="service-icon">
                         <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
                     </div>
@@ -925,7 +960,7 @@ OUR TOP CLIENTS
                     <div class="service-desc">From concept to final cut, we craft compelling visual stories that captivate and inspire your audience.</div>
                 </div>
                 <div class="service-card reveal" style="transition-delay:0.1s" onclick="location.href='booking.html?service=Commercials'">
-                    <div class="service-card-overlay"><img src="img/icon.png" alt=""></div>
+                    <div class="service-card-overlay"><img src="img/white_icon.png" alt=""></div>
                     <div class="service-icon">
                         <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
                     </div>
@@ -933,7 +968,7 @@ OUR TOP CLIENTS
                     <div class="service-desc">High-impact commercial content that elevates your brand and drives meaningful engagement.</div>
                 </div>
                 <div class="service-card reveal" style="transition-delay:0.2s" onclick="location.href='booking.html?service=Music Videos'">
-                    <div class="service-card-overlay"><img src="img/icon.png" alt=""></div>
+                    <div class="service-card-overlay"><img src="img/white_icon.png" alt=""></div>
                     <div class="service-icon">
                         <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
                     </div>
@@ -941,7 +976,7 @@ OUR TOP CLIENTS
                     <div class="service-desc">Creative visual narratives that bring your music to life with stunning cinematography.</div>
                 </div>
                 <div class="service-card reveal" style="transition-delay:0.3s" onclick="location.href='booking.html?service=Podcast'">
-                    <div class="service-card-overlay"><img src="img/icon.png" alt=""></div>
+                    <div class="service-card-overlay"><img src="img/white_icon.png" alt=""></div>
                     <div class="service-icon">
                         <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
                     </div>
@@ -949,7 +984,7 @@ OUR TOP CLIENTS
                     <div class="service-desc">Professional podcast production with high quality audio and video recording services.</div>
                 </div>
                 <div class="service-card reveal" style="transition-delay:0.4s" onclick="location.href='booking.html?service=Post-Production'">
-                    <div class="service-card-overlay"><img src="img/icon.png" alt=""></div>
+                    <div class="service-card-overlay"><img src="img/white_icon.png" alt=""></div>
                     <div class="service-icon">
                         <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>
                     </div>
@@ -957,7 +992,7 @@ OUR TOP CLIENTS
                     <div class="service-desc">Expert editing, color grading, VFX, and sound design to polish your content to perfection.</div>
                 </div>
                 <div class="service-card reveal" style="transition-delay:0.5s" onclick="location.href='booking.html?service=Drone Coverage'">
-                    <div class="service-card-overlay"><img src="img/icon.png" alt=""></div>
+                    <div class="service-card-overlay"><img src="img/white_icon.png" alt=""></div>
                     <div class="service-icon">
                         <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>
                     </div>

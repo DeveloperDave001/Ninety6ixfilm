@@ -51,19 +51,15 @@
         }
 
         /* ─── LOADER ─── */
-        .loader {
-            position: fixed; inset: 0; background: var(--darker); z-index: 10000;
-            display: flex; align-items: center; justify-content: center; flex-direction: column;
-            transition: opacity 0.8s, visibility 0.8s;
+        .preloader {
+            position: fixed; inset: 0; background: var(--darker); z-index: 99999;
+            display: flex; align-items: center; justify-content: center;
+            transition: opacity 0.8s ease, visibility 0.8s ease;
         }
-        .loader.hidden { opacity: 0; visibility: hidden; }
-        .loader-reel {
-            width: 64px; height: 64px; border: 2px solid #222;
-            border-top-color: var(--blue); border-right-color: var(--blue);
-            border-radius: 50%; animation: spin 0.8s linear infinite;
-        }
-        .loader-text { font-family: 'Cabinet Grotesk', sans-serif; font-size: 1rem; letter-spacing: 0.6em; margin-top: 1.5rem; color: var(--blue); }
-        @keyframes spin { to { transform: rotate(360deg); } }
+        .preloader.hidden { opacity: 0; visibility: hidden; }
+        .preloader-content { text-align: center; }
+        .preloader-logo { width: 340px; height: auto; animation: pulse 2s ease-in-out infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 0.3; transform: scale(0.95); } 50% { opacity: 1; transform: scale(1); } }
 
         /* ─── NAV ─── */
         .nav {
@@ -124,15 +120,29 @@
         }
         .page-header-btn {
             margin-top: 2.5rem;
+            display: flex;
+            justify-content: center;
         }
         .page-header-btn .btn-blue {
-            padding: 1rem 2.5rem;
-            background: var(--blue); border: none; color: white;
+            display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 0.75rem;
+            padding: 1.5rem 2.5rem;
+            background: white; border: 2px solid var(--blue); color: var(--blue);
             font-family: 'Cabinet Grotesk', sans-serif; font-size: 1rem; letter-spacing: 0.15em;
             cursor: pointer; transition: all 0.3s;
             clip-path: polygon(10px 0%, 100% 0%, calc(100% - 10px) 100%, 0% 100%);
+            position: relative; overflow: hidden;
         }
-        .page-header-btn .btn-blue:hover { background: #2563EB; }
+        .page-header-btn .btn-blue::before {
+            content: '';
+            position: absolute;
+            bottom: -80px;
+            width: 70px; height: 70px;
+            background: url('img/white_icon.png') center/contain no-repeat;
+            opacity: 1;
+            transition: bottom 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .page-header-btn .btn-blue:hover { background: var(--blue); color: transparent; }
+        .page-header-btn .btn-blue:hover::before { bottom: calc(50% - 35px); }
 
         @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } from { opacity: 0; transform: translateY(30px); } }
 
@@ -214,6 +224,9 @@
         }
         .type-card.selected .selected-check { display: flex; }
         .selected-check svg { width: 10px; height: 10px; color: var(--darker); }
+        .type-card-overlay { position: absolute; right: 0; bottom: 0; opacity: 0.05; pointer-events: none; transition: opacity 0.3s ease, transform 0.3s ease; }
+        .type-card-overlay img { width: 150px; height: auto; object-fit: contain; }
+        .type-card:hover .type-card-overlay { opacity: 0.15; transform: scale(1.1); }
 
         /* Budget slider row */
         .budget-options { display: flex; gap: 0.75rem; flex-wrap: wrap; }
@@ -292,26 +305,42 @@
         .btn-prev {
             display: flex; align-items: center; gap: 0.6rem;
             font-family: 'Cabinet Grotesk', sans-serif; font-size: 1rem; letter-spacing: 0.2em;
-            color: #666; background: none; border: none; cursor: pointer; transition: color 0.3s;
+            color: var(--blue); background: none; border: 2px solid var(--blue); padding: 1.2rem 2rem;
+            cursor: pointer; transition: all 0.3s; clip-path: polygon(10px 0%, 100% 0%, calc(100% - 10px) 100%, 0% 100%);
+            position: relative; overflow: hidden;
         }
-        .btn-prev:hover { color: #fff; }
+        .btn-prev::before {
+            content: '';
+            position: absolute;
+            bottom: -80px;
+            width: 70px; height: 70px;
+            background: url('img/white_icon.png') center/contain no-repeat;
+            opacity: 1;
+            transition: bottom 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .btn-prev:hover { background: var(--blue); color: transparent; }
+        .btn-prev:hover::before { bottom: calc(50% - 35px); }
         .btn-next {
-            display: flex; align-items: center; gap: 0.8rem;
+            display: flex; flex-direction: row; justify-content: center; align-items: center; gap: 1rem;
             font-family: 'Cabinet Grotesk', sans-serif; font-size: 1.1rem; letter-spacing: 0.2em;
-            padding: 1rem 2.5rem; background: transparent; color: var(--blue);
-            border: 1px solid var(--blue); cursor: pointer; position: relative; overflow: hidden;
+            padding: 1.5rem 4rem; background: white; color: var(--blue);
+            border: 2px solid var(--blue); cursor: pointer; position: relative; overflow: hidden;
             clip-path: polygon(10px 0%, 100% 0%, calc(100% - 10px) 100%, 0% 100%);
-            transition: color 0.4s;
+            transition: all 0.3s;
         }
         .btn-next::before {
-            content: ''; position: absolute; top: 0; left: -110%; width: 100%; height: 100%;
-            background: var(--blue); transition: left 0.4s cubic-bezier(0.16,1,0.3,1); z-index: -1;
+            content: '';
+            position: absolute;
+            bottom: -80px;
+            width: 70px; height: 70px;
+            background: url('img/white_icon.png') center/contain no-repeat;
+            opacity: 1;
+            transition: bottom 0.35s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        .btn-next:hover { color: var(--darker); }
-        .btn-next:hover::before { left: 0; }
-        .btn-next.submit { border-color: var(--red); color: var(--red); }
+        .btn-next:hover { background: var(--blue); color: transparent; }
+        .btn-next:hover::before { bottom: calc(50% - 35px); }
+        .btn-next.submit { background: white; border-color: var(--red); color: var(--red); }
         .btn-next.submit::before { background: var(--red); }
-        .btn-next.submit:hover { color: #fff; }
 
         /* ─── SIDEBAR SUMMARY ─── */
         .sidebar { position: sticky; top: 7rem; }
@@ -439,10 +468,11 @@
     <!-- Cursor -->
     <div class="spotlight" id="spotlight"></div>
 
-    <!-- Loader -->
-    <div class="loader" id="loader">
-        <div class="loader-reel"></div>
-        <div class="loader-text">PREPARING...</div>
+    <!-- Preloader -->
+    <div class="preloader" id="preloader">
+        <div class="preloader-content">
+            <img src="img/fav.png" alt="Logo" class="preloader-logo">
+        </div>
     </div>
 
     <!-- Nav -->
@@ -469,7 +499,7 @@
             <h1 class="page-title">Book Your<br><em>Session</em></h1>
             <p class="page-sub">Let's bring your vision to life. Tell us about your project.</p>
             <div class="page-header-btn">
-                <button class="btn-blue">Get Started</button>
+                <button class="btn-blue" onclick="document.getElementById('stepsBar').scrollIntoView({behavior:'smooth'})">Get Started</button>
             </div>
         </div>
     </header>
@@ -529,36 +559,42 @@
                     <div class="section-label">What are we making?</div>
                     <div class="type-grid">
                         <div class="type-card" data-type="Video Production">
+                            <div class="type-card-overlay"><img src="img/white_icon.png" alt=""></div>
                             <span class="type-icon">🎬</span>
                             <span class="type-name">Video Production</span>
                             <span class="type-sub">Full-service video production</span>
                             <div class="selected-check"><svg fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></div>
                         </div>
                         <div class="type-card" data-type="Commercials">
+                            <div class="type-card-overlay"><img src="img/white_icon.png" alt=""></div>
                             <span class="type-icon">📺</span>
                             <span class="type-name">Commercials</span>
                             <span class="type-sub">Brand & advertising content</span>
                             <div class="selected-check"><svg fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></div>
                         </div>
                         <div class="type-card" data-type="Music Videos">
+                            <div class="type-card-overlay"><img src="img/white_icon.png" alt=""></div>
                             <span class="type-icon">🎵</span>
                             <span class="type-name">Music Videos</span>
                             <span class="type-sub">Visual soundtrack creation</span>
                             <div class="selected-check"><svg fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></div>
                         </div>
                         <div class="type-card" data-type="Podcast">
+                            <div class="type-card-overlay"><img src="img/white_icon.png" alt=""></div>
                             <span class="type-icon">🎙️</span>
                             <span class="type-name">Podcast</span>
                             <span class="type-sub">Audio & video podcast production</span>
                             <div class="selected-check"><svg fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></div>
                         </div>
                         <div class="type-card" data-type="Post-Production">
+                            <div class="type-card-overlay"><img src="img/white_icon.png" alt=""></div>
                             <span class="type-icon">✂️</span>
                             <span class="type-name">Post-Production</span>
                             <span class="type-sub">Editing, color grading & VFX</span>
                             <div class="selected-check"><svg fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></div>
                         </div>
                         <div class="type-card" data-type="Drone Coverage">
+                            <div class="type-card-overlay"><img src="img/white_icon.png" alt=""></div>
                             <span class="type-icon">🚁</span>
                             <span class="type-name">Drone Coverage</span>
                             <span class="type-sub">Aerial cinematography</span>
@@ -654,36 +690,42 @@
                     <div class="section-label">Services Needed</div>
                     <div class="type-grid">
                         <div class="type-card" data-service="Video Production">
+                            <div class="type-card-overlay"><img src="img/white_icon.png" alt=""></div>
                             <span class="type-icon">🎬</span>
                             <span class="type-name">Video Production</span>
                             <span class="type-sub">Full-service video production</span>
                             <div class="selected-check"><svg fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></div>
                         </div>
                         <div class="type-card" data-service="Commercials">
+                            <div class="type-card-overlay"><img src="img/white_icon.png" alt=""></div>
                             <span class="type-icon">📺</span>
                             <span class="type-name">Commercials</span>
                             <span class="type-sub">Brand & advertising content</span>
                             <div class="selected-check"><svg fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></div>
                         </div>
                         <div class="type-card" data-service="Music Videos">
+                            <div class="type-card-overlay"><img src="img/white_icon.png" alt=""></div>
                             <span class="type-icon">🎵</span>
                             <span class="type-name">Music Videos</span>
                             <span class="type-sub">Visual soundtrack creation</span>
                             <div class="selected-check"><svg fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></div>
                         </div>
                         <div class="type-card" data-service="Podcast">
+                            <div class="type-card-overlay"><img src="img/white_icon.png" alt=""></div>
                             <span class="type-icon">🎙️</span>
                             <span class="type-name">Podcast</span>
                             <span class="type-sub">Audio & video podcast production</span>
                             <div class="selected-check"><svg fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></div>
                         </div>
                         <div class="type-card" data-service="Post-Production">
+                            <div class="type-card-overlay"><img src="img/white_icon.png" alt=""></div>
                             <span class="type-icon">✂️</span>
                             <span class="type-name">Post-Production</span>
                             <span class="type-sub">Editing, color grading & VFX</span>
                             <div class="selected-check"><svg fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></div>
                         </div>
                         <div class="type-card" data-service="Drone Coverage">
+                            <div class="type-card-overlay"><img src="img/white_icon.png" alt=""></div>
                             <span class="type-icon">🚁</span>
                             <span class="type-name">Drone Coverage</span>
                             <span class="type-sub">Aerial cinematography</span>
@@ -944,7 +986,7 @@
 
         // ─── LOADER ──────────────────────────────────────────────
         window.addEventListener('load', () => {
-            setTimeout(() => document.getElementById('loader').classList.add('hidden'), 1200);
+            setTimeout(() => document.getElementById('preloader').classList.add('hidden'), 5000);
         });
 
         // ─── SPOTLIGHT ──────────────────────────────────────────────

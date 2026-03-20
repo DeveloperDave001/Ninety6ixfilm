@@ -54,20 +54,15 @@
         }
 
         /* ══ LOADER ══ */
-        .loader {
-            position: fixed; inset: 0; background: var(--darker); z-index: 10000;
-            display: flex; align-items: center; justify-content: center; flex-direction: column;
-            transition: opacity 1s, visibility 1s;
+        .preloader {
+            position: fixed; inset: 0; background: var(--darker); z-index: 99999;
+            display: flex; align-items: center; justify-content: center;
+            transition: opacity 0.8s ease, visibility 0.8s ease;
         }
-        .loader.hidden { opacity: 0; visibility: hidden; }
-        .loader-reel {
-            width: 64px; height: 64px; border-radius: 50%;
-            border: 2px solid #1a1a1a;
-            border-top-color: var(--blue); border-right-color: var(--blue);
-            animation: spin 0.8s linear infinite;
-        }
-        .loader-text { font-family:'Bebas Neue',cursive; font-size:0.9rem; letter-spacing:0.6em; margin-top:1.5rem; color:var(--blue); }
-        @keyframes spin { to { transform: rotate(360deg); } }
+        .preloader.hidden { opacity: 0; visibility: hidden; }
+        .preloader-content { text-align: center; }
+        .preloader-logo { width: 340px; height: auto; animation: pulse 2s ease-in-out infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 0.3; transform: scale(0.95); } 50% { opacity: 1; transform: scale(1); } }
 
         /* ══ NAV ══ */
         .nav {
@@ -447,18 +442,43 @@
         }
         .hero2-video-wrap.active ~ .hero2-content .hero2-cta { opacity: 1; transform: translateY(0); }
         .h2-btn-primary {
+            display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 0.75rem;
             font-family: 'Cabinet Grotesk', sans-serif; font-size: 1.05rem; letter-spacing: 0.25em;
-            padding: 1.1rem 3rem; background: var(--blue); color: var(--darker);
-            border: none; cursor: pointer; transition: background 0.3s;
+            padding: 1.5rem 3rem; background: white; color: var(--blue);
+            border: 2px solid var(--blue); cursor: pointer; transition: all 0.3s;
             clip-path: polygon(10px 0%,100% 0%,calc(100% - 10px) 100%,0% 100%);
+            position: relative; overflow: hidden;
         }
-        .h2-btn-primary:hover { background: #e8c84a; }
+        .h2-btn-primary::before {
+            content: '';
+            position: absolute;
+            bottom: -80px;
+            width: 70px; height: 70px;
+            background: url('img/white_icon.png') center/contain no-repeat;
+            opacity: 1;
+            transition: bottom 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .h2-btn-primary:hover { background: var(--blue); color: transparent; }
+        .h2-btn-primary:hover::before { bottom: calc(50% - 35px); }
         .h2-btn-secondary {
+            display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 0.75rem;
             font-family: 'Cabinet Grotesk', sans-serif; font-size: 1.05rem; letter-spacing: 0.25em;
-            padding: 1.1rem 3rem; background: transparent; color: rgba(255,255,255,0.7);
-            border: 1px solid rgba(255,255,255,0.2); cursor: pointer; transition: all 0.3s;
+            padding: 1.5rem 3rem; background: white; color: var(--blue);
+            border: 2px solid var(--blue); cursor: pointer; transition: all 0.3s;
+            clip-path: polygon(10px 0%,100% 0%,calc(100% - 10px) 100%,0% 100%);
+            position: relative; overflow: hidden;
         }
-        .h2-btn-secondary:hover { border-color: rgba(255,255,255,0.6); color: white; }
+        .h2-btn-secondary::before {
+            content: '';
+            position: absolute;
+            bottom: -80px;
+            width: 70px; height: 70px;
+            background: url('img/white_icon.png') center/contain no-repeat;
+            opacity: 1;
+            transition: bottom 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .h2-btn-secondary:hover { background: var(--blue); color: transparent; }
+        .h2-btn-secondary:hover::before { bottom: calc(50% - 35px); }
 
         /* role counter bottom-right */
         .hero2-counter {
@@ -530,6 +550,9 @@
             margin-bottom: 1.2rem; letter-spacing: 0.05em;
         }
         .pillar-text { font-size: 1.1rem; color: #999; line-height: 1.9; }
+        .pillar-overlay { position: absolute; right: 0; bottom: 0; opacity: 0.05; pointer-events: none; transition: opacity 0.3s ease, transform 0.3s ease; }
+        .pillar-overlay img { width: 200px; height: auto; object-fit: contain; }
+        .pillar:hover .pillar-overlay { opacity: 0.12; transform: scale(1.05); }
 
         /* ══════════════════════════════════════════════════════
            TEAM
@@ -584,6 +607,9 @@
             margin-bottom: 0.4rem;
         }
         .team-card-bio { font-size: 0.78rem; color: #666; line-height: 1.6; }
+        .team-card-overlay { position: absolute; right: 0; bottom: 0; opacity: 0; pointer-events: none; transition: opacity 0.3s ease, transform 0.3s ease; }
+        .team-card-overlay img { width: 120px; height: auto; object-fit: contain; }
+        .team-card:hover .team-card-overlay { opacity: 0.1; transform: scale(1.05); }
         /* social links appear on hover */
         .team-socials {
             display: flex; gap: 0.75rem; margin-top: 1rem;
@@ -721,18 +747,43 @@
         }
         .cta-btns { display: flex; gap: 1.2rem; justify-content: center; margin-top: 3rem; flex-wrap: wrap; }
         .cta-btn-gold {
+            display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 0.75rem;
             font-family: 'Cabinet Grotesk', sans-serif; font-size: 1.05rem; letter-spacing: 0.25em;
-            padding: 1.1rem 3rem; background: var(--blue); color: var(--darker);
-            border: none; cursor: pointer; transition: background 0.3s;
+            padding: 1.5rem 3rem; background: white; color: var(--blue);
+            border: 2px solid var(--blue); cursor: pointer; transition: all 0.3s;
             clip-path: polygon(10px 0%,100% 0%,calc(100% - 10px) 100%,0% 100%);
+            position: relative; overflow: hidden;
         }
-        .cta-btn-gold:hover { background: #e8c84a; }
+        .cta-btn-gold::before {
+            content: '';
+            position: absolute;
+            bottom: -80px;
+            width: 70px; height: 70px;
+            background: url('img/white_icon.png') center/contain no-repeat;
+            opacity: 1;
+            transition: bottom 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .cta-btn-gold:hover { background: var(--blue); color: transparent; }
+        .cta-btn-gold:hover::before { bottom: calc(50% - 35px); }
         .cta-btn-outline {
+            display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 0.75rem;
             font-family: 'Cabinet Grotesk', sans-serif; font-size: 1.05rem; letter-spacing: 0.25em;
-            padding: 1.1rem 3rem; background: transparent; color: #888;
-            border: 1px solid #333; cursor: pointer; transition: all 0.3s;
+            padding: 1.5rem 3rem; background: white; color: var(--blue);
+            border: 2px solid var(--blue); cursor: pointer; transition: all 0.3s;
+            clip-path: polygon(10px 0%,100% 0%,calc(100% - 10px) 100%,0% 100%);
+            position: relative; overflow: hidden;
         }
-        .cta-btn-outline:hover { border-color: var(--blue); color: var(--blue); }
+        .cta-btn-outline::before {
+            content: '';
+            position: absolute;
+            bottom: -80px;
+            width: 70px; height: 70px;
+            background: url('img/white_icon.png') center/contain no-repeat;
+            opacity: 1;
+            transition: bottom 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .cta-btn-outline:hover { background: var(--blue); color: transparent; }
+        .cta-btn-outline:hover::before { bottom: calc(50% - 35px); }
 
         /* ══════════════════════════════════════════════════════
            FOOTER
@@ -790,10 +841,11 @@
 <div class="spotlight" id="spotlight"></div>
 <div class="spotlight-core" id="spotlightCore"></div>
 
-<!-- Loader -->
-<div class="loader" id="loader">
-    <div class="loader-reel"></div>
-    <div class="loader-text">OUR STORY</div>
+<!-- Preloader -->
+<div class="preloader" id="preloader">
+    <div class="preloader-content">
+        <img src="img/fav.png" alt="Logo" class="preloader-logo">
+    </div>
 </div>
 
 <!-- Nav -->
@@ -829,7 +881,7 @@
         <div class="hero1-strip"></div>
         <div class="hero1-img" id="h1img">
             <video autoplay muted loop playsinline poster="https://images.unsplash.com/photo-1485846234645-a62644f84728?w=1200&q=85">
-                <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4" type="video/mp4">
+                <source src="videos/Ninety6ix1.mp4" type="video/mp4">
             </video>
         </div>
         <div class="hero1-year">2026</div>
@@ -1058,16 +1110,19 @@
 
     <div class="pillars-grid">
         <div class="pillar reveal">
+            <div class="pillar-overlay"><img src="img/white_icon.png" alt=""></div>
             <span class="pillar-number">I</span>
             <div class="pillar-name">Storytelling</div>
             <p class="pillar-text">We believe every project tells a story worth hearing. From concept to final cut, we craft narratives that resonate, inspire, and leave a lasting impact on your audience.</p>
         </div>
         <div class="pillar reveal" style="transition-delay:0.12s">
+            <div class="pillar-overlay"><img src="img/white_icon.png" alt=""></div>
             <span class="pillar-number">II</span>
             <div class="pillar-name">Excellence</div>
             <p class="pillar-text">Excellence is not negotiable. Every frame, every cut, every detail is obsessively crafted. We deliver nothing less than the highest quality production standards.</p>
         </div>
         <div class="pillar reveal" style="transition-delay:0.24s">
+            <div class="pillar-overlay"><img src="img/white_icon.png" alt=""></div>
             <span class="pillar-number">III</span>
             <div class="pillar-name">Client Support</div>
             <p class="pillar-text">Your vision is our priority. We work closely with you every step of the way, ensuring your ideas come to life exactly as you imagined — and beyond.</p>
@@ -1087,6 +1142,7 @@
 
     <div class="team-grid">
         <div class="team-card reveal">
+            <div class="team-card-overlay"><img src="img/white_icon.png" alt=""></div>
             <div class="team-card-img">
                 <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=80" alt="David Inioluwa">
             </div>
@@ -1103,6 +1159,7 @@
         </div>
 
         <div class="team-card reveal" style="transition-delay:0.1s">
+            <div class="team-card-overlay"><img src="img/white_icon.png" alt=""></div>
             <div class="team-card-img">
                 <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=600&q=80" alt="Rafael Montoya">
             </div>
@@ -1119,6 +1176,7 @@
         </div>
 
         <div class="team-card reveal" style="transition-delay:0.3s">
+            <div class="team-card-overlay"><img src="img/white_icon.png" alt=""></div>
             <div class="team-card-img">
                 <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=600&q=80" alt="Yuki Tanaka">
             </div>
@@ -1134,6 +1192,7 @@
         </div>
 
         <div class="team-card reveal" style="transition-delay:0.4s">
+            <div class="team-card-overlay"><img src="img/white_icon.png" alt=""></div>
             <div class="team-card-img">
                 <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=600&q=80" alt="Michael Okafor">
             </div>
@@ -1280,10 +1339,10 @@
     // ── LOADER ──────────────────────────────────────────────
     window.addEventListener('load', () => {
         setTimeout(() => {
-            document.getElementById('loader').classList.add('hidden');
+            document.getElementById('preloader').classList.add('hidden');
             // Reveal hero 1 image
             setTimeout(() => document.getElementById('h1img').classList.add('active'), 300);
-        }, 1400);
+        }, 5000);
     });
 
     // ── CURSOR ──────────────────────────────────────────────
