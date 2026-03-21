@@ -658,7 +658,7 @@
                 preload="auto"
                 poster="https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=1920&q=80"
             >
-                <source src="videos/heroVideo2.mp4" type="video/mp4">
+                <source src="videos/Ninety6ix1.mp4" type="video/mp4">
             </video>
         </div>
         <div class="hero-gradient"></div>
@@ -675,7 +675,7 @@
         </div>
 
         <div class="hero-logo-overlay">
-            <video src="videos/heroVideo2.mp4" autoplay muted loop></video>
+            <video id="heroMaskVideo" src="videos/Ninety6ix1.mp4" autoplay muted loop></video>
         </div>
     </section>
 
@@ -941,9 +941,19 @@ OUR TOP CLIENTS
 
     <script>
         const heroBgVideo = document.getElementById('heroBgVideo');
+        const heroMaskVideo = document.getElementById('heroMaskVideo');
         const heroVideoBg = document.getElementById('heroVideoBg');
 
         heroBgVideo.play().catch(() => {});
+        heroMaskVideo.play().catch(() => {});
+
+        function syncVideos() {
+            if (heroBgVideo.currentTime !== heroMaskVideo.currentTime) {
+                heroMaskVideo.currentTime = heroBgVideo.currentTime;
+            }
+        }
+
+        heroBgVideo.addEventListener('timeupdate', syncVideos);
         
         function revealHero() {
             heroVideoBg.classList.add('active');
