@@ -241,6 +241,7 @@
         .hero-logo-overlay {
             position: absolute; right: -10px; top: 50%; transform: translateY(-50%);
             z-index: 5; opacity: 1; mix-blend-mode: normal; pointer-events: none;
+            display: block;
         }
         .hero-logo-overlay video {
             position: absolute; top: 50%; right: -10px; transform: translateY(-50%);
@@ -249,12 +250,10 @@
             -webkit-mask-size: contain;
             -webkit-mask-repeat: no-repeat;
             -webkit-mask-position: center;
-            -webkit-mask-mode: luminance;
             mask-image: url('img/white_icon.png');
             mask-size: contain;
             mask-repeat: no-repeat;
             mask-position: center;
-            mask-mode: luminance;
         }
         .hero-logo-overlay img {
             position: relative; width: 850px; height: auto; object-fit: contain;
@@ -838,8 +837,10 @@
             </div>
         </div>
 
-        <div class="hero-logo-overlay">
-            <video id="heroMaskVideo" src="videos/Ninety6ix1.mp4" autoplay muted loop></video>
+        <div class="hero-logo-overlay" id="heroLogoOverlay">
+            <video id="heroMaskVideo" autoplay muted loop playsinline>
+                <source src="videos/Ninety6ix1.mp4" type="video/mp4">
+            </video>
         </div>
     </section>
 
@@ -1109,10 +1110,26 @@ OUR TOP CLIENTS
         const heroVideoBg = document.getElementById('heroVideoBg');
         const heroBgVideoMobile = document.getElementById('heroBgVideoMobile');
         const heroVideoBgMobile = document.getElementById('heroVideoBgMobile');
+        const heroLogoOverlay = document.getElementById('heroLogoOverlay');
 
-        heroBgVideo.play().catch(() => {});
-        heroMaskVideo.play().catch(() => {});
-        heroBgVideoMobile.play().catch(() => {});
+        function initVideo(video) {
+            if (video) {
+                video.play().catch(e => console.warn('Video autoplay prevented:', e));
+                video.addEventListener('error', e => console.warn('Video load error:', e));
+            }
+        }
+
+        initVideo(heroBgVideo);
+        initVideo(heroMaskVideo);
+        initVideo(heroBgVideoMobile);
+
+        if (heroMaskVideo) {
+            heroMaskVideo.style.opacity = '1';
+        }
+        if (heroLogoOverlay) {
+            heroLogoOverlay.style.opacity = '1';
+            heroLogoOverlay.style.transition = 'opacity 2s ease';
+        }
 
         function syncVideos() {
             if (heroBgVideo.currentTime !== heroMaskVideo.currentTime) {
