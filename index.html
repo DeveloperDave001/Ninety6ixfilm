@@ -36,6 +36,9 @@
         .preloader.hidden { opacity: 0; visibility: hidden; }
         .preloader-content { text-align: center; }
         .preloader-logo { width: 340px; height: auto; animation: pulse 2s ease-in-out infinite; }
+        @media (max-width: 480px) {
+            .preloader-logo { width: 100px; }
+        }
         @keyframes pulse { 0%, 100% { opacity: 0.3; transform: scale(0.95); } 50% { opacity: 1; transform: scale(1); } }
         
         .font-outfit { font-family: 'Outfit', sans-serif; }
@@ -708,6 +711,10 @@
             .podcast-item::after { display: none; }
         }
 
+        @media (max-width: 768px) {
+            .podcast-layout { display: grid; grid-template-columns: 1fr; gap: 4rem; align-items: center; }
+        }
+
         @media (max-width: 500px) {
             .nav-inner { width: calc(100% - 1rem); margin: 0.5rem 0.5rem; }
             .hero-title { font-size: clamp(2.5rem, 12vw, 4rem); }
@@ -1231,7 +1238,7 @@ OUR TOP CLIENTS
 <script>
     const preloader = document.getElementById('preloader');
     window.addEventListener('load', () => {
-        setTimeout(() => preloader.classList.add('hidden'), 5000);
+        setTimeout(() => preloader.classList.add('hidden'), 3000);
     });
 
     // Mobile Menu

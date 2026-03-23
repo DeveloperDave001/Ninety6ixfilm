@@ -60,6 +60,9 @@
         .preloader.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
         .preloader-content { text-align: center; }
         .preloader-logo { width: 340px; height: auto; animation: pulse 2s ease-in-out infinite; }
+        @media (max-width: 480px) {
+            .preloader-logo { width: 100px; }
+        }
         @keyframes pulse { 0%, 100% { opacity: 0.3; transform: scale(0.95); } 50% { opacity: 1; transform: scale(1); } }
 
         /* ─── NAV ─── */
@@ -1068,7 +1071,7 @@
 
         // ─── LOADER ──────────────────────────────────────────────
         window.addEventListener('load', () => {
-            setTimeout(() => document.getElementById('preloader').classList.add('hidden'), 5000);
+            setTimeout(() => document.getElementById('preloader').classList.add('hidden'), 3000);
         });
 
         // ─── SPOTLIGHT ──────────────────────────────────────────────

@@ -64,6 +64,9 @@
         .preloader.hidden { opacity: 0; visibility: hidden; }
         .preloader-content { text-align: center; }
         .preloader-logo { width: 340px; height: auto; animation: pulse 2s ease-in-out infinite; }
+        @media (max-width: 480px) {
+            .preloader-logo { width: 100px; }
+        }
         @keyframes pulse { 0%, 100% { opacity: 0.3; transform: scale(0.95); } 50% { opacity: 1; transform: scale(1); } }
 
         /* ══ NAV ══ */
@@ -916,6 +919,9 @@
             .stats-section { grid-template-columns: repeat(2,1fr); }
             .philosophy-header { grid-template-columns: 1fr; }
         }
+        @media (max-width: 768px) {
+            .hero1-title { font-size: clamp(5rem, 10vw, 7rem); }
+        }
         @media (max-width: 640px) {
             .nav { padding: 1.2rem 1.5rem; }
             .hero1-left { padding: 0 1.5rem 5rem; }
@@ -1483,7 +1489,7 @@
             document.getElementById('preloader').classList.add('hidden');
             // Reveal hero 1 image
             setTimeout(() => document.getElementById('h1img').classList.add('active'), 300);
-        }, 5000);
+        }, 3000);
     });
 
     // ── CURSOR ──────────────────────────────────────────────
