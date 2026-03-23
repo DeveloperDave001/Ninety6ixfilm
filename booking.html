@@ -79,13 +79,98 @@
         .nav-logo { font-family: 'Outfit', sans-serif; font-size: 1.1rem; letter-spacing: 0.05em; font-weight: 700; cursor: pointer; text-decoration: none; color: #fff; display: flex; align-items: center; gap: 0.6rem; }
         .nav-logo span { color: var(--blue); }
         .nav-logo img { width: 40px; height: 40px; object-fit: contain; }
+        .font-outfit { font-family: 'Outfit', sans-serif; }
         .nav-links { display: flex; gap: 1.5rem; align-items: center; }
         .nav-link { font-size: 0.78rem; letter-spacing: 0.15em; text-transform: uppercase; cursor: pointer; transition: color 0.3s; color: #aaa; text-decoration: none; }
         .nav-link:hover, .nav-link.active { color: #fff; }
         .nav-link.active { color: var(--blue); }
         @media (max-width:768px) {
-            .nav-inner { border-radius: 20px; margin: 0.5rem 1rem; }
+            .nav-inner { border-radius: 20px; margin: 0.5rem 0.5rem; width: calc(100% - 1rem); gap: 1rem; }
             .nav-links { display: none; }
+            .nav-hamburger { display: flex !important; margin-left: auto; }
+        }
+
+        /* Hamburger */
+        .nav-hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 8px;
+        }
+        .nav-hamburger span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: #fff;
+            transition: all 0.3s;
+        }
+        .nav-hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+        .nav-hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+        .nav-hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 100%;
+            height: 100vh;
+            background: rgba(5, 5, 5, 0.98);
+            backdrop-filter: blur(20px);
+            z-index: 300;
+            transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            flex-direction: column;
+        }
+        .mobile-menu.open {
+            right: 0;
+        }
+        .mobile-menu-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.2rem 1.5rem;
+            border-bottom: 1px solid rgba(59, 130, 246, 0.1);
+        }
+        .mobile-menu-close {
+            cursor: pointer;
+            padding: 8px;
+            color: #fff;
+            transition: color 0.3s;
+        }
+        .mobile-menu-close:hover {
+            color: var(--blue);
+        }
+        .mobile-menu-links {
+            display: flex;
+            flex-direction: column;
+            padding: 3rem 1.5rem;
+            gap: 0.5rem;
+        }
+        .mobile-nav-link {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #888;
+            text-decoration: none;
+            padding: 1rem 0;
+            letter-spacing: 0.05em;
+            transition: all 0.3s;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .mobile-nav-link:hover {
+            color: #fff;
+            padding-left: 1rem;
+        }
+        .mobile-nav-link.active {
+            color: var(--blue);
         }
 
         /* ─── PAGE HEADER ─── */
@@ -98,11 +183,12 @@
         }
         .page-header-video video {
             width: 100%; height: 100%; object-fit: cover;
-            filter: brightness(0.3) contrast(1.1);
+            filter: brightness(0.65) contrast(1.05);
         }
+        .page-header-mobile-video { display: none; }
         .page-header-overlay {
             position: absolute; inset: 0;
-            background: linear-gradient(to bottom, rgba(3,4,8,0.7) 0%, rgba(3,4,8,0.5) 50%, rgba(3,4,8,0.9) 100%);
+            background: linear-gradient(to bottom, rgba(3,4,8,0.4) 0%, rgba(3,4,8,0.3) 50%, rgba(3,4,8,0.6) 100%);
         }
         .page-header-content {
             position: relative; z-index: 10; text-align: center;
@@ -110,11 +196,13 @@
         }
         .page-title {
             font-family: 'Outfit', sans-serif; font-weight: 900;
-            font-size: clamp(3rem, 8vw, 6rem);
+            font-size: clamp(3.5rem, 10vw, 8rem);
             line-height: 0.95; letter-spacing: 0.04em;
             margin-bottom: 1.5rem;
         }
         .page-title em { color: var(--blue); font-style: normal; }
+        .here-text { color: #fff; }
+        .period { color: var(--blue); }
         .page-sub {
             font-family: 'Outfit', sans-serif; font-style: italic;
             font-size: 1.2rem; color: #aaa; max-width: 500px;
@@ -451,12 +539,37 @@
         @media (max-width: 960px) {
             .nav { padding: 1.5rem 2rem; }
             .page-header { padding: 10rem 2rem 4rem; }
-            .steps-bar { padding: 0 2rem 3rem; }
-            .booking-layout { grid-template-columns: 1fr; padding: 0 2rem 6rem; }
-            .sidebar { position: static; }
-            .type-grid { grid-template-columns: repeat(2, 1fr); }
+            .page-header-video { display: none; }
+            .page-header-mobile-video {
+                display: block; position: absolute; inset: 0; width: 100%; height: 100%;
+                object-fit: cover; filter: brightness(0.65) contrast(1.05); z-index: 0;
+            }
+            .page-header-content { position: relative; z-index: 1; }
+            .steps-bar { padding: 2rem 1.5rem 3rem; justify-content: center; gap: 2rem; }
+            .step-line { display: none; }
+            .step { flex-direction: column; gap: 0.6rem; }
+            .step-num { width: 36px; height: 36px; font-size: 0.9rem; }
+            .step-label { font-size: 0.65rem; text-align: center; }
+            .booking-layout { grid-template-columns: 1fr; padding: 0 1.5rem 6rem; }
+            .sidebar { display: none; }
+            .type-grid { grid-template-columns: 1fr 1fr; }
             .field-row { grid-template-columns: 1fr; }
+            .date-grid { grid-template-columns: 1fr; }
+            .budget-options { gap: 0.5rem; }
+            .budget-pill, .timeline-pill, .ref-pill { padding: 0.5rem 1rem; font-size: 0.7rem; }
+            .btn-next, .btn-prev { padding: 1.2rem 2rem; font-size: 0.9rem; }
             footer { flex-direction: column; gap: 1.5rem; }
+        }
+
+        @media (max-width: 500px) {
+            .steps-bar { gap: 1.5rem; padding: 1.5rem 1rem 2.5rem; }
+            .step-num { width: 32px; height: 32px; font-size: 0.8rem; }
+            .step-label { display: none; }
+            .step { gap: 0; }
+        }
+
+        @media (max-width: 500px) {
+            .nav-inner { width: calc(100% - 1rem); margin: 0.5rem 0.5rem; }
         }
 
         /* Custom scrollbar */
@@ -481,28 +594,52 @@
     </div>
 
     <!-- Nav -->
-    <nav class="nav">
+    <nav class="nav" id="navbar">
         <div class="nav-inner">
-            <a href="index.html" class="nav-logo"><img src="img/fav.png" alt="Logo">Ninety6ixfilmco.</a>
+            <div class="nav-logo font-outfit"><img src="img/fav.png" alt="Logo">Ninety6ixfilmco.</div>
             <div class="nav-links">
                 <a href="index.html" class="nav-link">Home</a>
                 <a href="about.html" class="nav-link">About Us</a>
                 <a href="booking.html" class="nav-link active">Book Session</a>
             </div>
+            <div class="nav-hamburger" id="navHamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
         </div>
     </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-menu-header">
+            <div class="nav-logo font-outfit"><img src="img/fav.png" alt="Logo">Ninety6ixfilmco.</div>
+            <div class="mobile-menu-close" id="mobileMenuClose">
+                <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path d="M18 6L6 18M6 6l12 12"/>
+                </svg>
+            </div>
+        </div>
+        <div class="mobile-menu-links">
+            <a href="index.html" class="mobile-nav-link">Home</a>
+            <a href="about.html" class="mobile-nav-link">About Us</a>
+            <a href="booking.html" class="mobile-nav-link active">Book Session</a>
+        </div>
+    </div>
 
     <!-- Page Header -->
     <header class="page-header">
         <div class="page-header-video">
             <video autoplay muted loop playsinline>
-                <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4" type="video/mp4">
+                <source src="videos/Ninety6ix22.mp4" type="video/mp4">
             </video>
         </div>
+        <video class="page-header-mobile-video" autoplay muted loop playsinline>
+            <source src="videos/book.mp4" type="video/mp4">
+        </video>
         <div class="page-header-overlay"></div>
         <div class="page-header-content">
-            <h1 class="page-title">Book Your<br><em>Session</em></h1>
-            <p class="page-sub">Let's bring your vision to life. Tell us about your project.</p>
+            <h1 class="page-title">Book your <em>session</em> <span class="here-text">here</span><span class="period">.</span></h1>
             <div class="page-header-btn">
                 <button class="btn-blue" onclick="document.getElementById('stepsBar').scrollIntoView({behavior:'smooth'})">Get Started</button>
             </div>
@@ -687,54 +824,6 @@
                                 <option>Festival Circuit</option>
                                 <option>Streaming Platforms</option>
                             </select>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="panel-section">
-                    <div class="section-label">Services Needed</div>
-                    <div class="type-grid">
-                        <div class="type-card" data-service="Video Production">
-                            <div class="type-card-overlay"><img src="img/white_icon.png" alt=""></div>
-                            <span class="type-icon">🎬</span>
-                            <span class="type-name">Video Production</span>
-                            <span class="type-sub">Full-service video production</span>
-                            <div class="selected-check"><svg fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></div>
-                        </div>
-                        <div class="type-card" data-service="Commercials">
-                            <div class="type-card-overlay"><img src="img/white_icon.png" alt=""></div>
-                            <span class="type-icon">📺</span>
-                            <span class="type-name">Commercials</span>
-                            <span class="type-sub">Brand & advertising content</span>
-                            <div class="selected-check"><svg fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></div>
-                        </div>
-                        <div class="type-card" data-service="Music Videos">
-                            <div class="type-card-overlay"><img src="img/white_icon.png" alt=""></div>
-                            <span class="type-icon">🎵</span>
-                            <span class="type-name">Music Videos</span>
-                            <span class="type-sub">Visual soundtrack creation</span>
-                            <div class="selected-check"><svg fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></div>
-                        </div>
-                        <div class="type-card" data-service="Podcast">
-                            <div class="type-card-overlay"><img src="img/white_icon.png" alt=""></div>
-                            <span class="type-icon">🎙️</span>
-                            <span class="type-name">Podcast</span>
-                            <span class="type-sub">Audio & video podcast production</span>
-                            <div class="selected-check"><svg fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></div>
-                        </div>
-                        <div class="type-card" data-service="Post-Production">
-                            <div class="type-card-overlay"><img src="img/white_icon.png" alt=""></div>
-                            <span class="type-icon">✂️</span>
-                            <span class="type-name">Post-Production</span>
-                            <span class="type-sub">Editing, color grading & VFX</span>
-                            <div class="selected-check"><svg fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></div>
-                        </div>
-                        <div class="type-card" data-service="Drone Coverage">
-                            <div class="type-card-overlay"><img src="img/white_icon.png" alt=""></div>
-                            <span class="type-icon">🚁</span>
-                            <span class="type-name">Drone Coverage</span>
-                            <span class="type-sub">Aerial cinematography</span>
-                            <div class="selected-check"><svg fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></div>
                         </div>
                     </div>
                 </div>
@@ -965,32 +1054,16 @@
         const urlParams = new URLSearchParams(window.location.search);
         const preselectedService = urlParams.get('service');
         if (preselectedService) {
+            state.type = preselectedService;
             state.services = [preselectedService];
             setTimeout(() => {
-                // Select the preselected service
-                document.querySelectorAll('#panel2 .type-card').forEach(card => {
-                    if (card.dataset.service === preselectedService) {
+                document.querySelectorAll('#panel1 .type-card').forEach(card => {
+                    if (card.dataset.type === preselectedService) {
                         card.classList.add('selected');
                     }
                 });
-                
-                // Set currentStep to 2
-                currentStep = 2;
-                
-                // Scroll to form area
-                const formArea = document.getElementById('bookingLayout');
-                if (formArea) {
-                    formArea.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }
-                
-                // Go to step 2 (panel2)
-                document.getElementById('panel1').classList.remove('active');
-                document.getElementById('panel2').classList.add('active');
-                document.querySelectorAll('.step').forEach((s, i) => {
-                    s.classList.toggle('active', i === 1);
-                });
-                document.getElementById('line1').classList.add('done');
-            }, 1600);
+                updateSidebar();
+            }, 100);
         }
 
         // ─── LOADER ──────────────────────────────────────────────
@@ -1022,7 +1095,9 @@
                 console.log('Type card clicked:', card.dataset.type);
                 document.querySelectorAll('.type-card').forEach(c => c.classList.remove('selected'));
                 card.classList.add('selected');
-                state.type = card.dataset.type || card.dataset.service;
+                const selectedType = card.dataset.type || card.dataset.service;
+                state.type = selectedType;
+                state.services = [selectedType];
                 updateSidebar();
             });
         });
@@ -1043,18 +1118,6 @@
                 document.querySelectorAll('.timeline-pill').forEach(p => p.classList.remove('selected'));
                 pill.classList.add('selected');
                 state.timeline = pill.dataset.val;
-                updateSidebar();
-            });
-        });
-
-        // ─── SERVICES CARDS (Step 2) ─────────────────────────────
-        document.querySelectorAll('#panel2 .type-card[data-service]').forEach(card => {
-            card.addEventListener('click', () => {
-                const svc = card.dataset.service;
-                // Deselect all first (single select)
-                document.querySelectorAll('#panel2 .type-card[data-service]').forEach(c => c.classList.remove('selected'));
-                card.classList.add('selected');
-                state.services = [svc];
                 updateSidebar();
             });
         });
@@ -1278,7 +1341,7 @@
                 document.getElementById('successScreen').classList.add('show');
                 document.getElementById('refCode').textContent = ref;
 
-                window.scrollTo({ top: 0, behavior: 'smooth' });
+                document.getElementById('formArea').scrollIntoView({ behavior: 'smooth' });
             }, 1800);
         }
 
@@ -1291,6 +1354,31 @@
         const style = document.createElement('style');
         style.textContent = '@keyframes shake { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-6px)} 75%{transform:translateX(6px)} }';
         document.head.appendChild(style);
+
+        // Mobile Menu
+        const navHamburger = document.getElementById('navHamburger');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const mobileMenuClose = document.getElementById('mobileMenuClose');
+
+        navHamburger.addEventListener('click', () => {
+            mobileMenu.classList.add('open');
+            navHamburger.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+
+        mobileMenuClose.addEventListener('click', () => {
+            mobileMenu.classList.remove('open');
+            navHamburger.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+
+        document.querySelectorAll('.mobile-nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('open');
+                navHamburger.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+        });
     </script>
 </body>
 </html>
